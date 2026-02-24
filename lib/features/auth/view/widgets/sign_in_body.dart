@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/view/widgets/custom_text_form_field.dart';
-import 'package:http/http.dart' as http;
 
 class SignInBody extends StatefulWidget {
   const SignInBody({super.key});
@@ -77,7 +78,9 @@ class _SignInBodyState extends State<SignInBody> {
           ),
           SizedBox(height: 10.h),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.forgotPasswordRoute);
+            },
             child: Text(
               "نسيت كلمة المرور؟",
               style: TextStyle(color: Colors.blue),
