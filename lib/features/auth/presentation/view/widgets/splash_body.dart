@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/custom_progress_bar.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/three_dots.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_progress_bar.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/three_dots.dart';
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
   @override

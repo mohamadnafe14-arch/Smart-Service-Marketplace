@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/dot.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/dot.dart';
 
 class ThreeDots extends StatelessWidget {
   const ThreeDots({

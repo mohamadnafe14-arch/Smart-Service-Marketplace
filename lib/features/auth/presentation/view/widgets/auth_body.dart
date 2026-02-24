@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/custom_auth_button.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/sign_in_body.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/sign_up_body.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_auth_button.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/sign_in_body.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/sign_up_body.dart';
 
 class AuthBody extends StatefulWidget {
   const AuthBody({super.key});

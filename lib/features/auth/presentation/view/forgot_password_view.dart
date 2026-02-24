@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/forgot_password_body.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/forgot_password_body.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});

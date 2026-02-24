@@ -1,12 +1,14 @@
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_marketplace/features/auth/view/auth_view.dart';
-import 'package:smart_service_marketplace/features/auth/view/forgot_password_view.dart';
-import 'package:smart_service_marketplace/features/auth/view/splash_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/auth_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/forgot_password_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/otp_code_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/splash_view.dart';
 
 abstract class AppRouter {
   static const String initialRoute = '/';
   static const String authRoute = '/auth';
   static const String forgotPasswordRoute = '/forgot-password';
+  static const String otpCodeRoute = '/otp-code';
   static final route = GoRouter(
     routes: [
       GoRoute(
@@ -17,6 +19,10 @@ abstract class AppRouter {
       GoRoute(
         path: forgotPasswordRoute,
         builder: (context, state) => const ForgotPasswordView(),
+      ),
+      GoRoute(
+        path: otpCodeRoute,
+        builder: (context, state) => const OtpCodeView(),
       ),
     ],
   );

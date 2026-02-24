@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/custom_text_form_field.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 
-class SignUpBody extends StatefulWidget {
-  const SignUpBody({super.key});
+class SignInBody extends StatefulWidget {
+  const SignInBody({super.key});
 
   @override
-  State<SignUpBody> createState() => _SignUpBodyState();
+  State<SignInBody> createState() => _SignInBodyState();
 }
 
-class _SignUpBodyState extends State<SignUpBody> {
+class _SignInBodyState extends State<SignInBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String? name, email, password;
   @override
@@ -26,28 +28,6 @@ class _SignUpBodyState extends State<SignUpBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              "الاسم بالكامل",
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10.h),
-            CustomTextFormField(
-              hintText: "ادخل الاسم بالكامل",
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "الاسم بالكامل مطلوب";
-                }
-                return null;
-              },
-              onSaved: (value) {
-                name = value;
-              },
-              onChanged: (value) {
-                name = value;
-              },
-              icon: Icons.person,
-            ),
-            SizedBox(height: 10.h),
             Text(
               "البريد الالكتروني",
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
@@ -93,9 +73,24 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(onPressed: () {}, text: "ابدأ الان"),
+                  child: CustomButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {}
+                    },
+                    text: "ابدأ الان",
+                  ),
                 ),
               ],
+            ),
+            SizedBox(height: 10.h),
+            TextButton(
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.forgotPasswordRoute);
+              },
+              child: Text(
+                "نسيت كلمة المرور؟",
+                style: TextStyle(color: Colors.blue),
+              ),
             ),
           ],
         ),

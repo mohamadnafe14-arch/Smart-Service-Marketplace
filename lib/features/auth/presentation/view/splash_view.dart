@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service_marketplace/features/auth/view/widgets/splash_body.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/splash_body.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
