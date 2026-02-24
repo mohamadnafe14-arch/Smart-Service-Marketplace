@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smart_service_marketplace/features/auth/view/widgets/forgot_password_body.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SafeArea(
+      child: Scaffold(appBar: AppBar(), body: ForgotPasswordBody()),
+    );
   }
 }
