@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_service_marketplace/core/constants/service_const.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
@@ -66,8 +71,12 @@ class _SignUpBodyState extends State<SignUpBody> {
                 }
                 return null;
               },
-              onSaved: (value) {},
-              onChanged: (value) {},
+              onSaved: (value) {
+                email = value;
+              },
+              onChanged: (value) {
+                email = value;
+              },
               icon: Icons.email,
             ),
             SizedBox(height: 10.h),
@@ -85,18 +94,75 @@ class _SignUpBodyState extends State<SignUpBody> {
                 }
                 return null;
               },
-              onSaved: (value) {},
-              onChanged: (value) {},
+              onSaved: (value) {
+                password = value;
+              },
+              onChanged: (value) {
+                password = value;
+              },
               icon: Icons.lock,
             ),
             SizedBox(height: 10.h),
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(onPressed: () {}, text: "ابدأ الان"),
+                  child: CustomButton(
+                    onPressed: () async {
+                      if (!_formKey.currentState!.validate()) {
+                        return; // ❗ وقف التنفيذ هنا
+                      }
+
+                      _formKey.currentState!.save();
+
+                      try {
+                        print("Name: $name");
+                        print("Email: $email");
+                        print("Password: $password");
+
+                        final response = await http.post(
+                          Uri.parse('http://26.180.92.230:8000/api/register'),
+                          headers: {
+                            'Content-Type': 'application/json',
+                            "Accept": "application/json",
+                          },
+                          body: jsonEncode({
+                            'email': email,
+                            'password': password,
+                            'name': name,
+                          }),
+                        );
+
+                        print("Status Code: ${response.statusCode}");
+                        print("Body: ${response.body}");
+
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(response.body)));
+                      } catch (e) {
+                        print("Error: $e");
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(e.toString())));
+                      }
+                    },
+                    text: "ابدأ الان",
+                  ),
                 ),
               ],
             ),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                Expanded(
+                  child: Divider(color: Colors.grey, thickness: 4.w),
+                ),
+                Text("يمكنك ايضا المتابعة باستخدام"),
+                Expanded(
+                  child: Divider(color: Colors.grey, thickness: 4.w),
+                ),
+              ],
+            ),
+            DifferentFormsLoginOrRegister(googleAuth: () {}, githubAuth: () {}),
           ],
         ),
       ),

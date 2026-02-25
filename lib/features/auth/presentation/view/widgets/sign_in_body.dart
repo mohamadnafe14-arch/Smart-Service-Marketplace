@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
 
 class SignInBody extends StatefulWidget {
   const SignInBody({super.key});
@@ -92,9 +93,25 @@ class _SignInBodyState extends State<SignInBody> {
                 style: TextStyle(color: Colors.blue),
               ),
             ),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                Expanded(
+                  child: Divider(color: Colors.grey, thickness: 4.w),
+                ),
+                Text("يمكنك ايضا المتابعة باستخدام"),
+                Expanded(
+                  child: Divider(color: Colors.grey, thickness: 4.w),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.h),
+            DifferentFormsLoginOrRegister(githubAuth: () {}, googleAuth: () {}),
           ],
         ),
       ),
     );
   }
 }
+
+
