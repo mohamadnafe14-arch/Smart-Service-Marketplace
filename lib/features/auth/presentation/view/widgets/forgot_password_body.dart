@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 class ForgotPasswordBody extends StatefulWidget {
   const ForgotPasswordBody({super.key});
@@ -52,6 +54,7 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
             CustomButton(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
                   GoRouter.of(context).push(AppRouter.otpCodeRoute);
                 }
               },

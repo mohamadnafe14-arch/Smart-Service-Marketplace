@@ -114,7 +114,7 @@ class _OtpCodeBodyState extends State<OtpCodeBody> {
               );
               return;
             }
-         //   String code = getCode();
+            String code = getCode();
           },
           child: const Text("تأكيد"),
         ),

@@ -1,12 +1,13 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_service_marketplace/core/constants/service_const.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
-import 'package:http/http.dart' as http;
+import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
@@ -106,46 +107,33 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (!_formKey.currentState!.validate()) {
-                        return; // ❗ وقف التنفيذ هنا
-                      }
-
-                      _formKey.currentState!.save();
-
-                      try {
-                        print("Name: $name");
-                        print("Email: $email");
-                        print("Password: $password");
-
-                        final response = await http.post(
-                          Uri.parse('http://26.180.92.230:8000/api/register'),
-                          headers: {
-                            'Content-Type': 'application/json',
-                            "Accept": "application/json",
-                          },
-                          body: jsonEncode({
-                            'email': email,
-                            'password': password,
-                            'name': name,
-                          }),
-                        );
-
-                        print("Status Code: ${response.statusCode}");
-                        print("Body: ${response.body}");
-
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        GoRouter.of(context).go(AppRouter.homeRoute);
+                      } else if (state is AuthError) {
                         ScaffoldMessenger.of(
                           context,
-                        ).showSnackBar(SnackBar(content: Text(response.body)));
-                      } catch (e) {
-                        print("Error: $e");
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(e.toString())));
+                        ).showSnackBar(SnackBar(content: Text(state.message)));
                       }
                     },
-                    text: "ابدأ الان",
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return CustomButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            await context.read<AuthCubit>().register(
+                              name: name!,
+                              email: email!,
+                              password: password!,
+                            );
+                          }
+                        },
+                        text: "ابدأ الان",
+                        isLoading: isLoading,
+                      );
+                    },
                   ),
                 ),
               ],

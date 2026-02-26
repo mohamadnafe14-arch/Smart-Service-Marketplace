@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 class SignInBody extends StatefulWidget {
   const SignInBody({super.key});
@@ -15,7 +17,7 @@ class SignInBody extends StatefulWidget {
 
 class _SignInBodyState extends State<SignInBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String? name, email, password;
+  String?  email, password;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -74,11 +76,32 @@ class _SignInBodyState extends State<SignInBody> {
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {}
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        GoRouter.of(context).go(AppRouter.homeRoute);
+                      } else if (state is AuthError) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(state.message)));
+                      }
                     },
-                    text: "ابدأ الان",
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return CustomButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            await context.read<AuthCubit>().login(
+                              email: email!,
+                              password: password!,
+                            );
+                          }
+                        },
+                        text: "ابدأ الان",
+                        isLoading: isLoading,
+                      );
+                    },
                   ),
                 ),
               ],
@@ -113,5 +136,3 @@ class _SignInBodyState extends State<SignInBody> {
     );
   }
 }
-
-
