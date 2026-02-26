@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_progress_bar.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/three_dots.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
+
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
   @override
   State<SplashBody> createState() => _SplashBodyState();
 }
+
 class _SplashBodyState extends State<SplashBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+  bool isDelayFinished = false;
+  bool isAuthChecked = false;
   @override
   void initState() {
     super.initState();
+    context.read<AuthCubit>().getCurrentUser();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4), 
+      duration: const Duration(seconds: 4),
     );
     animation = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
     );
     animationController.forward();
     Future.delayed(const Duration(seconds: 5), () {
@@ -32,11 +36,13 @@ class _SplashBodyState extends State<SplashBody>
       }
     });
   }
+
   @override
   void dispose() {
     animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -47,11 +53,7 @@ class _SplashBodyState extends State<SplashBody>
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0xff0f2027),
-                Color(0xff203a43),
-                Color(0xff2c5364),
-              ],
+              colors: [Color(0xff0f2027), Color(0xff203a43), Color(0xff2c5364)],
             ),
           ),
           child: Padding(
@@ -75,18 +77,12 @@ class _SplashBodyState extends State<SplashBody>
                 SizedBox(height: 8.h),
                 Text(
                   "منصة الخدمات المصغرة الذكية",
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    color: Colors.white70,
-                  ),
+                  style: TextStyle(fontSize: 18.sp, color: Colors.white70),
                 ),
                 SizedBox(height: 40.h),
                 Text(
                   "جاري تهيئة المنصة...",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
                 ),
                 SizedBox(height: 10.h),
                 CustomProgressBar(animation: animation),
