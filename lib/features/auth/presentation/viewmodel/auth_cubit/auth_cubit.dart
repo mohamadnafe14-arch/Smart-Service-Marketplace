@@ -7,7 +7,7 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepo authRepo;
-  User? user;
+  User user=User.fromJson({});
   AuthCubit({required this.authRepo}) : super(AuthInitial());
 
   Future<void> login({required String email, required String password}) async {
@@ -59,5 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
     await authRepo.logout();
     emit(AuthInitial());
   }
-  
+  void setRole(String role){
+    user.copyWith(role: role);
+  }
 }
