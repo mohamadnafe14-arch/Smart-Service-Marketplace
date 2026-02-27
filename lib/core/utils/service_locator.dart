@@ -5,10 +5,16 @@ import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo_impl
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 final getIt = GetIt.instance;
-void setupServiceLocator() {
-  getIt.registerSingleton<SharedPref>(SharedPref()..init());
+
+Future<void> setupServiceLocator() async {
+  final sharedPref = SharedPref();
+  await sharedPref.init();
+
+  getIt.registerSingleton<SharedPref>(sharedPref);
+
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(sharedPref: getIt<SharedPref>()),
   );
-  getIt.registerSingleton<AuthCubit>(AuthCubit(authRepo: getIt<AuthRepo>()));
+
+
 }

@@ -17,35 +17,14 @@ class _SplashBodyState extends State<SplashBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
-  bool isDelayFinished = false;
-  bool isAuthChecked = false;
+  @override
   @override
   void initState() {
     super.initState();
-    context.read<AuthCubit>().getCurrentUser();
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 4),
-    );
-    animation = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
-    );
-    Future.delayed(const Duration(seconds: 5), () {
-      isDelayFinished = true;
-      checkNavigation();
-    });
-  }
-
-  void checkNavigation() {
-    if (isDelayFinished && isAuthChecked && mounted) {
-      final state = context.read<AuthCubit>().state;
-      if (state is AuthSuccess) {
-        GoRouter.of(context).go(AppRouter.homeRoute);
-      } else {
-        GoRouter.of(context).go(AppRouter.authRoute);
-      }
-    }
-  }
+    animationPreparation();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    navigateToNextPage();
+  });  }
 
   @override
   void dispose() {
@@ -55,66 +34,82 @@ class _SplashBodyState extends State<SplashBody>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state is AuthSuccess) {
-          isAuthChecked = true;
-          checkNavigation();
-        }
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (context, child) {
+        return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xff0f2027), Color(0xff203a43), Color(0xff2c5364)],
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(
+                  "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+                  height: 180.h,
+                ),
+                SizedBox(height: 25.h),
+                Text(
+                  "سوق الخدمات الرقمية",
+                  style: TextStyle(
+                    fontSize: 26.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                Text(
+                  "منصة الخدمات المصغرة الذكية",
+                  style: TextStyle(fontSize: 18.sp, color: Colors.white70),
+                ),
+                SizedBox(height: 40.h),
+                Text(
+                  "جاري تهيئة المنصة...",
+                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                ),
+                SizedBox(height: 10.h),
+                CustomProgressBar(animation: animation),
+                SizedBox(height: 25.h),
+                ThreeDots(animation: animation),
+              ],
+            ),
+          ),
+        );
       },
-      child: AnimatedBuilder(
-        animation: animationController,
-        builder: (context, child) {
-          return Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff0f2027),
-                  Color(0xff203a43),
-                  Color(0xff2c5364),
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network(
-                    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-                    height: 180.h,
-                  ),
-                  SizedBox(height: 25.h),
-                  Text(
-                    "سوق الخدمات الرقمية",
-                    style: TextStyle(
-                      fontSize: 26.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    "منصة الخدمات المصغرة الذكية",
-                    style: TextStyle(fontSize: 18.sp, color: Colors.white70),
-                  ),
-                  SizedBox(height: 40.h),
-                  Text(
-                    "جاري تهيئة المنصة...",
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                  ),
-                  SizedBox(height: 10.h),
-                  CustomProgressBar(animation: animation),
-                  SizedBox(height: 25.h),
-                  ThreeDots(animation: animation),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
     );
+  }
+
+  void navigateToNextPage() {
+    Future.wait([
+      Future.delayed(const Duration(seconds: 5)),
+      context.read<AuthCubit>().getCurrentUser(),
+    ]).then((_) {
+      if (!mounted) return;
+      final state = context.read<AuthCubit>().state;
+      if (state is AuthSuccess) {
+        context.go(AppRouter.homeRoute);
+      } else {
+        context.go(AppRouter.chooseRoleRoute);
+      }
+    });
+  }
+
+  void animationPreparation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
+
+    animation = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
+    );
+
+    animationController.forward();
   }
 }

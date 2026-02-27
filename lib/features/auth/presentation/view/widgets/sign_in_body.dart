@@ -17,7 +17,7 @@ class SignInBody extends StatefulWidget {
 
 class _SignInBodyState extends State<SignInBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String?  email, password;
+  String? email, password;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -105,16 +105,6 @@ class _SignInBodyState extends State<SignInBody> {
                   ),
                 ),
               ],
-            ),
-            SizedBox(height: 10.h),
-            TextButton(
-              onPressed: () {
-                GoRouter.of(context).push(AppRouter.forgotPasswordRoute);
-              },
-              child: Text(
-                "نسيت كلمة المرور؟",
-                style: TextStyle(color: Colors.blue),
-              ),
             ),
             SizedBox(height: 10.h),
             Row(
