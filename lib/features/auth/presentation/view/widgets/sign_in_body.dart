@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
@@ -47,10 +48,17 @@ class _SignInBodyState extends State<SignInBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
+                if (!value.endsWith(".spm")) {
+                  return "يرجي ادحال بريد ينتهي ب'.spm'";
+                }
                 return null;
               },
-              onSaved: (value) {},
-              onChanged: (value) {},
+              onSaved: (value) {
+                email = value;
+              },
+              onChanged: (value) {
+                email = value;
+              },
               icon: Icons.email,
             ),
             SizedBox(height: 10.h),
@@ -68,8 +76,12 @@ class _SignInBodyState extends State<SignInBody> {
                 }
                 return null;
               },
-              onSaved: (value) {},
-              onChanged: (value) {},
+              onSaved: (value) {
+                password = value;
+              },
+              onChanged: (value) {
+                password = value;
+              },
               icon: Icons.lock,
             ),
             SizedBox(height: 10.h),
@@ -81,9 +93,7 @@ class _SignInBodyState extends State<SignInBody> {
                       if (state is AuthSuccess) {
                         GoRouter.of(context).go(AppRouter.homeRoute);
                       } else if (state is AuthError) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(state.message)));
+                        showSnackBar(context: context, message: state.message);
                       }
                     },
                     builder: (context, state) {

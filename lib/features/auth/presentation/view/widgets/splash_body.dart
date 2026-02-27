@@ -88,7 +88,7 @@ class _SplashBodyState extends State<SplashBody>
   void navigateToNextPage() {
     Future.wait([
       Future.delayed(const Duration(seconds: 5)),
-      context.read<AuthCubit>().getCurrentUser(),
+      context.read<AuthCubit>().getCurrentUser(context),
     ]).then((_) {
       if (!mounted) return;
       final state = context.read<AuthCubit>().state;

@@ -34,4 +34,12 @@ class User {
       role: role ?? this.role,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'name': name,
+        'token': token,
+        'id': id,
+        'role': role,
+      };
 }

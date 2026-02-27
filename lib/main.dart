@@ -6,9 +6,9 @@ import 'package:smart_service_marketplace/core/utils/service_locator.dart';
 import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
-void main() async {
+void main()  {
   WidgetsFlutterBinding.ensureInitialized();
-  await setupServiceLocator();
+   setupServiceLocator();
   runApp(const SmartServiceMarketPlace());
 }
 

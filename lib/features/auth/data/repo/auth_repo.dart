@@ -12,10 +12,8 @@ abstract class AuthRepo {
     required String password,
     required String name,
   });
-  Future<Either<Failure, Unit>> logout();
-  Future<Either<Failure, User>> getCurrentUser();
-  Future<Either<Failure, Unit>> forgotPassword({required String email});
-  Future<Either<Failure, User>> verifyCode({required String code});
+  Future<void> logout();
   Future<Either<Failure, User>> authWithGoogle();
-  Future<Either<Failure, User>> authWithgithub();
+  Future<Either<Failure,User>> getCurrentUser();
+  Future<void> setRole(String role);
 }

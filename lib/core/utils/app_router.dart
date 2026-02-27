@@ -13,7 +13,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: initialRoute,
-        builder: (context, state) => const ChooseRoleView(),
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(path: authRoute, builder: (context, state) => const AuthView()),
       GoRoute(path: homeRoute, builder: (context, state) => const HomeView()),

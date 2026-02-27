@@ -94,7 +94,7 @@ class _ChooseRoleBodyState extends State<ChooseRoleBody>
             fadeAnimation: fadeAnimation,
             slideAnimation: slideAnimation,
             onTap: () {
-              BlocProvider.of<AuthCubit>(context).setRole("user");
+              BlocProvider.of<AuthCubit>(context).setRole("provider");
               GoRouter.of(context).push(AppRouter.authRoute);
             },
           ),

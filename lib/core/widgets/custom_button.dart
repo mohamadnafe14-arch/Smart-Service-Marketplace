@@ -21,7 +21,9 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
         ),
       ),
-      child: Text(text, style: TextStyle(color: Colors.white)),
+      child: isLoading
+          ? const CircularProgressIndicator()
+          : Text(text, style: TextStyle(color: Colors.white)),
     );
   }
 }
