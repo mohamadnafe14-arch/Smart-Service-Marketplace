@@ -6,7 +6,7 @@ import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
-import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/google_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 class SignUpBody extends StatefulWidget {
@@ -70,7 +70,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
-                if (!value.endsWith(".spm")) {
+               if (!value.endsWith(".spm")) {
                   return "يرجي ادحال بريد ينتهي ب'.spm'";
                 }
                 return null;
@@ -151,7 +151,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ),
               ],
             ),
-            DifferentFormsLoginOrRegister(googleAuth: () {}, githubAuth: () {}),
+            GoogleButton(onPressed: () {}),
           ],
         ),
       ),

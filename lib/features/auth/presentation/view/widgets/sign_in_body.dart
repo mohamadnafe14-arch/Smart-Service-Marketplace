@@ -6,7 +6,7 @@ import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
-import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/different_forms_login_or_register.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/google_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 
 class SignInBody extends StatefulWidget {
@@ -129,7 +129,9 @@ class _SignInBodyState extends State<SignInBody> {
               ],
             ),
             SizedBox(height: 10.h),
-            DifferentFormsLoginOrRegister(githubAuth: () {}, googleAuth: () {}),
+            Row(
+              children: [Expanded(child: GoogleButton(onPressed: () {}))],
+            ),
           ],
         ),
       ),
