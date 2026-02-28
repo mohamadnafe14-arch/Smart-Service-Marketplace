@@ -34,8 +34,11 @@ class AuthRepoImpl implements AuthRepo {
       );
       final map = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final user = User.fromJson(map).copyWith(token: map['access_token']);
-        storage.write(key: "user", value: jsonEncode(user.toJson()));
+        final data = map['data'];
+        final user = User.fromJson(
+          data["user"],
+        ).copyWith(token: data['access_token']);
+        storage.write(key: "token", value: data['access_token']);
         return Right(user);
       } else {
         return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));
@@ -46,7 +49,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> logout()async {
+  Future<void> logout() async {
     storage.delete(key: "user");
   }
 
@@ -73,8 +76,11 @@ class AuthRepoImpl implements AuthRepo {
       );
       final map = jsonDecode(response.body);
       if (response.statusCode == 201) {
-        final user = User.fromJson(map).copyWith(token: map["access_token"]);
-        storage.write(key: "user", value: jsonEncode(user.toJson()));
+        final data = map['data'];
+        final user = User.fromJson(
+          data["user"],
+        ).copyWith(token: data['access_token']);
+        storage.write(key: "token", value: data['access_token']);
         return Right(user);
       } else {
         return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));
@@ -86,9 +92,27 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, User>> getCurrentUser() async {
-    final user = await storage.read(key: "user");
-    if (user != null) {
-      return Right(User.fromJson(jsonDecode(user)));
+    final token = await storage.read(key: "token");
+    if (token != null) {
+      final result = await http.get(
+        Uri.parse("${kBaseUrl}api/getUser"),
+        headers: {
+          "Authorization": "Bearer $token",
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+      );
+      final map = jsonDecode(result.body);
+      if (result.statusCode == 200) {
+        final data = map['data'];
+        final user = User.fromJson(
+          data["user"],
+        ).copyWith(token: data['access_token']);
+        storage.write(key: "token", value: data['access_token']);
+        return Right(user);
+      } else {
+        return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));
+      }
     } else {
       return Left(Failure("User Not Found"));
     }
