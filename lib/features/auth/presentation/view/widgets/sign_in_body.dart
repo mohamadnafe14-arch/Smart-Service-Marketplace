@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
@@ -145,17 +144,7 @@ class _SignInBodyState extends State<SignInBody> {
                       final isLoading = state is AuthLoading;
                       return GoogleButton(
                         onPressed: () async {
-                          final googleSignIn = GoogleSignIn.instance;
-                          await googleSignIn.initialize(
-                            serverClientId:
-                                "791573636194-uho4cm652s7nff35rsillt5tg32pfbld.apps.googleusercontent.com",
-                          );
-                          final account = await googleSignIn.authenticate();
-                          showSnackBar(
-                            context: context,
-                            message:
-                                "token_id: ${account.authentication.idToken}",
-                          );
+                            await context.read<AuthCubit>().authWithGoogle();                          
                         },
                         isLoading: isLoading,
                       );

@@ -62,6 +62,7 @@ class _AuthBodyState extends State<AuthBody> {
                   },
                 ),
               ),
+              SizedBox(width: 10.w),
               Expanded(
                 child: CustomAuthButton(
                   text: "تسجيل الدخول",
