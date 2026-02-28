@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "791573636194",
+    "project_id": "smart-market-place-c1827",
+    "storage_bucket": "smart-market-place-c1827.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791573636194:android:363390cb7e57a480281d3b",
+        "android_client_info": {
+          "package_name": "com.example.smart_service_marketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791573636194-uho4cm652s7nff35rsillt5tg32pfbld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp6hsyWG-2Mf1p6M2jvZmv5-XZHYctW4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791573636194-uho4cm652s7nff35rsillt5tg32pfbld.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791573636194-mu13tnt8sm9e4s2p90jjmrhoocrckmpm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartServiceMarketplace"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

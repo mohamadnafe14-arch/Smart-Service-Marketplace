@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
@@ -130,7 +131,15 @@ class _SignInBodyState extends State<SignInBody> {
             ),
             SizedBox(height: 10.h),
             Row(
-              children: [Expanded(child: GoogleButton(onPressed: () {}))],
+              children: [
+                Expanded(
+                  child: GoogleButton(
+                    onPressed: () async {
+                      
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),
