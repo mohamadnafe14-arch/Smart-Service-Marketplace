@@ -70,7 +70,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
-               if (!value.endsWith(".spm")) {
+                if (!value.endsWith(".spm")) {
                   return "يرجي ادحال بريد ينتهي ب'.spm'";
                 }
                 return null;
@@ -151,7 +151,31 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ),
               ],
             ),
-            GoogleButton(onPressed: () {}),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                Expanded(
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        GoRouter.of(context).go(AppRouter.homeRoute);
+                      } else if (state is AuthError) {
+                        showSnackBar(context: context, message: state.message);
+                      }
+                    },
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return GoogleButton(
+                        onPressed: () async {
+                          await context.read<AuthCubit>().authWithGoogle();
+                        },
+                        isLoading: isLoading,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
