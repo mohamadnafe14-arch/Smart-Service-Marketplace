@@ -133,9 +133,32 @@ class _SignInBodyState extends State<SignInBody> {
             Row(
               children: [
                 Expanded(
-                  child: GoogleButton(
-                    onPressed: () async {
-                      
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        GoRouter.of(context).go(AppRouter.homeRoute);
+                      } else if (state is AuthError) {
+                        showSnackBar(context: context, message: state.message);
+                      }
+                    },
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return GoogleButton(
+                        onPressed: () async {
+                          final googleSignIn = GoogleSignIn.instance;
+                          await googleSignIn.initialize(
+                            serverClientId:
+                                "791573636194-uho4cm652s7nff35rsillt5tg32pfbld.apps.googleusercontent.com",
+                          );
+                          final account = await googleSignIn.authenticate();
+                          showSnackBar(
+                            context: context,
+                            message:
+                                "token_id: ${account.authentication.idToken}",
+                          );
+                        },
+                        isLoading: isLoading,
+                      );
                     },
                   ),
                 ),

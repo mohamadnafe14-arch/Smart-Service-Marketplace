@@ -52,4 +52,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> setRole(String role) async {
     await authRepo.setRole(role);
   }
+
+  Future<void> authWithGoogle() async {
+    final result = await authRepo.authWithGoogle();
+    result.fold((l) => emit(AuthError(message: l.message)), (r) {
+      emit(AuthSuccess(user: r));
+    });
+  }
 }
