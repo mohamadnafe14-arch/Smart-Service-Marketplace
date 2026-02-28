@@ -12,7 +12,7 @@ abstract class AuthRepo {
     required String password,
     required String name,
   });
-  Future<void> logout();
+  Future<Either<Failure, void>> logout();
   Future<Either<Failure, User>> authWithGoogle();
   Future<Either<Failure,User>> getCurrentUser();
   Future<void> setRole(String role);

@@ -10,10 +10,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit({required this.authRepo}) : super(AuthInitial());
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
     final result = await authRepo.login(email: email, password: password);
     result.fold((l) => emit(AuthError(message: l.message)), (r) {
@@ -45,9 +42,11 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> logout(BuildContext context) async {
-    await authRepo.logout();
-    emit(AuthInitial());
+  Future<void> logout() async {
+    final result = await authRepo.logout();
+    result.fold((l) => emit(AuthError(message: l.message)), (r) {
+      emit(AuthInitial());
+    });
   }
 
   Future<void> setRole(String role) async {

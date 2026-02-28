@@ -49,8 +49,23 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> logout() async {
-    storage.delete(key: "user");
+  Future<Either<Failure, void>> logout() async {
+    final token = await storage.read(key: "token");
+    final request = await http.delete(
+      Uri.parse("${kBaseUrl}api/logout"),
+      headers: {
+        "Authorization": "Bearer $token",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    );
+    final map = jsonDecode(request.body);
+    if (request.statusCode == 200) {
+      await storage.delete(key: "token");
+      return const Right(null);
+    } else {
+      return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));
+    }
   }
 
   @override
