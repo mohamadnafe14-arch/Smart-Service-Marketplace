@@ -41,6 +41,11 @@ class CustomUserDrawer extends StatelessWidget {
               "البريد الالكتروني",
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
+            SizedBox(height: 10.h),
+            Text(
+              "رقم الهاتف",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
             SizedBox(height: 20.h),
             Text("مسجل منذ ", style: TextStyle(fontSize: 16)),
             SizedBox(height: 10.h),
@@ -60,11 +65,23 @@ class CustomUserDrawer extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Card(
-              child: ListTile(
-                title: Text("تسجيل خروج"),
-                trailing: Icon(Icons.logout),
-                onTap: () {
-                  BlocProvider.of<AuthCubit>(context).logout();
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthInitial) {
+                    GoRouter.of(context).go(AppRouter.authRoute);
+                  }
+                },
+                builder: (context, state) {
+                  final isLoading = state is AuthLoading;
+                  return ListTile(
+                    title: isLoading
+                        ? CircularProgressIndicator()
+                        : Text("تسجيل خروج"),
+                    trailing: Icon(Icons.logout),
+                    onTap: () {
+                      BlocProvider.of<AuthCubit>(context).logout();
+                    },
+                  );
                 },
               ),
             ),
