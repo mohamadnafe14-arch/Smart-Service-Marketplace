@@ -54,6 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> authWithGoogle() async {
+    emit(AuthLoading());
     final result = await authRepo.authWithGoogle();
     result.fold((l) => emit(AuthError(message: l.message)), (r) {
       emit(AuthSuccess(user: r));

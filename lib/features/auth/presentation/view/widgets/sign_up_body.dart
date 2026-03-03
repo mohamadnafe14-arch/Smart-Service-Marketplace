@@ -113,7 +113,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                   child: BlocConsumer<AuthCubit, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
-                        GoRouter.of(context).go(AppRouter.homeRoute);
+                        GoRouter.of(context).go(AppRouter.userHomeRoute);
                       } else if (state is AuthError) {
                         showSnackBar(context: context, message: state.message);
                       }
@@ -158,7 +158,12 @@ class _SignUpBodyState extends State<SignUpBody> {
                   child: BlocConsumer<AuthCubit, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
-                        GoRouter.of(context).go(AppRouter.homeRoute);
+                        final role = state.user.role;
+                        if (role == 'provider') {
+                          context.go(AppRouter.providerHomeRoute);
+                        } else {
+                          context.go(AppRouter.userHomeRoute);
+                        }
                       } else if (state is AuthError) {
                         showSnackBar(context: context, message: state.message);
                       }

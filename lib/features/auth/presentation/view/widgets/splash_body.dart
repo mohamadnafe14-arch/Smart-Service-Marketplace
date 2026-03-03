@@ -22,9 +22,10 @@ class _SplashBodyState extends State<SplashBody>
   void initState() {
     super.initState();
     animationPreparation();
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    navigateToNextPage();
-  });  }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      navigateToNextPage();
+    });
+  }
 
   @override
   void dispose() {
@@ -93,7 +94,12 @@ class _SplashBodyState extends State<SplashBody>
       if (!mounted) return;
       final state = context.read<AuthCubit>().state;
       if (state is AuthSuccess) {
-        context.go(AppRouter.homeRoute);
+        final role = state.user.role;
+        if (role == 'provider') {
+          context.go(AppRouter.providerHomeRoute);
+        } else {
+          context.go(AppRouter.userHomeRoute);
+        }
       } else {
         context.go(AppRouter.chooseRoleRoute);
       }
