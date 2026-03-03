@@ -95,7 +95,7 @@ class CustomProviderDrawer extends StatelessWidget {
                 title: Text("تعديل الملف الشخصي"),
                 trailing: Icon(Icons.edit),
                 onTap: () {
-                  GoRouter.of(context).push(AppRouter.editUserProfileRoute);
+                  GoRouter.of(context).push(AppRouter.editProviderProfileRoute);
                 },
               ),
             ),
