@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_service_marketplace/features/home/presentation/views/widgets/statistic_widget.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/utils/app_router.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
+import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/statistic_widget.dart';
 
 class CustomUserDrawer extends StatelessWidget {
   const CustomUserDrawer({super.key});
@@ -59,6 +63,9 @@ class CustomUserDrawer extends StatelessWidget {
               child: ListTile(
                 title: Text("تسجيل خروج"),
                 trailing: Icon(Icons.logout),
+                onTap: () {
+                  BlocProvider.of<AuthCubit>(context).logout();
+                },
               ),
             ),
             SizedBox(height: 10.h),
@@ -66,6 +73,9 @@ class CustomUserDrawer extends StatelessWidget {
               child: ListTile(
                 title: Text("تعديل الملف الشخصي"),
                 trailing: Icon(Icons.edit),
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.editUserProfileRoute);
+                },
               ),
             ),
           ],
