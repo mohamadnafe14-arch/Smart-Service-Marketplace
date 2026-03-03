@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/auth_view.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/choose_role_view.dart';
-import 'package:smart_service_marketplace/features/auth/presentation/view/splash_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/provider_home_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/user_home_view.dart';
 
@@ -15,7 +14,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: initialRoute,
-        builder: (context, state) => const SplashView(),
+        builder: (context, state) => const UserHomeView(),
       ),
       GoRoute(path: authRoute, builder: (context, state) => const AuthView()),
       GoRoute(
