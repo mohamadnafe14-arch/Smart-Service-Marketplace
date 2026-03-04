@@ -18,7 +18,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: initialRoute,
-        builder: (context, state) => const ProviderHomeView(),
+        builder: (context, state) => const UserHomeView(),
       ),
       GoRoute(path: authRoute, builder: (context, state) => const AuthView()),
       GoRoute(
