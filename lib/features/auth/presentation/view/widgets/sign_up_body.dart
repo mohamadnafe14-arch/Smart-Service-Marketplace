@@ -160,9 +160,9 @@ class _SignUpBodyState extends State<SignUpBody> {
                       if (state is AuthSuccess) {
                         final role = state.user.role;
                         if (role == 'provider') {
-                          context.go(AppRouter.providerHomeRoute);
+                          context.go(AppRouter.providerHomeRoute, extra: state.user);
                         } else {
-                          context.go(AppRouter.userHomeRoute);
+                          context.go(AppRouter.userHomeRoute, extra: state.user);
                         }
                       } else if (state is AuthError) {
                         showSnackBar(context: context, message: state.message);

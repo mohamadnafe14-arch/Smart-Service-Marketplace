@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/features/auth/data/model/user.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/auth_view.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/choose_role_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/splash_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/provider_home_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/user_home_view.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/edit_provider_profile_view.dart';
@@ -18,12 +20,15 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: initialRoute,
-        builder: (context, state) => const UserHomeView(),
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(path: authRoute, builder: (context, state) => const AuthView()),
       GoRoute(
         path: userHomeRoute,
-        builder: (context, state) => const UserHomeView(),
+        builder: (context, state) {
+          final user = state.extra as User;
+          return UserHomeView(user: user);
+        },
       ),
       GoRoute(
         path: chooseRoleRoute,
@@ -31,7 +36,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: providerHomeRoute,
-        builder: (context, state) => const ProviderHomeView(),
+        builder: (context, state) {
+          final user = state.extra as User;
+          return ProviderHomeView(user: user);
+        },
       ),
       GoRoute(
         path: editProviderProfileRoute,

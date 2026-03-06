@@ -96,9 +96,9 @@ class _SplashBodyState extends State<SplashBody>
       if (state is AuthSuccess) {
         final role = state.user.role;
         if (role == 'provider') {
-          context.go(AppRouter.providerHomeRoute);
+          context.go(AppRouter.providerHomeRoute, extra: state.user);
         } else {
-          context.go(AppRouter.userHomeRoute);
+          context.go(AppRouter.userHomeRoute, extra: state.user);
         }
       } else {
         context.go(AppRouter.chooseRoleRoute);

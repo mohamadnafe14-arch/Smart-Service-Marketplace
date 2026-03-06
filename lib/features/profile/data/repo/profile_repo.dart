@@ -4,14 +4,16 @@ import 'package:smart_service_marketplace/features/profile/data/model/provider_i
 import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 
 abstract class ProfileRepo {
-  Future<Either<Failure, UserInformation>> getUserInformation();
-  Future<Either<Failure, UserInformation>> updateUserInformation(
-    UserInformation userInformation,
-    String userId,
-  );
-  Future<Either<Failure, ProviderInformation>> getProviderInformation();
-  Future<Either<Failure, ProviderInformation>> updateProviderInformation(
-    ProviderInformation providerInformation,
-    String providerId,
-  );
+  Future<Either<Failure, UserInformation>> getUserInformation({required String token});
+  Future<Either<Failure, UserInformation>> updateUserInformation({
+    required UserInformation userInformation,
+    required String token,
+  });
+  Future<Either<Failure, ProviderInformation>> getProviderInformation({
+    required String token,
+  });
+  Future<Either<Failure, ProviderInformation>> updateProviderInformation({
+    required ProviderInformation providerInformation,
+    required String token,
+  });
 }

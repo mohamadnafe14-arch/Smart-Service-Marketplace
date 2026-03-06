@@ -19,14 +19,23 @@ class UserInformation {
   });
   factory UserInformation.fromJson(Map<String, dynamic> json) {
     return UserInformation(
-      name: json['name'] as String,
-      email: json['email'] as String,
-      phone: json['phone'] as String,
-      createdSince: json['createdSince'] as String,
+      name: json['name'] ?? "لم يتم تحديد الاسم",
+      email: json['email'] ?? "لم يتم تحديد البريد الإلكتروني",
+      phone: json['phone'] ?? "لم يتم تحديد الهاتف",
+      createdSince: json['createdSince'] ?? "لم يتم تحديد تاريخ الإنشاء",
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       statistics: Statistics.fromJson(
         json['statistics'] as Map<String, dynamic>,
       ),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'createdSince': createdSince,
+        'address': address.toJson(),
+        'statistics': statistics.toJson(),
+      };
 }

@@ -4,8 +4,12 @@ class Statistics {
   Statistics({required this.totalNumberOfOrders, required this.finishedOrders});
   factory Statistics.fromJson(Map<String, dynamic> json) {
     return Statistics(
-      totalNumberOfOrders: json['totalNumberOfOrders'] as int,
-      finishedOrders: json['finishedOrders'] as int,
+      totalNumberOfOrders: json['totalNumberOfOrders'] ?? 0,
+      finishedOrders: json['finishedOrders'] ?? 0,
     );
   }
+  Map<String, dynamic> toJson() => {
+        'totalNumberOfOrders': totalNumberOfOrders,
+        'finishedOrders': finishedOrders,
+      };
 }
