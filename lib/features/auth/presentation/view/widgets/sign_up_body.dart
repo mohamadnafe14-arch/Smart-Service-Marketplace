@@ -70,8 +70,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
-                if (!value.endsWith(".spm")) {
-                  return "يرجي ادحال بريد ينتهي ب'.spm'";
+                if (!value.endsWith(".stm")) {
+                  return "يرجي ادحال بريد ينتهي ب'.stm'";
                 }
                 return null;
               },
