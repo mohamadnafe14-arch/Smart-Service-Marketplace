@@ -8,7 +8,10 @@ class ProviderHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(appBar: AppBar(), drawer: CustomProviderDrawer()),
+      child: Scaffold(
+        appBar: AppBar(),
+        drawer: CustomProviderDrawer(token: user.token),
+      ),
     );
   }
 }

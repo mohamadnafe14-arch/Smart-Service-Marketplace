@@ -5,6 +5,8 @@ import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/utils/service_locator.dart';
 import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
+import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
+import 'package:smart_service_marketplace/features/profile/presentation/manager/cubit/profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +28,9 @@ class SmartServiceMarketPlace extends StatelessWidget {
           BlocProvider<AuthCubit>(
             create: (context) => AuthCubit(authRepo: getIt<AuthRepo>()),
           ),
+          BlocProvider<ProfileCubit>(
+            create: (context) => ProfileCubit( getIt<ProfileRepo>()),
+          )
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
