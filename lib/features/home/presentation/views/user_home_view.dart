@@ -8,7 +8,10 @@ class UserHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(appBar: AppBar(), drawer: CustomUserDrawer()),
+      child: Scaffold(
+        appBar: AppBar(),
+        drawer: CustomUserDrawer(token: user.token),
+      ),
     );
   }
 }

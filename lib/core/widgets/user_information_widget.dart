@@ -7,9 +7,10 @@ import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/a
 import 'package:smart_service_marketplace/features/profile/data/model/provider_information.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/statistic_widget.dart';
 
-class ProviderInformation extends StatelessWidget {
+class UserInformatioWidget extends StatelessWidget {
   final UserInformation userInformation;
-  const ProviderInformation({super.key, required this.userInformation});
+  const UserInformatioWidget({super.key, required this.userInformation});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -74,15 +75,10 @@ class ProviderInformation extends StatelessWidget {
               ),
               StatisticWidget(
                 title: "إجمالي العمليات",
-                value: userInformation.statistics.totalNumberOfOrders
-                    .toString(),
+                value: userInformation.statistics.totalNumberOfOrders.toString(),
               ),
             ],
           ),
-          SizedBox(height: 20.h),
-          Text(userInformation.category, style: TextStyle(fontSize: 16)),
-          SizedBox(height: 10.h),
-          Text(userInformation.experience, style: TextStyle(fontSize: 16)),
           SizedBox(height: 20.h),
           Card(
             child: BlocConsumer<AuthCubit, AuthState>(
@@ -111,7 +107,7 @@ class ProviderInformation extends StatelessWidget {
               title: Text("تعديل الملف الشخصي"),
               trailing: Icon(Icons.edit),
               onTap: () {
-                GoRouter.of(context).push(AppRouter.editProviderProfileRoute);
+                GoRouter.of(context).push(AppRouter.editUserProfileRoute);
               },
             ),
           ),

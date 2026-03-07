@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_marketplace/core/widgets/error_body.dart';
 import 'package:smart_service_marketplace/core/widgets/loading_body.dart';
-import 'package:smart_service_marketplace/core/widgets/provider_information.dart';
+import 'package:smart_service_marketplace/core/widgets/provider_information_widget.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/manager/cubit/profile_cubit.dart';
 
 class CustomProviderDrawer extends StatefulWidget {
@@ -28,7 +28,9 @@ class _CustomProviderDrawerState extends State<CustomProviderDrawer> {
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           if (state is ProfileSuccess) {
-            return ProviderInformation(userInformation: state.userInformation);
+            return ProviderInformationWidget(
+              userInformation: state.userInformation,
+            );
           } else if (state is ProfileLoading) {
             return LoadingBody();
           } else if (state is ProfileError) {
@@ -40,6 +42,3 @@ class _CustomProviderDrawerState extends State<CustomProviderDrawer> {
     );
   }
 }
-
-
-
