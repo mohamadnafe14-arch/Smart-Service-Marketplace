@@ -2,7 +2,7 @@ import 'package:smart_service_marketplace/features/profile/data/model/address.da
 import 'package:smart_service_marketplace/features/profile/data/model/rating.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/statistics.dart';
 
-class ProviderInformation {
+class UserInformation {
   final String name;
   final String email;
   final String phone;
@@ -12,7 +12,7 @@ class ProviderInformation {
   final Rating rating;
   final String category;
   final String experience;
-  ProviderInformation({
+  UserInformation({
     required this.name,
     required this.email,
     required this.phone,
@@ -23,9 +23,9 @@ class ProviderInformation {
     required this.category,
     required this.experience,
   });
-  factory ProviderInformation.fromJson(Map<String, dynamic> json) {
-    return ProviderInformation(
-      name: json['name']?? "لم يتم تحديد الاسم",
+  factory UserInformation.fromJson(Map<String, dynamic> json) {
+    return UserInformation(
+      name: json['name'] ?? "لم يتم تحديد الاسم",
       email: json['email'] ?? "لم يتم تحديد البريد الإلكتروني",
       phone: json['phone'] ?? "لم يتم تحديد الهاتف",
       createdSince: json['createdSince'] ?? "لم يتم تحديد تاريخ الإنشاء",
@@ -37,12 +37,14 @@ class ProviderInformation {
     );
   }
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'createdSince': createdSince,
-        'address': address.toJson(),
-        'statistics': statistics.toJson(),
-        'rating': rating.toJson(),
-      };
+    'name': name,
+    'email': email,
+    'phone': phone,
+    'createdSince': createdSince,
+    'address': address.toJson(),
+    'statistics': statistics.toJson(),
+    'rating': rating.toJson(),
+    'category': category,
+    'experience': experience,
+  };
 }
