@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/provider_information.dart';
+import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/statistic_widget.dart';
 
 class UserInformatioWidget extends StatelessWidget {

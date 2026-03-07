@@ -153,8 +153,7 @@ class AuthRepoImpl implements AuthRepo {
         final data = map['data'];
         final user = User.fromJson(
           data["user"],
-        ).copyWith(token: data['access_token']);
-        storage.write(key: "token", value: data['access_token']);
+        ).copyWith(token: token);
         return Right(user);
       } else {
         return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));

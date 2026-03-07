@@ -26,11 +26,12 @@ class SmartServiceMarketPlace extends StatelessWidget {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider<AuthCubit>(
-            create: (context) => AuthCubit(authRepo: getIt<AuthRepo>()),
+            create: (context) =>
+                AuthCubit(authRepo: getIt<AuthRepo>()),
           ),
           BlocProvider<ProfileCubit>(
-            create: (context) => ProfileCubit( getIt<ProfileRepo>()),
-          )
+            create: (context) => ProfileCubit(getIt<ProfileRepo>()),
+          ),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

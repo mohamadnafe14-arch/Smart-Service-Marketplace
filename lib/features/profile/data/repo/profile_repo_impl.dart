@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:fpdart/fpdart.dart';
 import 'package:smart_service_marketplace/core/constants/service_const.dart';
 import 'package:smart_service_marketplace/core/errors/failure.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/provider_information.dart';
+import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
 import 'package:http/http.dart' as http;
 class ProfileRepoImpl implements ProfileRepo {
@@ -23,7 +23,7 @@ class ProfileRepoImpl implements ProfileRepo {
       final map = jsonDecode(response.body) as Map<String, dynamic>;
       if (response.statusCode == 200) {
         final userInformation = UserInformation.fromJson(
-          map['data']["profile"],
+          map['data']["user"],
         );
         return Right(userInformation);
       } else {

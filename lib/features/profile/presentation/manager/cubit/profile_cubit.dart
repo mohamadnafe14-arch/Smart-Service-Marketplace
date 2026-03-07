@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/provider_information.dart';
+import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
 
 part 'profile_state.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/provider_information.dart';
+import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/statistic_widget.dart';
 
 class ProviderInformationWidget extends StatelessWidget {
@@ -79,6 +79,38 @@ class ProviderInformationWidget extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(5, (index) {
+                  if (index + 1 > userInformation.rating.rate.ceil()) {
+                    return Icon(Icons.star_border, color: Colors.grey);
+                  }
+                  if (index + 1 > userInformation.rating.rate.floor() &&
+                      userInformation.rating.rate -
+                              userInformation.rating.rate.floor() <
+                          0.5) {
+                    return Icon(Icons.star_half_sharp, color: Colors.amber);
+                  }
+                  return Icon(Icons.star, color: Colors.amber);
+                }),
+              ),
+              SizedBox(width: 10.w),
+              Text(
+                "(${userInformation.rating.rate.toString()})",
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(width: 10.w),
+              Text(
+                "(${userInformation.rating.count.toString()})",
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+
           SizedBox(height: 20.h),
           Text(userInformation.category, style: TextStyle(fontSize: 16)),
           SizedBox(height: 10.h),

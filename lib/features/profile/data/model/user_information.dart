@@ -29,9 +29,9 @@ class UserInformation {
       email: json['email'] ?? "لم يتم تحديد البريد الإلكتروني",
       phone: json['phone'] ?? "لم يتم تحديد الهاتف",
       createdSince: json['createdSince'] ?? "لم يتم تحديد تاريخ الإنشاء",
-      address: Address.fromJson(json['address']),
-      statistics: Statistics.fromJson(json['statistics']),
-      rating: Rating.fromJson(json['rating']),
+      address: Address.fromJson(json['address']?? {}),
+      statistics: Statistics.fromJson(json['statistics']?? {}),
+      rating: Rating.fromJson(json['rating'] ?? {}),
       category: json['category'] ?? "لم يتم تحديد الفئة",
       experience: json['experience'] ?? "لم يتم تحديد الخبرة",
     );

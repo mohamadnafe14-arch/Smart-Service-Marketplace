@@ -4,6 +4,9 @@ class Rating {
 
   Rating({required this.rate, required this.count});
   factory Rating.fromJson(Map<String, dynamic> json) {
+    if (json.isEmpty) {
+      return Rating(rate: 0.0, count: 0);
+    }
     return Rating(
       rate: json['rate']?.toDouble() ?? 0.0,
       count: json['count'] ?? 0,
