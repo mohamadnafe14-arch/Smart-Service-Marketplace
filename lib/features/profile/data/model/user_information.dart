@@ -33,7 +33,7 @@ class UserInformation {
       statistics: Statistics.fromJson(json['statistics']?? {}),
       rating: Rating.fromJson(json['rating'] ?? {}),
       category: json['category'] ?? "لم يتم تحديد الفئة",
-      experience: json['experience'] ?? "لم يتم تحديد الخبرة",
+      experience: json['experiences'] ?? "لم يتم تحديد الخبرة",
     );
   }
   Map<String, dynamic> toJson() => {

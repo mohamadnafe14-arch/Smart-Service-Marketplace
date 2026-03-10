@@ -28,7 +28,10 @@ class _CustomUserDrawerState extends State<CustomUserDrawer> {
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           if (state is ProfileSuccess) {
-            return UserInformatioWidget(userInformation: state.userInformation);
+            return UserInformatioWidget(
+              userInformation: state.userInformation,
+              token: widget.token,
+            );
           } else if (state is ProfileLoading) {
             return LoadingBody();
           } else if (state is ProfileError) {

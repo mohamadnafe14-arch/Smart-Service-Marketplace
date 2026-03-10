@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
-import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
-import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
+import 'package:smart_service_marketplace/features/profile/data/model/user_update.dart';
+import 'package:smart_service_marketplace/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/profile_text_form_field.dart';
 
 class EditProviderProfileBody extends StatefulWidget {
-  const EditProviderProfileBody({super.key});
-
+  const EditProviderProfileBody({super.key, required this.token});
+  final String token;
   @override
   State<EditProviderProfileBody> createState() =>
       _EditProviderProfileBodyState();
@@ -21,6 +21,8 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
   String? name, phone, city, street, addressInDetails, category, experience;
   @override
   Widget build(BuildContext context) {
+    final userInformation =
+        (context.read<ProfileCubit>().state as ProfileSuccess).userInformation;
     return Form(
       key: formKey,
       child: SingleChildScrollView(
@@ -39,7 +41,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الاسم بالكامل",
-              initialValue: "اسم المستخدم",
+              initialValue: userInformation.name,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الاسم بالكامل مطلوب";
@@ -62,7 +64,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل رقم الهاتف",
-              initialValue: "01000000000",
+              initialValue: userInformation.phone,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "رقم الهاتف مطلوب";
@@ -89,7 +91,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل المدينة",
-              initialValue: "القاهرة",
+              initialValue: userInformation.address.city,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "المدينة مطلوبة";
@@ -112,7 +114,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الشارع",
-              initialValue: "شارع 123",
+              initialValue: userInformation.address.street,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الشارع مطلوب";
@@ -135,7 +137,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل العنوان بالتفصيل",
-              initialValue: "العنوان بالتفصيل",
+              initialValue: userInformation.address.addressInDetails,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "العنوان بالتفصيل مطلوب";
@@ -189,6 +191,9 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
                 }
                 return null;
               },
+              onSaved: (value) {
+                category = value;
+              },
             ),
             SizedBox(height: 10.h),
             Text(
@@ -198,7 +203,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الخبرة",
-              initialValue: "الخبرة",
+              initialValue: userInformation.experience,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الخبرة مطلوبة";
@@ -217,20 +222,36 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             Row(
               children: [
                 Expanded(
-                  child: BlocConsumer<AuthCubit, AuthState>(
+                  child: BlocConsumer<ProfileCubit, ProfileState>(
+                    listenWhen: (previous, current) =>
+                        current is ProfileSuccess || current is ProfileError,
                     listener: (context, state) {
-                      if (state is AuthSuccess) {
-                        GoRouter.of(context).go(AppRouter.userHomeRoute);
-                      } else if (state is AuthError) {
+                      if (state is ProfileSuccess) {
+                        GoRouter.of(context).pop();
+                      } else if (state is ProfileError) {
                         showSnackBar(context: context, message: state.message);
                       }
                     },
                     builder: (context, state) {
-                      final isLoading = state is AuthLoading;
+                      final isLoading = state is ProfileLoading;
                       return CustomButton(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
+                            BlocProvider.of<ProfileCubit>(
+                              context,
+                            ).updateUserInformation(
+                              token: widget.token,
+                              userUpdate: UserUpdate(
+                                name: name,
+                                phone: phone,
+                                city: city,
+                                street: street,
+                                addressInDetails: addressInDetails,
+                                category: category,
+                                experience: experience,
+                              ),
+                            );
                           }
                         },
                         text: "حفظ التغييرات",

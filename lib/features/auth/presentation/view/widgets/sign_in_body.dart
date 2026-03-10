@@ -48,8 +48,8 @@ class _SignInBodyState extends State<SignInBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
-                if (!value.endsWith(".stm")) {
-                  return "يرجي ادحال بريد ينتهي ب'.stm'";
+                if (!value.endsWith("@stm.com")) {
+                  return "يرجي ادحال بريد ينتهي ب'@stm.com'";
                 }
                 return null;
               },

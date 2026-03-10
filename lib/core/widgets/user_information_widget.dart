@@ -9,8 +9,12 @@ import 'package:smart_service_marketplace/features/profile/presentation/views/wi
 
 class UserInformatioWidget extends StatelessWidget {
   final UserInformation userInformation;
-  const UserInformatioWidget({super.key, required this.userInformation});
-
+  const UserInformatioWidget({
+    super.key,
+    required this.userInformation,
+    required this.token,
+  });
+  final String token;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -75,7 +79,8 @@ class UserInformatioWidget extends StatelessWidget {
               ),
               StatisticWidget(
                 title: "إجمالي العمليات",
-                value: userInformation.statistics.totalNumberOfOrders.toString(),
+                value: userInformation.statistics.totalNumberOfOrders
+                    .toString(),
               ),
             ],
           ),
@@ -107,7 +112,9 @@ class UserInformatioWidget extends StatelessWidget {
               title: Text("تعديل الملف الشخصي"),
               trailing: Icon(Icons.edit),
               onTap: () {
-                GoRouter.of(context).push(AppRouter.editUserProfileRoute);
+                GoRouter.of(
+                  context,
+                ).push(AppRouter.editUserProfileRoute, extra: token);
               },
             ),
           ),

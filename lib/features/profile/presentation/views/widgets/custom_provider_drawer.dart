@@ -30,6 +30,7 @@ class _CustomProviderDrawerState extends State<CustomProviderDrawer> {
           if (state is ProfileSuccess) {
             return ProviderInformationWidget(
               userInformation: state.userInformation,
+              token: widget.token,
             );
           } else if (state is ProfileLoading) {
             return LoadingBody();

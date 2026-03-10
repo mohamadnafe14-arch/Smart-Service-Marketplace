@@ -70,8 +70,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                 ).hasMatch(value)) {
                   return "يرجي ادخال بريد الالكتروني صحيح";
                 }
-                if (!value.endsWith(".stm")) {
-                  return "يرجي ادحال بريد ينتهي ب'.stm'";
+                if (!value.endsWith("@stm.com")) {
+                  return "يرجي ادحال بريد ينتهي ب'@stm.com'";
                 }
                 return null;
               },
@@ -160,9 +160,15 @@ class _SignUpBodyState extends State<SignUpBody> {
                       if (state is AuthSuccess) {
                         final role = state.user.role;
                         if (role == 'provider') {
-                          context.go(AppRouter.providerHomeRoute, extra: state.user);
+                          context.go(
+                            AppRouter.providerHomeRoute,
+                            extra: state.user,
+                          );
                         } else {
-                          context.go(AppRouter.userHomeRoute, extra: state.user);
+                          context.go(
+                            AppRouter.userHomeRoute,
+                            extra: state.user,
+                          );
                         }
                       } else if (state is AuthError) {
                         showSnackBar(context: context, message: state.message);

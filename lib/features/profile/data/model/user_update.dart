@@ -1,5 +1,5 @@
 class UserUpdate {
-    String? name, phone, city, street, addressInDetails, category, experience;
+  String? name, phone, city, street, addressInDetails, category, experience;
   UserUpdate({
     this.name,
     this.phone,
@@ -17,7 +17,7 @@ class UserUpdate {
       if (street != null) 'street': street,
       if (addressInDetails != null) 'address_in_details': addressInDetails,
       if (category != null) 'category': category,
-      if (experience != null) 'experience': experience,
+      if (experience != null) 'experiences': experience,
     };
-  }  
+  }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/edit_user_profile_body.dart';
 
 class EditUserProfileView extends StatelessWidget {
-  const EditUserProfileView({super.key});
-
+  const EditUserProfileView({super.key, required this.token});
+  final String token;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -13,7 +13,7 @@ class EditUserProfileView extends StatelessWidget {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
-        body: EditUserProfileBody(),
+        body: EditUserProfileBody(token: token),
       ),
     );
   }
