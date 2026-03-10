@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+//TODO: create category model
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
     super.key,
