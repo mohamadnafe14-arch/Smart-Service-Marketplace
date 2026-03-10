@@ -43,11 +43,17 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: editProviderProfileRoute,
-        builder: (context, state) => const EditProviderProfileView(),
+        builder: (context, state) {
+          final token = state.extra as String;
+          return EditProviderProfileView(token: token);
+        },
       ),
       GoRoute(
         path: editUserProfileRoute,
-        builder: (context, state) => const EditUserProfileView(),
+        builder: (context, state) {
+          final token = state.extra as String;
+          return EditUserProfileView(token: token);
+        },
       ),
     ],
   );
