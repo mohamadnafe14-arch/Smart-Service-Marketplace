@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_marketplace/core/widgets/error_body.dart';
 import 'package:smart_service_marketplace/core/widgets/loading_body.dart';
-import 'package:smart_service_marketplace/core/widgets/user_information_widget.dart';
+import 'package:smart_service_marketplace/core/widgets/user_information_body.dart';
 
 import 'package:smart_service_marketplace/features/profile/presentation/manager/cubit/profile_cubit.dart';
 
@@ -28,7 +28,7 @@ class _CustomUserDrawerState extends State<CustomUserDrawer> {
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           if (state is ProfileSuccess) {
-            return UserInformatioWidget(
+            return UserInformatioBody(
               userInformation: state.userInformation,
               token: widget.token,
             );
