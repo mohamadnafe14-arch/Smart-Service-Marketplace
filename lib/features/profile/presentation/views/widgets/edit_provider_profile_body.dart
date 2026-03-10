@@ -163,6 +163,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
                 DropdownMenuItem(value: "البناء", child: Text("البناء")),
                 DropdownMenuItem(value: "الكهرباء", child: Text("الكهرباء")),
                 DropdownMenuItem(value: "السباكة", child: Text("السباكة")),
+                DropdownMenuItem(value: "البرمجة", child: Text("البرمجة")),
               ],
               onChanged: (value) {
                 category = value;
