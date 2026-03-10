@@ -9,7 +9,12 @@ import 'package:smart_service_marketplace/features/profile/presentation/views/wi
 
 class ProviderInformationWidget extends StatelessWidget {
   final UserInformation userInformation;
-  const ProviderInformationWidget({super.key, required this.userInformation});
+  final String token;
+  const ProviderInformationWidget({
+    super.key,
+    required this.userInformation,
+    required this.token,
+  });
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -143,7 +148,9 @@ class ProviderInformationWidget extends StatelessWidget {
               title: Text("تعديل الملف الشخصي"),
               trailing: Icon(Icons.edit),
               onTap: () {
-                GoRouter.of(context).push(AppRouter.editProviderProfileRoute);
+                GoRouter.of(
+                  context,
+                ).push(AppRouter.editProviderProfileRoute, extra: token);
               },
             ),
           ),
