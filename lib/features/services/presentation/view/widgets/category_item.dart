@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-//TODO: create category model
+import 'package:smart_service_marketplace/features/services/data/models/category_model.dart';
+
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
     super.key,
-    required this.title,
-    required this.icon,
+    required this.categoryModel,
     required this.isSelected,
   });
-  final String title;
-  final IconData icon;
+  final CategoryModel categoryModel;
   final bool isSelected;
   @override
   Widget build(BuildContext context) {
@@ -23,10 +22,10 @@ class CategoryItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.black),
+          Icon(categoryModel.icon, color: Colors.black),
           SizedBox(width: 10.w),
           Text(
-            title,
+            categoryModel.title,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
