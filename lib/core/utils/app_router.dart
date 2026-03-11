@@ -3,7 +3,6 @@ import 'package:smart_service_marketplace/core/widgets/testing_view.dart';
 import 'package:smart_service_marketplace/features/auth/data/model/user.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/auth_view.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/choose_role_view.dart';
-import 'package:smart_service_marketplace/features/auth/presentation/view/splash_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/provider_home_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/user_home_view.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
