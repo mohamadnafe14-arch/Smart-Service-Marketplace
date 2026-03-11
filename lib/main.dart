@@ -21,22 +21,18 @@ class SmartServiceMarketPlace extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthCubit>(
-            create: (context) =>
-                AuthCubit(authRepo: getIt<AuthRepo>()),
-          ),
-          BlocProvider<ProfileCubit>(
-            create: (context) => ProfileCubit(getIt<ProfileRepo>()),
-          ),
-        ],
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter.route,
-        ),
+      builder: (context, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => AuthCubit(authRepo: getIt<AuthRepo>())),
+            BlocProvider(create: (_) => ProfileCubit(getIt<ProfileRepo>())),
+          ],
+          child: child!,
+        );
+      },
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouter.route,
       ),
     );
   }

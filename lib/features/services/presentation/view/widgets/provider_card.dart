@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 
 class ProviderCard extends StatelessWidget {
@@ -11,7 +13,9 @@ class ProviderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        GoRouter.of(
+          context,
+        ).push(AppRouter.providerDetailsRoute, extra: userInformation);
       },
       child: Card(
         elevation: 4,
@@ -42,10 +46,7 @@ class ProviderCard extends StatelessWidget {
                     SizedBox(height: 5.h),
                     Text(
                       userInformation.category,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
                     SizedBox(height: 5.h),
                     Row(
