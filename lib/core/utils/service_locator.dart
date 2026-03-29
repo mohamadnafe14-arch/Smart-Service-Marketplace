@@ -5,6 +5,8 @@ import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo_impl
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo_impl.dart';
+import 'package:smart_service_marketplace/features/services/data/repos/service_repo_imple.dart';
+import 'package:smart_service_marketplace/features/services/data/repos/services_repo.dart';
 import 'package:smart_service_marketplace/firebase_options.dart';
 
 final getIt = GetIt.instance;
@@ -15,4 +17,5 @@ Future<void> setupServiceLocator() async {
     AuthRepoImpl(storage: getIt<FlutterSecureStorage>()),
   );
   getIt.registerSingleton<ProfileRepo>(ProfileRepoImpl());
+  getIt.registerSingleton<ServicesRepo>(ServiceRepoImple());
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
+import 'package:smart_service_marketplace/features/services/data/models/get_provider.dart';
 
 class ProviderCard extends StatelessWidget {
-  const ProviderCard({super.key, required this.userInformation});
+  const ProviderCard({super.key, required this.getProvider});
 
-  final UserInformation userInformation;
+  final GetProvider getProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class ProviderCard extends StatelessWidget {
       onTap: () {
         GoRouter.of(
           context,
-        ).push(AppRouter.providerDetailsRoute, extra: userInformation);
+        ).push(AppRouter.providerDetailsRoute, extra: getProvider);
       },
-      child: Card(
+       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
@@ -26,7 +26,7 @@ class ProviderCard extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           child: Row(
             children: [
-              userInformation.category == "لم يتم تحديد الفئة"
+              getProvider.category == "لم يتم تحديد الفئة"
                   ? CircleAvatar(
                       radius: 30.r,
                       backgroundColor: Colors.grey[300],
@@ -37,7 +37,7 @@ class ProviderCard extends StatelessWidget {
                       ),
                     )
                   : Image.asset(
-                      "assets/images/${userInformation.category}.jpg",
+                      "assets/images/${getProvider.category}.jpg",
                       width: 60.w,
                       height: 60.h,
                     ),
@@ -47,7 +47,7 @@ class ProviderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userInformation.name,
+                      getProvider.name??"لم يتم تحديد الاسم",
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class ProviderCard extends StatelessWidget {
                     ),
                     SizedBox(height: 5.h),
                     Text(
-                      userInformation.category,
+                      getProvider.category??"لم يتم تحديد الفئة",
                       style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
                     SizedBox(height: 5.h),
@@ -63,7 +63,7 @@ class ProviderCard extends StatelessWidget {
                       children: [
                         Icon(Icons.star, color: Colors.amber, size: 18),
                         SizedBox(width: 4.w),
-                        Text(userInformation.rating.rate.toString()),
+                        Text(getProvider.rating.toString(), style: TextStyle(fontSize: 14.sp)),
                       ],
                     ),
                   ],
