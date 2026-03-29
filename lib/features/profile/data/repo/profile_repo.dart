@@ -11,5 +11,4 @@ abstract class ProfileRepo {
     required UserUpdate userUpdate,
     required String token,
   });
- 
 }

@@ -20,12 +20,7 @@ class ProviderDetailsBody extends StatelessWidget {
         children: [
           ProviderInformationWidget(userInformation: userInformation),
           SizedBox(height: 20.h),
-          CustomButton(
-            onPressed: () {
-              
-            },
-            text: "عمل اوردر",
-          ),
+          CustomButton(onPressed: () {}, text: "عمل اوردر"),
         ],
       ),
     );

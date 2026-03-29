@@ -25,9 +25,7 @@ class CustomAuthButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: isActive ? Colors.black : Colors.blue,
-        ),
+        style: TextStyle(color: isActive ? Colors.black : Colors.blue),
       ),
     );
   }

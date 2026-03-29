@@ -151,9 +151,7 @@ class AuthRepoImpl implements AuthRepo {
       final map = jsonDecode(result.body);
       if (result.statusCode == 200) {
         final data = map['data'];
-        final user = User.fromJson(
-          data["user"],
-        ).copyWith(token: token);
+        final user = User.fromJson(data["user"]).copyWith(token: token);
         return Right(user);
       } else {
         return Left(Failure(map['message'] ?? "حدث خطأ غير متوقع"));

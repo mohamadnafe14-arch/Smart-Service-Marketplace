@@ -17,9 +17,9 @@ class ProfileTextFormField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final IconData icon;
-  final bool isPassword ;
-  final String initialValue ;
-  final TextInputType? keyboardType ;
+  final bool isPassword;
+  final String initialValue;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -28,12 +28,8 @@ class ProfileTextFormField extends StatelessWidget {
         prefixIcon: Icon(icon),
         border: _border(),
         enabledBorder: _border(),
-        focusedBorder: _border(
-           Colors.lightBlueAccent,
-        ),
-        errorBorder: _border(
-          Colors.red,
-        ),
+        focusedBorder: _border(Colors.lightBlueAccent),
+        errorBorder: _border(Colors.red),
         hintText: hintText,
       ),
       validator: validator,
@@ -44,10 +40,11 @@ class ProfileTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
     );
   }
-  OutlineInputBorder _border([Color color=Colors.grey]) {
+
+  OutlineInputBorder _border([Color color = Colors.grey]) {
     return OutlineInputBorder(
-        borderSide: BorderSide(color: color),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      );
+      borderSide: BorderSide(color: color),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+    );
   }
 }

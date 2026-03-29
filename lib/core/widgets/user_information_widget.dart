@@ -4,10 +4,7 @@ import 'package:smart_service_marketplace/features/profile/data/model/user_infor
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/statistic_widget.dart';
 
 class UserInformationWidget extends StatelessWidget {
-  const UserInformationWidget({
-    super.key,
-    required this.userInformation,
-  });
+  const UserInformationWidget({super.key, required this.userInformation});
 
   final UserInformation userInformation;
 
@@ -68,8 +65,7 @@ class UserInformationWidget extends StatelessWidget {
             ),
             StatisticWidget(
               title: "إجمالي العمليات",
-              value: userInformation.statistics.totalNumberOfOrders
-                  .toString(),
+              value: userInformation.statistics.totalNumberOfOrders.toString(),
             ),
           ],
         ),

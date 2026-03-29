@@ -61,13 +61,11 @@ class RoleCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         description,
-                        style: const TextStyle(
-                          color: Colors.white70,
-                        ),
+                        style: const TextStyle(color: Colors.white70),
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

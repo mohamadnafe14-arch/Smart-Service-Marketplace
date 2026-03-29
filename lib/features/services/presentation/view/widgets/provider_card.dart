@@ -26,11 +26,21 @@ class ProviderCard extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           child: Row(
             children: [
-              Image.asset(
-                "assets/images/${userInformation.category}.jpg",
-                width: 60.w,
-                height: 60.h,
-              ),
+              userInformation.category == "لم يتم تحديد الفئة"
+                  ? CircleAvatar(
+                      radius: 30.r,
+                      backgroundColor: Colors.grey[300],
+                      child: Icon(
+                        Icons.person,
+                        size: 30.sp,
+                        color: Colors.white,
+                      ),
+                    )
+                  : Image.asset(
+                      "assets/images/${userInformation.category}.jpg",
+                      width: 60.w,
+                      height: 60.h,
+                    ),
               SizedBox(width: 15.w),
               Expanded(
                 child: Column(

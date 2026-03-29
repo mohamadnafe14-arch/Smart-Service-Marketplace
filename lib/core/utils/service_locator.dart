@@ -6,11 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:smart_service_marketplace/firebase_options.dart';
+
 final getIt = GetIt.instance;
 Future<void> setupServiceLocator() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   getIt.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage());
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(storage: getIt<FlutterSecureStorage>()),

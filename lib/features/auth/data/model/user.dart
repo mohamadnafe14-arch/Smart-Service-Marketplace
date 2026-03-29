@@ -36,10 +36,10 @@ class User {
   }
 
   Map<String, dynamic> toJson() => {
-        'email': email,
-        'name': name,
-        'token': token,
-        'id': id,
-        'role': role,
-      };
+    'email': email,
+    'name': name,
+    'token': token,
+    'id': id,
+    'role': role,
+  };
 }

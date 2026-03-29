@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
+import 'package:smart_service_marketplace/core/functions/show_error_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
@@ -115,7 +115,10 @@ class _SignUpBodyState extends State<SignUpBody> {
                       if (state is AuthSuccess) {
                         GoRouter.of(context).go(AppRouter.userHomeRoute);
                       } else if (state is AuthError) {
-                        showSnackBar(context: context, message: state.message);
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
                     builder: (context, state) {
@@ -171,7 +174,10 @@ class _SignUpBodyState extends State<SignUpBody> {
                           );
                         }
                       } else if (state is AuthError) {
-                        showSnackBar(context: context, message: state.message);
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
                     builder: (context, state) {

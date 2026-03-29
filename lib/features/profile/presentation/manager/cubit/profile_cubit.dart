@@ -17,6 +17,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       (userInformation) => emit(ProfileSuccess(userInformation)),
     );
   }
+
   Future<void> updateUserInformation({
     required String token,
     required UserUpdate userUpdate,

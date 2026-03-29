@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomProgressBar extends StatelessWidget {
-  const CustomProgressBar({
-    super.key,
-    required this.animation,
-  });
+  const CustomProgressBar({super.key, required this.animation});
 
   final Animation<double> animation;
 
@@ -16,9 +13,7 @@ class CustomProgressBar extends StatelessWidget {
         value: animation.value,
         minHeight: 8,
         backgroundColor: Colors.white24,
-        valueColor: const AlwaysStoppedAnimation(
-          Colors.lightBlueAccent,
-        ),
+        valueColor: const AlwaysStoppedAnimation(Colors.lightBlueAccent),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/user_information_widget.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
+
 class UserInformatioBody extends StatelessWidget {
   final UserInformation userInformation;
   const UserInformatioBody({
@@ -65,5 +66,3 @@ class UserInformatioBody extends StatelessWidget {
     );
   }
 }
-
-

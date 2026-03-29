@@ -14,6 +14,6 @@ abstract class AuthRepo {
   });
   Future<Either<Failure, void>> logout();
   Future<Either<Failure, User>> authWithGoogle();
-  Future<Either<Failure,User>> getCurrentUser();
+  Future<Either<Failure, User>> getCurrentUser();
   Future<void> setRole(String role);
 }

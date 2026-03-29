@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/dot.dart';
 
 class ThreeDots extends StatelessWidget {
-  const ThreeDots({
-    super.key,
-    required this.animation,
-  });
+  const ThreeDots({super.key, required this.animation});
 
   final Animation<double> animation;
 

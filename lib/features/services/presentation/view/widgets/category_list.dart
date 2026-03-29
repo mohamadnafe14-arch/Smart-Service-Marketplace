@@ -31,7 +31,9 @@ class _CategoryListState extends State<CategoryList> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  currentIndex = index;
+                  if (index != currentIndex) {
+                    currentIndex = index;
+                  }
                 });
               },
               child: CategoryItem(

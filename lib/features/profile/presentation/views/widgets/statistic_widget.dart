@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatisticWidget extends StatelessWidget {
-  const StatisticWidget({
-    super.key,
-    required this.title,
-    required this.value,
-  });
+  const StatisticWidget({super.key, required this.title, required this.value});
 
   final String title;
   final String value;
@@ -44,10 +40,7 @@ class StatisticWidget extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
               ),
             ],
           ),

@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '791573636194',
     projectId: 'smart-market-place-c1827',
     storageBucket: 'smart-market-place-c1827.firebasestorage.app',
-    iosClientId: '791573636194-mu13tnt8sm9e4s2p90jjmrhoocrckmpm.apps.googleusercontent.com',
+    iosClientId:
+        '791573636194-mu13tnt8sm9e4s2p90jjmrhoocrckmpm.apps.googleusercontent.com',
     iosBundleId: 'com.example.smartServiceMarketplace',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '791573636194',
     projectId: 'smart-market-place-c1827',
     storageBucket: 'smart-market-place-c1827.firebasestorage.app',
-    iosClientId: '791573636194-mu13tnt8sm9e4s2p90jjmrhoocrckmpm.apps.googleusercontent.com',
+    iosClientId:
+        '791573636194-mu13tnt8sm9e4s2p90jjmrhoocrckmpm.apps.googleusercontent.com',
     iosBundleId: 'com.example.smartServiceMarketplace',
   );
 
@@ -87,5 +89,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'smart-market-place-c1827.firebasestorage.app',
     measurementId: 'G-Z7JNGC0ZX8',
   );
-
 }

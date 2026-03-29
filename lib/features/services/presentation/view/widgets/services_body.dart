@@ -4,9 +4,7 @@ import 'package:smart_service_marketplace/features/services/presentation/view/wi
 import 'package:smart_service_marketplace/features/services/presentation/view/widgets/provider_list.dart';
 
 class ServicesBody extends StatelessWidget {
-  const ServicesBody({
-    super.key,
-  });
+  const ServicesBody({super.key});
 
   @override
   Widget build(BuildContext context) {

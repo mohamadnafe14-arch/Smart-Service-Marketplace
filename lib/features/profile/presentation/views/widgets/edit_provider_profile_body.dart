@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_marketplace/core/functions/show_snack_bar.dart';
+import 'package:smart_service_marketplace/core/functions/show_error_snack_bar.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/user_update.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/manager/cubit/profile_cubit.dart';
@@ -230,7 +230,10 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
                       if (state is ProfileSuccess) {
                         GoRouter.of(context).pop();
                       } else if (state is ProfileError) {
-                        showSnackBar(context: context, message: state.message);
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
                     builder: (context, state) {

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Dot extends StatelessWidget {
-  const Dot({
-    super.key,
-    required this.isActive,
-  });
+  const Dot({super.key, required this.isActive});
 
   final bool isActive;
 
@@ -17,9 +14,7 @@ class Dot extends StatelessWidget {
       width: isActive ? 14.w : 10.w,
       height: isActive ? 14.w : 10.w,
       decoration: BoxDecoration(
-        color: isActive
-            ? Colors.lightBlueAccent
-            : Colors.white24,
+        color: isActive ? Colors.lightBlueAccent : Colors.white24,
         shape: BoxShape.circle,
       ),
     );

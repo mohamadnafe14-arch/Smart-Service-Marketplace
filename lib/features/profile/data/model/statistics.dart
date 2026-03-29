@@ -12,7 +12,7 @@ class Statistics {
     );
   }
   Map<String, dynamic> toJson() => {
-        'totalNumberOfOrders': totalNumberOfOrders,
-        'finishedOrders': finishedOrders,
-      };
+    'totalNumberOfOrders': totalNumberOfOrders,
+    'finishedOrders': finishedOrders,
+  };
 }

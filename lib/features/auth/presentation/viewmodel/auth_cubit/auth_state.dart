@@ -16,4 +16,5 @@ final class AuthError extends AuthState {
   final String message;
   AuthError({required this.message});
 }
+
 final class CodeSent extends AuthState {}
