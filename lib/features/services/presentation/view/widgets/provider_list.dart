@@ -22,7 +22,7 @@ class ProviderList extends StatelessWidget {
         return PagingListener(
           controller: context.read<ServicesCubit>().pagingController,
           builder: (context, state, fetchNextPage) {
-            return PagedListView<int, GetProvider>.separated(
+            return PagedSliverList<int, GetProvider>.separated( 
               state: state,
               fetchNextPage: fetchNextPage,
               builderDelegate: PagedChildBuilderDelegate<GetProvider>(
@@ -32,10 +32,10 @@ class ProviderList extends StatelessWidget {
                 firstPageProgressIndicatorBuilder: (_) =>
                     const Center(child: CircularProgressIndicator()),
                 firstPageErrorIndicatorBuilder: (_) =>
-                    const Center(child: Text('حدث خطأ')),
+                    const Center(child: Text('حدث خطأ')),
                 noItemsFoundIndicatorBuilder: (_) => Center(
                   child: Text(
-                    ' لا يوجد مقدمون خدمات الان',
+                    'لا يوجد مقدمون خدمات الان',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.sp,

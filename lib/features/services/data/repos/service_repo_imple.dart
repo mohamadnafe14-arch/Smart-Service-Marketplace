@@ -14,7 +14,7 @@ class ServiceRepoImple implements ServicesRepo {
     required String token,
     required int page,
   }) async {
-    final uri = Uri.parse('${kBaseUrl}api/providers?page=$page');
+    final uri = Uri.parse('${kBaseUrl}api/providers?category=');
     final response = await http.get(
       uri,
       headers: {

@@ -11,11 +11,19 @@ class ServicesCubit extends Cubit<ServicesState> {
     pagingController = PagingController<int, GetProvider>(
       getNextPageKey: (state) {
         if (state.lastPageIsEmpty) return null;
-        return state.nextIntPageKey;
+        return (state.keys?.last ?? 0) + 1;
       },
       fetchPage: (pageKey) async {
-        if (_fetchFunction == null) throw Exception("Fetch not initialized");
-        return await _fetchFunction!(pageKey);
+        try {
+          if (_fetchFunction == null) throw Exception("Fetch not initialized");
+          final result = await _fetchFunction!(pageKey);
+          print('✅ Page $pageKey loaded: ${result.length} items');
+          return result;
+        } catch (e, stackTrace) {
+          print('❌ Error on page $pageKey: $e');
+          print(stackTrace);
+          rethrow;
+        }
       },
     );
   }
@@ -28,16 +36,14 @@ class ServicesCubit extends Cubit<ServicesState> {
         token: token,
         page: pageKey,
       );
-      return response.fold(
-        (l) => throw Exception(l.message),
-        (r) {
-          emit(ServicesLoaded());
-          return r;
-        },
-      );
+      return response.fold((l) => throw Exception(l.message), (r) {
+        emit(ServicesLoaded());
+        return r;
+      });
     };
     pagingController.refresh();
   }
+
   void getProvidersByCategory({
     required String category,
     required String token,
@@ -49,16 +55,14 @@ class ServicesCubit extends Cubit<ServicesState> {
         token: token,
         page: pageKey,
       );
-      return response.fold(
-        (l) => throw Exception(l.message),
-        (r) {
-          emit(ServicesLoaded());
-          return r;
-        },
-      );
+      return response.fold((l) => throw Exception(l.message), (r) {
+        emit(ServicesLoaded());
+        return r;
+      });
     };
     pagingController.refresh();
   }
+
   @override
   Future<void> close() {
     pagingController.dispose();

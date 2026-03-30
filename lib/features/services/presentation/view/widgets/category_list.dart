@@ -12,11 +12,11 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   static List<CategoryModel> categories = const [
-    CategoryModel(title: "السباكة", icon: Icons.plumbing_outlined),
+    CategoryModel(title: "الكل", icon: Icons.all_inclusive_outlined),
     CategoryModel(title: "الكهرباء", icon: Icons.electrical_services_outlined),
     CategoryModel(title: "البناء", icon: Icons.construction_outlined),
     CategoryModel(title: "البرمجة", icon: Icons.code_outlined),
-    CategoryModel(title: "الكل", icon: Icons.all_inclusive_outlined),
+    CategoryModel(title: "السباكة", icon: Icons.plumbing_outlined),
   ];
   int currentIndex = 0;
   @override

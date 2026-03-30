@@ -1,11 +1,10 @@
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_marketplace/core/widgets/testing_view.dart';
 import 'package:smart_service_marketplace/features/auth/data/model/user.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/auth_view.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/choose_role_view.dart';
+import 'package:smart_service_marketplace/features/auth/presentation/view/splash_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/provider_home_view.dart';
 import 'package:smart_service_marketplace/features/home/presentation/views/user_home_view.dart';
-import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/edit_provider_profile_view.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/edit_user_profile_view.dart';
 import 'package:smart_service_marketplace/features/services/presentation/view/provider_details_view.dart';
@@ -23,7 +22,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: initialRoute,
-        builder: (context, state) => const TestingView(),
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(path: authRoute, builder: (context, state) => const AuthView()),
       GoRoute(
@@ -61,8 +60,8 @@ abstract class AppRouter {
       GoRoute(
         path: providerDetailsRoute,
         builder: (context, state) {
-          final userInformation = state.extra as UserInformation;
-          return ProviderDetailsView(userInformation: userInformation);
+          final id = state.extra as int;
+          return ProviderDetailsView(id: id);
         },
       ),
     ],

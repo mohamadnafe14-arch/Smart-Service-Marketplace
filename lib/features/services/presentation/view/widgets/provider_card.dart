@@ -15,9 +15,9 @@ class ProviderCard extends StatelessWidget {
       onTap: () {
         GoRouter.of(
           context,
-        ).push(AppRouter.providerDetailsRoute, extra: getProvider);
+        ).push(AppRouter.providerDetailsRoute, extra: getProvider.id!);
       },
-       child: Card(
+      child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
@@ -47,7 +47,7 @@ class ProviderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      getProvider.name??"لم يتم تحديد الاسم",
+                      getProvider.name ?? "لم يتم تحديد الاسم",
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class ProviderCard extends StatelessWidget {
                     ),
                     SizedBox(height: 5.h),
                     Text(
-                      getProvider.category??"لم يتم تحديد الفئة",
+                      getProvider.category ?? "لم يتم تحديد الفئة",
                       style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
                     SizedBox(height: 5.h),
@@ -63,7 +63,10 @@ class ProviderCard extends StatelessWidget {
                       children: [
                         Icon(Icons.star, color: Colors.amber, size: 18),
                         SizedBox(width: 4.w),
-                        Text(getProvider.rating.toString(), style: TextStyle(fontSize: 14.sp)),
+                        Text(
+                          getProvider.rating!.toString(),
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
                       ],
                     ),
                   ],
