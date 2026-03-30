@@ -18,8 +18,8 @@ class UserHomeView extends StatelessWidget {
         drawer: CustomUserDrawer(token: user.token),
         body: BlocProvider(
           create: (context) =>
-              ServicesCubit(servicesRepo: getIt<ServicesRepo>())
-                ..getAllServiceProviders(token: user.token),
+              ServicesCubit(user.token, servicesRepo: getIt<ServicesRepo>())
+                ..fetchProviders(),
           child: ServicesBody(),
         ),
       ),
