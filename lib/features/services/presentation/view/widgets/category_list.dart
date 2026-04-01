@@ -36,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     context.read<ServicesCubit>().changeCategory(
-                      categories[index].title,
+                          categories[index].title,
                     );
                   },
                   child: CategoryItem(

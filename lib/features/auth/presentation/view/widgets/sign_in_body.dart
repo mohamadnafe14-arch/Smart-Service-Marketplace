@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_service_marketplace/core/functions/show_error_snack_bar.dart';
+import 'package:smart_service_marketplace/core/functions/show_success_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/core/widgets/custom_button.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_text_form_field.dart';
@@ -91,7 +92,10 @@ class _SignInBodyState extends State<SignInBody> {
                   child: BlocConsumer<AuthCubit, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
-                        GoRouter.of(context).go(AppRouter.userHomeRoute, extra: state.user);
+                        showSuccessToast(context, "تم تسجيل الدخول بنجاح");
+                        GoRouter.of(
+                          context,
+                        ).go(AppRouter.userHomeRoute, extra: state.user);
                       } else if (state is AuthError) {
                         showErrorToast(
                           context: context,

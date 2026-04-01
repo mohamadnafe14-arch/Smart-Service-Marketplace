@@ -38,9 +38,9 @@ class GetProvider {
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetProvider].
-  factory GetProvider.fromJson(String data) {
-    return GetProvider.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
+factory GetProvider.fromJson(Map<String, dynamic> data) {
+  return GetProvider.fromMap(data);
+}
 
   /// `dart:convert`
   ///

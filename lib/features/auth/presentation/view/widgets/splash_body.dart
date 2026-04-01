@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/functions/show_success_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_progress_bar.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/three_dots.dart';
@@ -96,8 +97,10 @@ class _SplashBodyState extends State<SplashBody>
       if (state is AuthSuccess) {
         final role = state.user.role;
         if (role == 'provider') {
+          showSuccessToast(context, "مرحبا بعودتك مرة اخرى اللهم يسر رزقك");
           context.go(AppRouter.providerHomeRoute, extra: state.user);
         } else {
+          showSuccessToast(context, "مرحبا بعودتك مرة اخرى اللهم يسر طباتك");
           context.go(AppRouter.userHomeRoute, extra: state.user);
         }
       } else {

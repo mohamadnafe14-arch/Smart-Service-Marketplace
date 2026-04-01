@@ -8,7 +8,7 @@ class ServicesCubit extends Cubit<ServicesState> {
 
   ServicesCubit(this.token, {required this.servicesRepo})
     : super(ServicesInitial());
-  String selectedCategory = '';
+  String selectedCategory = 'الكل';
   int currentPage = 1;
   void changeCategory(String category) {
     selectedCategory = category;
@@ -24,7 +24,7 @@ class ServicesCubit extends Cubit<ServicesState> {
   Future<void> fetchProviders() async {
     emit(ServicesLoading());
     final result = await servicesRepo.getProvidersByCategory(
-      category: selectedCategory,
+      category: selectedCategory=='الكل'?'':selectedCategory,
       page: currentPage,
       token: token,
     );

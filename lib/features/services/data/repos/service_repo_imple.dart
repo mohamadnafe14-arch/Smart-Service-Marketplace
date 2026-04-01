@@ -14,23 +14,26 @@ class ServiceRepoImple implements ServicesRepo {
     required String token,
     required int page,
   }) async {
-    final uri = Uri.parse(
-      '${kBaseUrl}api/providers?category=$category&page=$page',
-    );
-    final response = await http.get(
-      uri,
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    );
-    final body = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      final providers = body['data'];
-      return right(ProvidersResponseModel.fromJson(providers));
-    } else {
-      return left(Failure(body['message']));
+    try {
+      final uri = Uri.parse(
+        '${kBaseUrl}api/providers?category=$category&page=$page',
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      );
+      final body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return right(ProvidersResponseModel.fromJson(body));
+      } else {
+        return left(Failure(body['message']));
+      }
+    } on Exception catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 
@@ -39,7 +42,7 @@ class ServiceRepoImple implements ServicesRepo {
     required String token,
     required String id,
   }) async {
-    final uri = Uri.parse('${kBaseUrl}api/providers/$id');
+    final uri = Uri.parse('${kBaseUrl}api/provider/$id');
     final response = await http.get(
       uri,
       headers: {

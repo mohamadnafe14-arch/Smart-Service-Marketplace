@@ -11,15 +11,17 @@ class ServicesBody extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Text(
-            "    الخدمات التي يمكن اختيارها",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+          child: Center(
+            child: Text(
+              "    الخدمات التي يمكن اختيارها",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+            ),
           ),
         ),
         SliverToBoxAdapter(child: SizedBox(height: 20.h)),
         SliverToBoxAdapter(child: CategoryList()),
         SliverToBoxAdapter(child: SizedBox(height: 20.h)),
-        SliverToBoxAdapter(child: ProviderList()),
+        ProviderList(),
       ],
     );
   }

@@ -8,7 +8,7 @@ class ProvidersResponseModel {
 
   factory ProvidersResponseModel.fromJson(Map<String, dynamic> json) {
     return ProvidersResponseModel(
-      providers: (json['providers'] as List)
+      providers: (json['data']['providers'] as List)
           .map((e) => GetProvider.fromJson(e))
           .toList(),
       pagination: (json['pagination'] as List)
