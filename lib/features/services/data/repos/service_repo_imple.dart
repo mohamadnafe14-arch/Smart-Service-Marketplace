@@ -58,4 +58,10 @@ class ServiceRepoImple implements ServicesRepo {
       return left(Failure(body['message']));
     }
   }
+  
+  @override
+  Future<Either<Failure, String>> makeOrder({required String token, required String id}) {
+    // TODO: implement makeOrder
+    throw UnimplementedError();
+  }
 }

@@ -16,3 +16,9 @@ final class GetProviderDetailsError extends GetProviderDetailsState {
   final String message;
   GetProviderDetailsError({required this.message});
 }
+final class OrderLoading extends GetProviderDetailsState {}
+final class OrderSuccess extends GetProviderDetailsState {}
+final class OrderError extends GetProviderDetailsState {
+  final String message;
+  OrderError({required this.message});
+}

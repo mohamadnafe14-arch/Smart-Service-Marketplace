@@ -29,7 +29,7 @@ class ProviderDetailsView extends StatelessWidget {
             builder: (context, state) {
               if (state is GetProviderDetailsLoaded) {
                 return ProviderDetailsBody(
-                  userInformation: state.userInformation,
+                  providerInformation: state.userInformation,
                 );
               } else if (state is GetProviderDetailsLoading) {
                 return const Center(child: CircularProgressIndicator());

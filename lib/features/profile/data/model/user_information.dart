@@ -4,6 +4,7 @@ import 'package:smart_service_marketplace/features/profile/data/model/statistics
 
 class UserInformation {
   final String name;
+  final int id;
   final String email;
   final String phone;
   final String createdSince;
@@ -22,6 +23,7 @@ class UserInformation {
     required this.rating,
     required this.category,
     required this.experience,
+    required this.id,
   });
   factory UserInformation.fromJson(Map<String, dynamic> json) {
     return UserInformation(
@@ -34,6 +36,7 @@ class UserInformation {
       rating: Rating.fromJson(json['rating'] ?? {}),
       category: json['category'] ?? "لم يتم تحديد الفئة",
       experience: json['experiences'] ?? "لم يتم تحديد الخبرة",
+      id: json['id'] ?? 0,
     );
   }
   Map<String, dynamic> toJson() => {

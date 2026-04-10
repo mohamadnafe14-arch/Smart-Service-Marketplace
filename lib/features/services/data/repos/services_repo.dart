@@ -12,4 +12,8 @@ abstract class ServicesRepo {
     required String token,
     required String id,
   });
+  Future<Either<Failure,String>> makeOrder({
+    required String token,
+    required String id,
+  });
 }
