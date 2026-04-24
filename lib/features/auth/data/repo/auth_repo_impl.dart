@@ -56,7 +56,7 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse("${kBaseUrl}api/login/"),
+        Uri.parse("${kBaseUrl}api/login"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -108,7 +108,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final role = await storage.read(key: "role");
       final response = await http.post(
-        Uri.parse("${kBaseUrl}api/register/"),
+        Uri.parse("${kBaseUrl}api/register"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_marketplace/features/profile/data/model/user_information.dart';
 import 'package:smart_service_marketplace/features/services/data/repos/services_repo.dart';
 part 'get_provider_details_state.dart';
+
 class GetProviderDetailsCubit extends Cubit<GetProviderDetailsState> {
   final ServicesRepo servicesRepo;
   GetProviderDetailsCubit({required this.servicesRepo})
@@ -16,6 +17,20 @@ class GetProviderDetailsCubit extends Cubit<GetProviderDetailsState> {
     response.fold(
       (l) => emit(GetProviderDetailsError(message: l.message)),
       (r) => emit(GetProviderDetailsLoaded(userInformation: r)),
+    );
+  }
+
+  Future<void> makeOrder({
+    required String id,
+    required String token,
+    required String description,
+    required String phone,
+  }) async {
+    await servicesRepo.makeOrder(
+      id: id,
+      token: token,
+      description: description,
+      phone: phone,
     );
   }
 }

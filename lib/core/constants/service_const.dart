@@ -1,1 +1,1 @@
-const String kBaseUrl = 'https://smartservice-production.up.railway.app/';
+const String kBaseUrl = 'http://mohamed0205.cu.ma/';

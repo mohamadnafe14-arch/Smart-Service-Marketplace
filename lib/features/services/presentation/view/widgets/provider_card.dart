@@ -26,7 +26,8 @@ class ProviderCard extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           child: Row(
             children: [
-              getProvider.category == "لم يتم تحديد الفئة"
+              getProvider.category == null ||
+                      getProvider.category == "لم يتم تحديد الفئة"
                   ? CircleAvatar(
                       radius: 30.r,
                       backgroundColor: Colors.grey[300],

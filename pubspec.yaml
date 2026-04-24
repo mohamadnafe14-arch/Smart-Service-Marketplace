@@ -46,6 +46,7 @@ dependencies:
   http: ^1.6.0
   infinite_scroll_pagination: ^5.1.1
   provider: ^6.1.5+1
+  pusher_channels_flutter: ^2.6.0
   shared_preferences: ^2.5.4
   top_snackbar_flutter: ^3.3.0
 

@@ -6,7 +6,6 @@ import 'package:smart_service_marketplace/features/orders/presentation/views/wid
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/service_states.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
 import 'package:smart_service_marketplace/features/services/presentation/view/widgets/pagination_widget.dart';
-import 'package:smart_service_marketplace/features/services/presentation/view/widgets/provider_card.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList({super.key});
@@ -32,12 +31,12 @@ class OrderList extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.providers.length,
                   itemBuilder: (context, index) {
-                    String role =
+                    final String role =
                         (BlocProvider.of<AuthCubit>(context).state
                                 as AuthSuccess)
                             .user
                             .role;
-                    role == "user"
+                    return role == "user"
                         ? UserCard(
                             status: "",
                             userName: "",

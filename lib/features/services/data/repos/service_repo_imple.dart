@@ -58,10 +58,32 @@ class ServiceRepoImple implements ServicesRepo {
       return left(Failure(body['message']));
     }
   }
-  
+
   @override
-  Future<Either<Failure, String>> makeOrder({required String token, required String id}) {
-    // TODO: implement makeOrder
-    throw UnimplementedError();
+  Future<Either<Failure, String>> makeOrder({
+    required String token,
+    required String id,
+    required String description,
+    required String phone,
+  }) async {
+    final uri = Uri.parse('${kBaseUrl}api/order/store/$id');
+    final response = await http.post(
+      uri,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'description': description,
+        'phone_user': phone,
+      }),
+    );
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return right(body['data']['order_id'].toString());
+    } else {
+      return left(Failure(body['message']));
+    }
   }
 }

@@ -5,7 +5,6 @@ import 'package:smart_service_marketplace/features/services/presentation/view/wi
 
 class ServicesBody extends StatelessWidget {
   const ServicesBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
