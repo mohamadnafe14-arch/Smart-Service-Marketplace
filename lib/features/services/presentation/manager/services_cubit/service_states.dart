@@ -1,5 +1,5 @@
 import 'package:smart_service_marketplace/features/services/data/models/get_provider.dart';
-import 'package:smart_service_marketplace/features/services/data/models/pagination_link.dart';
+import 'package:smart_service_marketplace/core/models/pagination_link.dart';
 
 abstract class ServicesState {}
 

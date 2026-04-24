@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service_marketplace/features/services/data/models/pagination_link.dart';
+import 'package:smart_service_marketplace/core/models/pagination_link.dart';
 
 class PaginationWidget extends StatelessWidget {
   final List<PaginationLink> links;
