@@ -1,8 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo.dart';
 import 'package:smart_service_marketplace/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smart_service_marketplace/features/orders/data/repo/order_repo.dart';
+import 'package:smart_service_marketplace/features/orders/data/repo/order_repo_imple.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo.dart';
 import 'package:smart_service_marketplace/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:smart_service_marketplace/features/services/data/repos/service_repo_imple.dart';
@@ -18,4 +21,6 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerSingleton<ProfileRepo>(ProfileRepoImpl());
   getIt.registerSingleton<ServicesRepo>(ServiceRepoImple());
+  getIt.registerSingleton<OrderRepo>(OrderRepoImple());
+  getIt.registerSingleton<PusherChannelsFlutter>(PusherChannelsFlutter());
 }

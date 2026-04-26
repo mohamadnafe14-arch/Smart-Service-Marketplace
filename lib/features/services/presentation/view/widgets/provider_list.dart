@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/service_states.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
-import 'package:smart_service_marketplace/features/services/presentation/view/widgets/pagination_widget.dart';
+import 'package:smart_service_marketplace/core/widgets/pagination_widget.dart';
 import 'package:smart_service_marketplace/features/services/presentation/view/widgets/provider_card.dart';
 
 class ProviderList extends StatelessWidget {

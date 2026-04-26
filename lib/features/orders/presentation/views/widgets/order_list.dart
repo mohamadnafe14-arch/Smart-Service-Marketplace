@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/viewmodel/auth_cubit/auth_cubit.dart';
+import 'package:smart_service_marketplace/features/orders/presentation/manager/order_cubit/order_cubit.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/request_card.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/user_card.dart';
-import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/service_states.dart';
-import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
-import 'package:smart_service_marketplace/features/services/presentation/view/widgets/pagination_widget.dart';
+import 'package:smart_service_marketplace/core/widgets/pagination_widget.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ServicesCubit, ServicesState>(
+    return BlocBuilder<OrderCubit, OrderState>(
       builder: (context, state) {
-        if (state is ServicesLoading) {
+        if (state is OrderLoading) {
           return SliverFillRemaining(
             child: const Center(child: CircularProgressIndicator()),
           );
         }
-        if (state is ServicesError) {
+        if (state is OrderError) {
           return SliverFillRemaining(child: Center(child: Text(state.message)));
         }
-        if (state is ServicesLoaded && state.providers.isNotEmpty) {
+        if (state is OrderLoaded && state.orders.isNotEmpty) {
           return SliverToBoxAdapter(
             child: Column(
               children: [
@@ -29,7 +28,7 @@ class OrderList extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.providers.length,
+                  itemCount: state.orders.length,
                   itemBuilder: (context, index) {
                     final String role =
                         (BlocProvider.of<AuthCubit>(context).state
@@ -38,34 +37,26 @@ class OrderList extends StatelessWidget {
                             .role;
                     return role == "user"
                         ? UserCard(
-                            status: "",
-                            userName: "",
-                            phone: "",
-                            description: "",
-                            updatedAt: "",
+                            order: state.orders[index],
                           )
                         : RequestCard(
-                            status: "",
-                            userName: "",
-                            phone: "",
-                            description: "",
-                            updatedAt: "",
+                            order: state.orders[index],
                           );
                   },
                 ),
                 PaginationWidget(
                   links: state.pagination,
                   onPageSelected: (page) =>
-                      context.read<ServicesCubit>().changePage(page),
+                      context.read<OrderCubit>().changePage(page),
                 ),
               ],
             ),
           );
-        } else if (state is ServicesLoaded && state.providers.isEmpty) {
+        } else if (state is OrderLoaded && state.orders.isEmpty) {
           return SliverFillRemaining(
             child: const Center(
               child: Text(
-                "لا يوجد خدمات",
+                "لا يوجد طلبات",
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),

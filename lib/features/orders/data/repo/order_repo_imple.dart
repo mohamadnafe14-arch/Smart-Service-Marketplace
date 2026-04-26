@@ -13,7 +13,7 @@ class OrderRepoImple implements OrderRepo {
     required int page,
   }) async {
     try {
-      final uri = Uri.parse('${kBaseUrl}api/orders&page=$page');
+      final uri = Uri.parse('${kBaseUrl}api/orders?page=$page');
       final response = await http.get(
         uri,
         headers: {

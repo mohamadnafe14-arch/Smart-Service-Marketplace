@@ -2,12 +2,14 @@ class OrderModel {
   final String status;
   final String phoneUser;
   final String providerName;
-  final String description; 
+  final String description;
   final String userName;
   final String updatedAt;
   final double rating;
-
- const OrderModel({
+  final int userId;
+  final int providerId;
+  final int id;
+  const OrderModel({
     required this.status,
     required this.phoneUser,
     required this.providerName,
@@ -15,6 +17,9 @@ class OrderModel {
     required this.userName,
     required this.updatedAt,
     required this.rating,
+    required this.userId,
+    required this.providerId,
+    required this.id,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -25,7 +30,10 @@ class OrderModel {
       description: json['description'],
       userName: json['user_name'],
       updatedAt: json['updated_at'],
-      rating: json['rating'],
+      rating: (json['rating'] as num).toDouble(),
+      userId: json['user_id'],
+      providerId: json['provider_id'],
+      id: json['id'],
     );
   }
   OrderModel copyWith({
@@ -36,6 +44,9 @@ class OrderModel {
     String? userName,
     String? updatedAt,
     double? rating,
+    int? userId,
+    int? providerId,
+    int? id,
   }) {
     return OrderModel(
       status: status ?? this.status,
@@ -45,6 +56,9 @@ class OrderModel {
       userName: userName ?? this.userName,
       updatedAt: updatedAt ?? this.updatedAt,
       rating: rating ?? this.rating,
+      userId: userId ?? this.userId,
+      providerId: providerId ?? this.providerId,
+      id: id ?? this.id,
     );
   }
 }
