@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:smart_service_marketplace/core/utils/service_locator.dart';
 import 'package:smart_service_marketplace/features/auth/data/model/user.dart';
+import 'package:smart_service_marketplace/features/orders/data/repo/order_repo.dart';
+import 'package:smart_service_marketplace/features/orders/presentation/manager/order_cubit/order_cubit.dart';
+import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/order_body.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/custom_user_drawer.dart';
 import 'package:smart_service_marketplace/features/services/data/repos/services_repo.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
@@ -17,10 +21,14 @@ class UserHomeView extends StatelessWidget {
         appBar: AppBar(),
         drawer: CustomUserDrawer(token: user.token),
         body: BlocProvider(
-          create: (context) =>
-              ServicesCubit(user.token, servicesRepo: getIt<ServicesRepo>())
-                ..fetchProviders(),
-          child: const ServicesBody(),
+          create: (context) => OrderCubit(
+            token: user.token,
+            orderRepo: getIt<OrderRepo>(),
+            pusher: getIt<PusherChannelsFlutter>(),
+            role: user.role,
+            id: user.id.toString(),
+          )..init(),
+          child: const OrderBody(),
         ),
       ),
     );

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_marketplace/core/functions/get_color_by_status.dart';
+import 'package:smart_service_marketplace/core/functions/show_success_snack_bar.dart';
 import 'package:smart_service_marketplace/features/orders/data/model/order_model.dart';
+import 'package:smart_service_marketplace/features/orders/presentation/manager/order_cubit/order_cubit.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/custom_action_button.dart';
 
 class RequestCard extends StatelessWidget {
   final OrderModel order;
 
-  const RequestCard({
-    super.key,
-    required this.order,
-  });
+  const RequestCard({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,16 @@ class RequestCard extends StatelessWidget {
                       child: CustomActionButton(
                         text: "Accept",
                         color: Colors.green,
-                        onTap: () {},
+                        onTap: () async {
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "active",
+                            orderId: order.id.toString(),
+                          );
+                          showSuccessToast(
+                            context,
+                            "Order accepted successfully",
+                          );
+                        },
                       ),
                     ),
                     SizedBox(width: 10.w),
@@ -81,7 +90,16 @@ class RequestCard extends StatelessWidget {
                       child: CustomActionButton(
                         text: "Reject",
                         color: Colors.red,
-                        onTap: () {},
+                        onTap: () async {
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "cancelled",
+                            orderId: order.id.toString(),
+                          );
+                          showSuccessToast(
+                            context,
+                            "Order rejected successfully",
+                          );
+                        },
                       ),
                     ),
                   ],

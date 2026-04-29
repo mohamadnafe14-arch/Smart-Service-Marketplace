@@ -6,6 +6,7 @@ import 'package:smart_service_marketplace/core/errors/failure.dart';
 import 'package:smart_service_marketplace/features/orders/data/model/order_response_model.dart';
 import 'package:smart_service_marketplace/features/orders/data/repo/order_repo.dart';
 import 'package:http/http.dart' as http;
+
 class OrderRepoImple implements OrderRepo {
   @override
   Future<Either<Failure, OrderResponseModel>> getOrders({
@@ -25,6 +26,36 @@ class OrderRepoImple implements OrderRepo {
       final body = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return right(OrderResponseModel.fromJson(body));
+      } else {
+        return left(Failure(body['message']));
+      }
+    } on Exception catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> updateOrder({
+    required String token,
+    required String status,
+    required String orderId,
+  }) async {
+    try {
+      final uri = Uri.parse('${kBaseUrl}api/order/update-status/$orderId');
+      final response = await http.put(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'status': status,
+        }),
+      );
+      final body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return right(body['message']);
       } else {
         return left(Failure(body['message']));
       }

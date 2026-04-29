@@ -14,7 +14,6 @@ class OrderCubit extends Cubit<OrderState> {
   final String role;
   final OrderRepo orderRepo;
   final String id;
-
   OrderCubit({
     required this.token,
     required this.pusher,
@@ -22,15 +21,12 @@ class OrderCubit extends Cubit<OrderState> {
     required this.orderRepo,
     required this.id,
   }) : super(OrderInitial());
-
   int currentPage = 1;
   bool _isPusherInitialized = false;
   final List<OrderModel> _pendingOrders = [];
-
   Future<void> initPusher() async {
     if (_isPusherInitialized) return;
     _isPusherInitialized = true;
-
     await pusher.init(
       apiKey: kPusherKey,
       cluster: kPusherCluster,
@@ -44,7 +40,12 @@ class OrderCubit extends Cubit<OrderState> {
   void _handleEvent(PusherEvent event) {
     if (isClosed) return;
     try {
-      final decoded = jsonDecode(event.data);
+      dynamic decoded;
+      if (event.data is String) {
+        decoded = jsonDecode(event.data);
+      } else {
+        decoded = event.data;
+      }
       debugPrint("decoded event data: $decoded");
       final data = decoded['order'] ?? decoded;
       if (state is! OrderLoaded) {
@@ -56,10 +57,8 @@ class OrderCubit extends Cubit<OrderState> {
         }
         return;
       }
-
       final currentState = state as OrderLoaded;
       final currentOrders = List<OrderModel>.from(currentState.orders);
-
       if (event.eventName == "order.created" ||
           event.eventName == ".order.created") {
         final newOrder = OrderModel.fromJson(data);
@@ -113,6 +112,13 @@ class OrderCubit extends Cubit<OrderState> {
       _pendingOrders.clear();
       emit(OrderLoaded(orders: orders, pagination: response.pagination));
     });
+  }
+
+  Future<void> updateOrderStatus({
+    required String status,
+    required String orderId,
+  }) async {
+    await orderRepo.updateOrder(token: token, status: status, orderId: orderId);
   }
 
   @override

@@ -4,11 +4,11 @@ Color getColorByStatus(String status) {
   switch (status) {
     case 'pending':
       return Colors.orange;
-    case 'active':
+    case 'accepted':
       return Colors.green;
-    case 'rejected':
+    case 'cancelledww':
       return Colors.red;
     default:
-      return Colors.blue; 
+      return Colors.blue;
   }
-} 
+}

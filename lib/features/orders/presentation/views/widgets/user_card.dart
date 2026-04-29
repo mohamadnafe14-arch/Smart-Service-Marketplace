@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_marketplace/core/functions/get_color_by_status.dart';
 import 'package:smart_service_marketplace/features/orders/data/model/order_model.dart';
+import 'package:smart_service_marketplace/features/orders/presentation/manager/order_cubit/order_cubit.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/custom_action_button.dart';
 
 class UserCard extends StatelessWidget {
- final OrderModel order;
-  const UserCard({
-    super.key,
-    required this.order,
-  });
+  final OrderModel order;
+  const UserCard({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
     final statusColor = getColorByStatus(order.status);
 
     return Container(
-      margin:  EdgeInsets.symmetric(vertical: 10.w, horizontal: 12.w),
-      padding:  EdgeInsets.all(16.h),
+      margin: EdgeInsets.symmetric(vertical: 10.w, horizontal: 12.w),
+      padding: EdgeInsets.all(16.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
@@ -50,7 +49,7 @@ class UserCard extends StatelessWidget {
                   style: TextStyle(
                     color: statusColor,
                     fontWeight: FontWeight.w600,
-                  ), 
+                  ),
                 ),
               ),
             ],
@@ -71,7 +70,12 @@ class UserCard extends StatelessWidget {
                       child: CustomActionButton(
                         text: "press here if the order is completed",
                         color: Colors.green,
-                        onTap: () {},
+                        onTap: () async {
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "completed",
+                            orderId: order.id.toString(),
+                          );
+                        },
                       ),
                     ),
                   ],

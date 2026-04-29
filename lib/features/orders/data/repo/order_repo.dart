@@ -7,4 +7,9 @@ abstract class OrderRepo {
     required String token,
     required int page,
   });
+  Future<Either<Failure, String>> updateOrder({
+    required String token,
+    required String status,
+    required String orderId,
+  });
 }

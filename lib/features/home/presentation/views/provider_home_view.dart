@@ -14,18 +14,20 @@ class ProviderHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OrderCubit(
-        token: user.token,
-        orderRepo: getIt<OrderRepo>(),
-        pusher: getIt<PusherChannelsFlutter>(),
-        role: user.role,
-        id: user.id.toString(),
-      )..init(),
+    return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
         drawer: CustomProviderDrawer(token: user.token),
-        body: const OrderBody(), 
+        body: BlocProvider(
+          create: (context) => OrderCubit(
+            token: user.token,
+            orderRepo: getIt<OrderRepo>(),
+            pusher: getIt<PusherChannelsFlutter>(),
+            role: user.role,
+            id: user.id.toString(),
+          )..init(),
+          child: const OrderBody(),
+        ),
       ),
     );
   }
