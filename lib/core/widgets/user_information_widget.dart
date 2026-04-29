@@ -52,20 +52,27 @@ class UserInformationWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            StatisticWidget(
-              title: "عملية جارية",
-              value:
-                  (userInformation.statistics.totalNumberOfOrders -
-                          userInformation.statistics.finishedOrders)
-                      .toString(),
+            Expanded(
+              child: StatisticWidget(
+                title: "عملية جارية",
+                value:
+                    (userInformation.statistics.totalNumberOfOrders -
+                            userInformation.statistics.finishedOrders)
+                        .toString(),
+              ),
             ),
-            StatisticWidget(
-              title: "العمليات الناجحة",
-              value: userInformation.statistics.finishedOrders.toString(),
+            Expanded(
+              child: StatisticWidget(
+                title: "العمليات الناجحة",
+                value: userInformation.statistics.finishedOrders.toString(),
+              ),
             ),
-            StatisticWidget(
-              title: "إجمالي العمليات",
-              value: userInformation.statistics.totalNumberOfOrders.toString(),
+            Expanded(
+              child: StatisticWidget(
+                title: "إجمالي العمليات",
+                value: userInformation.statistics.totalNumberOfOrders
+                    .toString(),
+              ),
             ),
           ],
         ),

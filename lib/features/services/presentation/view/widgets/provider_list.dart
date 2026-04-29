@@ -50,7 +50,7 @@ class ProviderList extends StatelessWidget {
             ),
           );
         }
-        return const SizedBox();
+        return SliverToBoxAdapter(child: const SizedBox());
       },
     );
   }

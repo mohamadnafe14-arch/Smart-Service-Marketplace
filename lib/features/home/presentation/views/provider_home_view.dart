@@ -11,22 +11,21 @@ import 'package:smart_service_marketplace/features/profile/presentation/views/wi
 class ProviderHomeView extends StatelessWidget {
   const ProviderHomeView({super.key, required this.user});
   final User user;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return BlocProvider(
+      create: (context) => OrderCubit(
+        token: user.token,
+        orderRepo: getIt<OrderRepo>(),
+        pusher: getIt<PusherChannelsFlutter>(),
+        role: user.role,
+        id: user.id.toString(),
+      )..init(),
       child: Scaffold(
         appBar: AppBar(),
         drawer: CustomProviderDrawer(token: user.token),
-        body: BlocProvider(
-          create: (context) => OrderCubit(
-            token: user.token,
-            orderRepo: getIt<OrderRepo>(),
-            pusher: getIt<PusherChannelsFlutter>(),
-            role: user.role,
-            id: user.id.toString(),
-          )..init(),
-          child: const OrderBody(),
-        ),
+        body: const OrderBody(), 
       ),
     );
   }

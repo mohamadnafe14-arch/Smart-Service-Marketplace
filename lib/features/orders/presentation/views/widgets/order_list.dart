@@ -5,7 +5,6 @@ import 'package:smart_service_marketplace/features/orders/presentation/manager/o
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/request_card.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/user_card.dart';
 import 'package:smart_service_marketplace/core/widgets/pagination_widget.dart';
-
 class OrderList extends StatelessWidget {
   const OrderList({super.key});
   @override
@@ -13,8 +12,8 @@ class OrderList extends StatelessWidget {
     return BlocBuilder<OrderCubit, OrderState>(
       builder: (context, state) {
         if (state is OrderLoading) {
-          return SliverFillRemaining(
-            child: const Center(child: CircularProgressIndicator()),
+          return const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator()),
           );
         }
         if (state is OrderError) {
@@ -24,7 +23,6 @@ class OrderList extends StatelessWidget {
           return SliverToBoxAdapter(
             child: Column(
               children: [
-                // Providers
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -36,12 +34,8 @@ class OrderList extends StatelessWidget {
                             .user
                             .role;
                     return role == "user"
-                        ? UserCard(
-                            order: state.orders[index],
-                          )
-                        : RequestCard(
-                            order: state.orders[index],
-                          );
+                        ? UserCard(order: state.orders[index])
+                        : RequestCard(order: state.orders[index]);
                   },
                 ),
                 PaginationWidget(
@@ -52,9 +46,10 @@ class OrderList extends StatelessWidget {
               ],
             ),
           );
-        } else if (state is OrderLoaded && state.orders.isEmpty) {
-          return SliverFillRemaining(
-            child: const Center(
+        }
+        if (state is OrderLoaded && state.orders.isEmpty) {
+          return const SliverFillRemaining(
+            child: Center(
               child: Text(
                 "لا يوجد طلبات",
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -63,7 +58,7 @@ class OrderList extends StatelessWidget {
             ),
           );
         }
-        return const SizedBox();
+        return const SliverToBoxAdapter(child: SizedBox());
       },
     );
   }

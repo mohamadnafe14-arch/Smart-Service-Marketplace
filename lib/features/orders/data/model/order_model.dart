@@ -30,7 +30,7 @@ class OrderModel {
       description: json['description'],
       userName: json['user_name'],
       updatedAt: json['updated_at'],
-      rating: (json['rating'] as num).toDouble(),
+      rating: json['rating'] != null ? (json['rating'] as num).toDouble() : 0.0,
       userId: json['user_id'],
       providerId: json['provider_id'],
       id: json['id'],
