@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_service_marketplace/core/functions/show_error_snack_bar.dart';
 import 'package:smart_service_marketplace/core/functions/show_success_snack_bar.dart';
 import 'package:smart_service_marketplace/core/utils/app_router.dart';
 import 'package:smart_service_marketplace/features/auth/presentation/view/widgets/custom_progress_bar.dart';
@@ -103,8 +104,10 @@ class _SplashBodyState extends State<SplashBody>
           showSuccessToast(context, "مرحبا بعودتك مرة اخرى اللهم يسر طباتك");
           context.go(AppRouter.userHomeRoute, extra: state.user);
         }
+      } else if (state is AuthError) {
+        showErrorToast(context: context, message: state.message);
       } else {
-        context.go(AppRouter.chooseRoleRoute);
+        GoRouter.of(context).go(AppRouter.chooseRoleRoute);
       }
     });
   }

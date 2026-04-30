@@ -7,9 +7,7 @@ import 'package:smart_service_marketplace/features/orders/data/repo/order_repo.d
 import 'package:smart_service_marketplace/features/orders/presentation/manager/order_cubit/order_cubit.dart';
 import 'package:smart_service_marketplace/features/orders/presentation/views/widgets/order_body.dart';
 import 'package:smart_service_marketplace/features/profile/presentation/views/widgets/custom_user_drawer.dart';
-import 'package:smart_service_marketplace/features/services/data/repos/services_repo.dart';
-import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
-import 'package:smart_service_marketplace/features/services/presentation/view/widgets/services_body.dart';
+
 
 class UserHomeView extends StatelessWidget {
   const UserHomeView({super.key, required this.user});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_service_marketplace/core/widgets/error_body.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/service_states.dart';
 import 'package:smart_service_marketplace/features/services/presentation/manager/services_cubit/services_cubit.dart';
 import 'package:smart_service_marketplace/core/widgets/pagination_widget.dart';
@@ -17,7 +18,7 @@ class ProviderList extends StatelessWidget {
           );
         }
         if (state is ServicesError) {
-          return SliverFillRemaining(child: Center(child: Text(state.message)));
+          return SliverFillRemaining(child: ErrorBody(message: state.message));
         }
         if (state is ServicesLoaded && state.providers.isNotEmpty) {
           return SliverToBoxAdapter(
