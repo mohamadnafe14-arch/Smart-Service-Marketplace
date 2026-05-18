@@ -14,8 +14,9 @@ abstract class ChatRepo{
   Future<Either<Failure,MessagesResponse>> getMessages({
     required String recieverId,
     required String token,
+    required int page,
   });
   Future<Either<Failure,ChatResponse>> getChats({
     required String token,
-  });
+    required int page,});
 }
