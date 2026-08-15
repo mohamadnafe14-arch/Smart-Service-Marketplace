@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/utils/app_router.dart';
-import 'package:smart_service_market_place/features/splash/view/splash_view.dart';
+import 'package:smart_service_market_place/features/auth/view/splash_view.dart';
 
 void main() {
   runApp(const SmartServiceMarketPlaceApp());

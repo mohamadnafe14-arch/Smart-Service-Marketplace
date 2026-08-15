@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:smart_service_market_place/features/splash/view/splash_view.dart';
+import 'package:smart_service_market_place/features/auth/view/splash_view.dart';
 
 class AppRouter {
   static const intialRoute = '/';
