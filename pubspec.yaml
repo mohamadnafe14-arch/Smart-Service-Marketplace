@@ -39,6 +39,7 @@ dependencies:
   get_it: ^9.2.1
   injectable: ^3.0.0
   flutter_spinkit: ^5.2.2
+  another_flushbar: ^2.2.4
 
 dev_dependencies:
   flutter_test:
