@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GoogleButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -16,7 +16,7 @@ class GoogleButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.red[700], // خلفية حمراء
+        backgroundColor: Colors.red[700], 
         foregroundColor: Colors.white,
         minimumSize: const Size(double.infinity, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -33,7 +33,8 @@ class GoogleButton extends StatelessWidget {
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(FontAwesomeIcons.google),
+                FaIcon(
+                  FontAwesomeIcons.google,),
                 const SizedBox(width: 10),
                 const Text(
                   "oogle",
