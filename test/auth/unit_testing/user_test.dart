@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_service_market_place/features/auth/model/user.dart';
+import 'package:smart_service_market_place/features/auth/model/models/user.dart';
 
 void main() {
   group('User Model', () {
