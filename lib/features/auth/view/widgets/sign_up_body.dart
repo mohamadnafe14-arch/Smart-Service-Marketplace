@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/widgets/custom_button.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/custom_text_form_field.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/google_button.dart';
+
 class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
   @override
   State<SignUpBody> createState() => _SignUpBodyState();
 }
+
 class _SignUpBodyState extends State<SignUpBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String? name, email, password;
@@ -102,6 +104,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
+                  //TODO: add the functionality
                   child: CustomButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -130,6 +133,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
+                  //TODO: add the functionality
                   child: GoogleButton(onPressed: () async {}, isLoading: false),
                 ),
               ],

@@ -82,6 +82,7 @@ class _SignInBodyState extends State<SignInBody> {
             Row(
               children: [
                 Expanded(
+                  //TODO: add the functionality
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {}
@@ -108,6 +109,7 @@ class _SignInBodyState extends State<SignInBody> {
             Row(
               children: [
                 Expanded(
+                  //TODO: add the functionality
                   child: GoogleButton(onPressed: () {}, isLoading: false),
                 ),
               ],
