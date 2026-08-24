@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:smart_service_market_place/core/services/dio_service.dart'
     as _i693;
+import 'package:smart_service_market_place/core/services/flutter_secure_storage_service.dart'
+    as _i448;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -22,6 +24,9 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i693.DioService>(() => _i693.DioService());
+    gh.lazySingleton<_i448.FlutterSecureStorageService>(
+      () => _i448.FlutterSecureStorageService(),
+    );
     return this;
   }
 }
