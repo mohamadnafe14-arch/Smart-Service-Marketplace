@@ -15,6 +15,8 @@ import 'package:smart_service_market_place/core/services/dio_service.dart'
     as _i693;
 import 'package:smart_service_market_place/core/services/flutter_secure_storage_service.dart'
     as _i448;
+import 'package:smart_service_market_place/core/services/google_sign_in_service.dart'
+    as _i567;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -26,6 +28,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i693.DioService>(() => _i693.DioService());
     gh.lazySingleton<_i448.FlutterSecureStorageService>(
       () => _i448.FlutterSecureStorageService(),
+    );
+    gh.lazySingleton<_i567.GoogleSignInService>(
+      () => _i567.GoogleSignInService(),
     );
     return this;
   }
