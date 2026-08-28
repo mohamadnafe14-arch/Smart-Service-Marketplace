@@ -2,8 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_service_market_place/features/auth/view/auth_view.dart';
 import 'package:smart_service_market_place/features/auth/view/choose_role_view.dart';
 import 'package:smart_service_market_place/features/auth/view/splash_view.dart';
-import 'package:smart_service_market_place/features/home/provider_home_view.dart';
-import 'package:smart_service_market_place/features/home/user_home_view.dart';
+import 'package:smart_service_market_place/features/home/views/provider_home_view.dart';
+import 'package:smart_service_market_place/features/home/views/user_home_view.dart';
 
 class AppRouter {
   static const intialRoute = '/';

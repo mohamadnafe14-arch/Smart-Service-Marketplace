@@ -13,7 +13,7 @@ import 'package:smart_service_market_place/features/auth/view/widgets/auth_body.
 import 'package:smart_service_market_place/features/auth/view/widgets/sign_in_body.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/sign_up_body.dart';
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
-import 'package:smart_service_market_place/features/home/user_home_view.dart';
+import 'package:smart_service_market_place/features/home/views/user_home_view.dart';
 class MockAuthRepo extends Mock implements AuthRepo {}
 void main() {
   late MockAuthRepo authRepo;
