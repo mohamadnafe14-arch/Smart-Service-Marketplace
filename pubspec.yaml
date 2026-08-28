@@ -50,6 +50,7 @@ dependencies:
   fpdart: ^1.2.0
   flutter_secure_storage: ^11.0.0
   google_sign_in: ^7.2.0
+  flutter_bloc: ^9.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
