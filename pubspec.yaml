@@ -45,7 +45,6 @@ dependencies:
   dio: ^5.11.0
   firebase_auth: ^6.5.7
   network_image_mock: ^2.1.1
-  mocktail: ^1.0.5
   test: ^1.31.0
   fpdart: ^1.2.0
   flutter_secure_storage: ^11.0.0
@@ -54,6 +53,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.5
+  dartz:
+  bloc_test:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

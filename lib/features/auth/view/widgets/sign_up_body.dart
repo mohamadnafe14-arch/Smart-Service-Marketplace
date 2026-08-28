@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/functions/show_error_snack_bar.dart';
+import 'package:smart_service_market_place/core/utils/app_router.dart';
 import 'package:smart_service_market_place/core/widgets/custom_button.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/custom_text_form_field.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/google_button.dart';
+import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
 
 class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
+
   @override
   State<SignUpBody> createState() => _SignUpBodyState();
 }
@@ -104,15 +110,34 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
-                  //TODO: add the functionality
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        GoRouter.of(context).go(AppRouter.userHomeRoute, extra: state.user);
+                      } else if (state is AuthError) {
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
-                    text: "ابدأ الان",
-                    isLoading: false,
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return CustomButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            await context.read<AuthCubit>().register(
+                              name: name!,
+                              email: email!,
+                              password: password!,
+                            );
+                          }
+                        },
+                        text: "ابدأ الان",
+                        isLoading: isLoading,
+                      );
+                    },
                   ),
                 ),
               ],
@@ -133,8 +158,38 @@ class _SignUpBodyState extends State<SignUpBody> {
             Row(
               children: [
                 Expanded(
-                  //TODO: add the functionality
-                  child: GoogleButton(onPressed: () async {}, isLoading: false),
+                  child: BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        final role = state.user.role;
+                        if (role == 'provider') {
+                          context.go(
+                            AppRouter.providerHomeRoute,
+                            extra: state.user,
+                          );
+                        } else {
+                          context.go(
+                            AppRouter.userHomeRoute,
+                            extra: state.user,
+                          );
+                        }
+                      } else if (state is AuthError) {
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      final isLoading = state is AuthLoading;
+                      return GoogleButton(
+                        onPressed: () async {
+                          await context.read<AuthCubit>().authWithGoogle();
+                        },
+                        isLoading: isLoading,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

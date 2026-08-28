@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/functions/show_error_snack_bar.dart';
+import 'package:smart_service_market_place/core/functions/show_success_snack_bar.dart';
+import 'package:smart_service_market_place/core/utils/app_router.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/custom_progress_bar.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/three_dots.dart';
-
+import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
   @override
   State<SplashBody> createState() => _SplashBodyState();
 }
-
 class _SplashBodyState extends State<SplashBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
@@ -81,9 +85,24 @@ class _SplashBodyState extends State<SplashBody>
   void navigateToNextPage() {
     Future.wait([
       Future.delayed(const Duration(seconds: 5)),
-      //TODO: Add get current user
+      context.read<AuthCubit>().getCurrentUser(),
     ]).then((_) {
       if (!mounted) return;
+      final state = context.read<AuthCubit>().state;
+      if (state is AuthSuccess) {
+        final role = state.user.role;
+        if (role == 'provider') {
+          showSuccessToast(context, "مرحبا بعودتك مرة اخرى اللهم يسر رزقك");
+          context.go(AppRouter.providerHomeRoute, extra: state.user);
+        } else {
+          showSuccessToast(context, "مرحبا بعودتك مرة اخرى اللهم يسر طباتك");
+          context.go(AppRouter.userHomeRoute, extra: state.user);
+        }
+      } else if (state is AuthError) {
+        showErrorToast(context: context, message: state.message);
+      } else {
+        GoRouter.of(context).go(AppRouter.chooseRoleRoute);
+      }
     });
   }
   void animationPreparation() {

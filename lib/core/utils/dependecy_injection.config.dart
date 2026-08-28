@@ -17,8 +17,12 @@ import 'package:smart_service_market_place/core/services/flutter_secure_storage_
     as _i448;
 import 'package:smart_service_market_place/core/services/google_sign_in_service.dart'
     as _i567;
+import 'package:smart_service_market_place/features/auth/model/repos/auth_repo.dart'
+    as _i1045;
 import 'package:smart_service_market_place/features/auth/model/repos/auth_repo_impl.dart'
     as _i862;
+import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart'
+    as _i1040;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -33,6 +37,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i567.GoogleSignInService>(
       () => _i567.GoogleSignInService(),
+    );
+    gh.factory<_i1040.AuthCubit>(
+      () => _i1040.AuthCubit(authRepo: gh<_i1045.AuthRepo>()),
     );
     gh.lazySingleton<_i862.AuthRepoImpl>(
       () => _i862.AuthRepoImpl(
