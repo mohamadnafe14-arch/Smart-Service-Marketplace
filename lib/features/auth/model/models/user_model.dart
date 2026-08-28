@@ -1,8 +1,8 @@
-class User {
+class UserModel {
   final String email, name, token, role;
   final int id;
 
-  User({
+  UserModel({
     required this.email,
     required this.name,
     required this.token,
@@ -10,8 +10,8 @@ class User {
     required this.role,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       email: json['email'] ?? '',
       name: json['name'] ?? '',
       token: json['token'] ?? '',
@@ -19,14 +19,14 @@ class User {
       role: json['role'] ?? '',
     );
   }
-  User copyWith({
+  UserModel copyWith({
     String? email,
     String? name,
     String? token,
     int? id,
     String? role,
   }) {
-    return User(
+    return UserModel(
       email: email ?? this.email,
       name: name ?? this.name,
       token: token ?? this.token,

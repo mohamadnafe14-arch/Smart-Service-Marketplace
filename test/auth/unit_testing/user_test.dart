@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_service_market_place/features/auth/model/models/user.dart';
+import 'package:smart_service_market_place/features/auth/model/models/user_model.dart';
 
 void main() {
   group('User Model', () {
@@ -12,7 +12,7 @@ void main() {
     };
 
     test('All fields are correct', () {
-      final user = User(
+      final user = UserModel(
         email: 'a@a.com',
         name: 'Ali',
         token: 'tok',
@@ -29,7 +29,7 @@ void main() {
 
     group('fromJson', () {
       test('Json to User is correct', () {
-        final user = User.fromJson(sampleJson);
+        final user = UserModel.fromJson(sampleJson);
 
         expect(user.email, 'test@example.com');
         expect(user.name, 'Ahmed Test');
@@ -39,7 +39,7 @@ void main() {
       });
 
       test('default values are correct', () {
-        final user = User.fromJson({});
+        final user = UserModel.fromJson({});
 
         expect(user.email, '');
         expect(user.name, '');
@@ -57,7 +57,7 @@ void main() {
           'role': null,
         };
 
-        final user = User.fromJson(json);
+        final user = UserModel.fromJson(json);
 
         expect(user.email, '');
         expect(user.name, '');
@@ -67,12 +67,9 @@ void main() {
       });
 
       test('Dealing with both null and non-null values', () {
-        final json = {
-          'email': 'partial@test.com',
-          'id': 10,
-        };
+        final json = {'email': 'partial@test.com', 'id': 10};
 
-        final user = User.fromJson(json);
+        final user = UserModel.fromJson(json);
 
         expect(user.email, 'partial@test.com');
         expect(user.name, '');
@@ -84,7 +81,7 @@ void main() {
 
     group('toJson', () {
       test('To json is correct', () {
-        final user = User(
+        final user = UserModel(
           email: 'test@example.com',
           name: 'Ahmed Test',
           token: 'abc123token',
@@ -104,7 +101,7 @@ void main() {
       });
 
       test('From Json and To Json are inverse', () {
-        final user = User.fromJson(sampleJson);
+        final user = UserModel.fromJson(sampleJson);
         final resultJson = user.toJson();
 
         expect(resultJson, sampleJson);
@@ -112,7 +109,7 @@ void main() {
     });
 
     group('copyWith', () {
-      final original = User(
+      final original = UserModel(
         email: 'original@test.com',
         name: 'Original Name',
         token: 'original-token',
