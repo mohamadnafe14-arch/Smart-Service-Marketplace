@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:smart_service_market_place/core/errors/failure.dart';
 import 'package:smart_service_market_place/core/errors/firebase_auth_failure.dart';
 import 'package:smart_service_market_place/core/errors/server_failure.dart';
@@ -10,6 +11,7 @@ import 'package:smart_service_market_place/core/services/google_sign_in_service.
 import 'package:smart_service_market_place/features/auth/model/models/user_model.dart';
 import 'package:smart_service_market_place/features/auth/model/repos/auth_repo.dart';
 
+@lazySingleton
 class AuthRepoImpl implements AuthRepo {
   final GoogleSignInService _googleSignInService;
   final DioService _dioService;
@@ -26,7 +28,11 @@ class AuthRepoImpl implements AuthRepo {
       final role = await _flutterSecureStorageService.readRole();
       final response = await _dioService.post(
         path: "/api/google",
-        body: credentials.toMap(),
+        body: {
+          "token": credentials.token,
+          "role": role,
+          "email": credentials.email,
+        },
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -88,7 +94,6 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
-      final role = await _flutterSecureStorageService.readRole();
       final response = await _dioService.post(
         path: "/api/login",
         body: {"email": email, "password": password},
@@ -98,7 +103,7 @@ class AuthRepoImpl implements AuthRepo {
         },
       );
       final map = response.data;
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final data = map['data'];
         final user = UserModel.fromJson(
           data["user"],
@@ -146,14 +151,41 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String password,
     required String name,
-  }) {
-    // TODO: implement register
-    throw UnimplementedError();
+  }) async {
+    try {
+      final role = await _flutterSecureStorageService.readRole();
+      final response = await _dioService.post(
+        path: "/api/register",
+        body: {
+          "email": email,
+          "password": password,
+          "name": name,
+          "role": role,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+      );
+      final map = response.data;
+      if (response.statusCode == 201) {
+        final data = map['data'];
+        final user = UserModel.fromJson(
+          data["user"],
+        ).copyWith(token: data['access_token']);
+        await _flutterSecureStorageService.writeToken(data['access_token']);
+        return Right(user);
+      }
+      return Left(Failure(message: map['message'] ?? "حدث خطاء غير متوقع"));
+    } on DioException catch (e) {
+      return Left(ServerFailuer.fromDioError(dioException: e));
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
   }
 
   @override
   Future<void> setRole(String role) {
-    // TODO: implement setRole
-    throw UnimplementedError();
+    return _flutterSecureStorageService.writeRole(role);
   }
 }
