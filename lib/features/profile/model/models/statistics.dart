@@ -21,6 +21,9 @@ class Statistics {
   }
 
   factory Statistics.fromMap(Map<String, dynamic> map) {
+    if (map.isEmpty) {
+      return Statistics(totalNumberOfOrders: 0, finishedOrders: 0);
+    }
     return Statistics(
       totalNumberOfOrders: map['totalNumberOfOrders'] ?? 0,
       finishedOrders: map['finishedOrders'] ?? 0,
