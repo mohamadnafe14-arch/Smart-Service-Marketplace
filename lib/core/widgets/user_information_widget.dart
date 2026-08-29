@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/statistic_widget.dart';
+
 class UserInformationWidget extends StatelessWidget {
   const UserInformationWidget({
     super.key,
-    required this.createdSince,
-    required this.city,
-    required this.street,
-    required this.totalNumberOfOrders,
-    required this.finishedOrders,
-    required this.canceledOrders,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.addressInDetails,
+    required this.userInformation,
+    required this.isShrinked,
   });
-  final String createdSince;
-  final String city;
-  final String street;
-  final int totalNumberOfOrders;
-  final int finishedOrders;
-  final int canceledOrders;
-  final String name;
-  final String email;
-  final String phone;
-  final String addressInDetails;
+  final UserInformation userInformation;
+  final bool isShrinked;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,19 +26,46 @@ class UserInformationWidget extends StatelessWidget {
           height: 100.h,
         ),
         SizedBox(height: 10.h),
-        Text(name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          userInformation.name,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
+        ),
         SizedBox(height: 5.h),
-        Text(email, style: TextStyle(fontSize: 16, color: Colors.grey)),
+        Text(
+          userInformation.email,
+          style: TextStyle(fontSize: 16, color: Colors.grey),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
+        ),
         SizedBox(height: 10.h),
-        Text(phone, style: TextStyle(fontSize: 16, color: Colors.grey)),
+        Text(
+          userInformation.phone ?? "لم يتم اضافة رقم الهاتف",
+          style: TextStyle(fontSize: 16, color: Colors.grey),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
+        ),
         SizedBox(height: 20.h),
-        Text(createdSince, style: TextStyle(fontSize: 16)),
+        Text(userInformation.createdSince, style: TextStyle(fontSize: 16)),
         SizedBox(height: 10.h),
-        Text(city, style: TextStyle(fontSize: 16)),
+        Text(
+          userInformation.address.city ?? "لم يتم اضافة المدينة",
+          style: TextStyle(fontSize: 16),
+        ),
         SizedBox(height: 10.h),
-        Text(street, style: TextStyle(fontSize: 16)),
+        Text(
+          userInformation.address.street ?? "لم يتم اضافة الشارع",
+          style: TextStyle(fontSize: 16),
+        ),
         SizedBox(height: 10.h),
-        Text(addressInDetails, style: TextStyle(fontSize: 16)),
+        Text(
+          userInformation.address.addressInDetails ??
+              "لم يتم اضافة العنوان بالتفصيل",
+          style: TextStyle(fontSize: 16),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
+        ),
         SizedBox(height: 20.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,19 +73,23 @@ class UserInformationWidget extends StatelessWidget {
             Expanded(
               child: StatisticWidget(
                 title: "عملية جارية",
-                value: (totalNumberOfOrders - finishedOrders).toString(),
+                value:
+                    (userInformation.statistics.totalNumberOfOrders -
+                            userInformation.statistics.finishedOrders)
+                        .toString(),
               ),
             ),
             Expanded(
               child: StatisticWidget(
                 title: "العمليات الناجحة",
-                value: finishedOrders.toString(),
+                value: userInformation.statistics.finishedOrders.toString(),
               ),
             ),
             Expanded(
               child: StatisticWidget(
                 title: "إجمالي العمليات",
-                value: totalNumberOfOrders.toString(),
+                value: userInformation.statistics.totalNumberOfOrders
+                    .toString(),
               ),
             ),
           ],
