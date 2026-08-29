@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:smart_service_market_place/features/profile/model/models/address.dart';
 import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
 import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
@@ -8,24 +7,24 @@ class UserInformation {
   final String name;
   final int id;
   final String email;
-  final String phone;
+  final String? phone;
   final String createdSince;
   final Address address;
   final Statistics statistics;
   final Rating rating;
-  final String category;
-  final String experience;
+  final String? category;
+  final String? experience;
   UserInformation({
     required this.name,
     required this.id,
     required this.email,
-    required this.phone,
+    this.phone,
     required this.createdSince,
     required this.address,
     required this.statistics,
     required this.rating,
-    required this.category,
-    required this.experience,
+    this.category,
+    this.experience,
   });
   UserInformation copyWith({
     String? name,
@@ -71,18 +70,17 @@ class UserInformation {
       name: map['name'] as String,
       id: map['id'] as int,
       email: map['email'] as String,
-      phone: map['phone'] as String,
+      phone: map['phone'] != null ? map['phone'] as String : null,
       createdSince: map['createdSince'] as String,
       address: Address.fromMap(map['address'] as Map<String,dynamic>),
       statistics: Statistics.fromMap(map['statistics'] as Map<String,dynamic>),
       rating: Rating.fromMap(map['rating'] as Map<String,dynamic>),
-      category: map['category'] as String,
-      experience: map['experience'] as String,
+      category: map['category'] != null ? map['category'] as String : null,
+      experience: map['experience'] != null ? map['experience'] as String : null,
     );
   }
   String toJson() => json.encode(toMap());
   factory UserInformation.fromJson(String source) => UserInformation.fromMap(json.decode(source) as Map<String, dynamic>);
-
   @override
   String toString() {
     return 'UserInformation(name: $name, id: $id, email: $email, phone: $phone, createdSince: $createdSince, address: $address, statistics: $statistics, rating: $rating, category: $category, experience: $experience)';
