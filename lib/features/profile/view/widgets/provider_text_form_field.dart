@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class ProfileTextFormField extends StatelessWidget {
   const ProfileTextFormField({
     super.key,
@@ -35,10 +36,11 @@ class ProfileTextFormField extends StatelessWidget {
       onSaved: onSaved,
       onChanged: onChanged,
       obscureText: isPassword,
-      maxLines: null,
+      maxLines: isPassword ? 1 : null,
       keyboardType: keyboardType,
     );
   }
+
   OutlineInputBorder _border([Color color = Colors.grey]) {
     return OutlineInputBorder(
       borderSide: BorderSide(color: color),
