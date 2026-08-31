@@ -6,6 +6,7 @@ import 'package:smart_service_market_place/core/utils/app_router.dart';
 import 'package:smart_service_market_place/core/widgets/provider_information_widget.dart';
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
 import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
+
 class ProviderInformationBody extends StatelessWidget {
   final UserInformation userInformation;
   final String token;
@@ -25,7 +26,10 @@ class ProviderInformationBody extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ProviderInformationWidget(userInformation: userInformation),
+          ProviderInformationWidget(
+            userInformation: userInformation,
+            isShrinked: false,
+          ),
           SizedBox(height: 20.h),
           Card(
             child: BlocConsumer<AuthCubit, AuthState>(

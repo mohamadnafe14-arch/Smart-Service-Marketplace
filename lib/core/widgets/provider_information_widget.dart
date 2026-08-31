@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_service_market_place/core/widgets/rating_widget.dart';
+import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
 import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/statistic_widget.dart';
 
 class ProviderInformationWidget extends StatelessWidget {
-  const ProviderInformationWidget({super.key, required this.userInformation});
+  const ProviderInformationWidget({
+    super.key,
+    required this.userInformation,
+    this.isShrinked = false,
+  });
   final UserInformation userInformation;
+  final bool isShrinked;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,11 +31,15 @@ class ProviderInformationWidget extends StatelessWidget {
         Text(
           userInformation.name,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 5.h),
         Text(
           userInformation.email,
           style: TextStyle(fontSize: 16, color: Colors.grey),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 10.h),
         Text(
@@ -41,17 +52,23 @@ class ProviderInformationWidget extends StatelessWidget {
         Text(
           userInformation.address.city ?? "لم يتم اضافة المدينة",
           style: TextStyle(fontSize: 16),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 10.h),
         Text(
           userInformation.address.street ?? "لم يتم اضافة الشارع",
           style: TextStyle(fontSize: 16),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 10.h),
         Text(
           userInformation.address.addressInDetails ??
               "لم يتم اضافة العنوان بالتفصيل",
           style: TextStyle(fontSize: 16),
+          maxLines: isShrinked ? 1 : null,
+          overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 20.h),
         Row(
@@ -75,36 +92,7 @@ class ProviderInformationWidget extends StatelessWidget {
           ],
         ),
         SizedBox(height: 20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(5, (index) {
-                if (index + 1 > userInformation.rating.rate.ceil()) {
-                  return Icon(Icons.star_border, color: Colors.grey);
-                }
-                if (index + 1 > userInformation.rating.rate.floor() &&
-                    userInformation.rating.rate -
-                            userInformation.rating.rate.floor() <
-                        0.5) {
-                  return Icon(Icons.star_half_sharp, color: Colors.amber);
-                }
-                return Icon(Icons.star, color: Colors.amber);
-              }),
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              "(${userInformation.rating.rate.toString()})",
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              "(${userInformation.rating.count.toString()})",
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
+        RatingWidget(rating: userInformation.rating),
         SizedBox(height: 20.h),
         Text(
           userInformation.category ?? "لم يتم اضافة التخصص",
