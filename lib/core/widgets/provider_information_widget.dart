@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/widgets/rating_widget.dart';
-import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
 import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/statistic_widget.dart';
 
@@ -71,25 +70,30 @@ class ProviderInformationWidget extends StatelessWidget {
           overflow: isShrinked ? TextOverflow.ellipsis : null,
         ),
         SizedBox(height: 20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StatisticWidget(
-              title: "عملية جارية",
-              value:
-                  (userInformation.statistics.totalNumberOfOrders -
-                          userInformation.statistics.finishedOrders)
-                      .toString(),
-            ),
-            StatisticWidget(
-              title: "العمليات الناجحة",
-              value: userInformation.statistics.finishedOrders.toString(),
-            ),
-            StatisticWidget(
-              title: "إجمالي العمليات",
-              value: userInformation.statistics.totalNumberOfOrders.toString(),
-            ),
-          ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              StatisticWidget(
+                title: "عملية جارية",
+                value:
+                    (userInformation.statistics.totalNumberOfOrders -
+                            userInformation.statistics.finishedOrders)
+                        .toString(),
+              ),
+              SizedBox(width: 10.w),
+              StatisticWidget(
+                title: "العمليات الناجحة",
+                value: userInformation.statistics.finishedOrders.toString(),
+              ),
+              SizedBox(width: 10.w),
+              StatisticWidget(
+                title: "إجمالي العمليات",
+                value: userInformation.statistics.totalNumberOfOrders
+                    .toString(),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20.h),
         RatingWidget(rating: userInformation.rating),

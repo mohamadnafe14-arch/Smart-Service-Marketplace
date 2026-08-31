@@ -28,7 +28,7 @@ class ProviderInformationBody extends StatelessWidget {
         children: [
           ProviderInformationWidget(
             userInformation: userInformation,
-            isShrinked: false,
+            isShrinked: true,
           ),
           SizedBox(height: 20.h),
           Card(

@@ -33,6 +33,7 @@ class _CustomProviderDrawerState extends State<CustomProviderDrawer> {
             city: "city",
             street: "street",
             addressInDetails: "addressInDetails",
+            
           ),
           statistics: Statistics(totalNumberOfOrders: 0, finishedOrders: 0),
           rating: Rating(rate: 0, count: 0),

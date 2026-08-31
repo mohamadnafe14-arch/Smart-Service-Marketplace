@@ -26,7 +26,13 @@ class RatingWidget extends StatelessWidget {
         SizedBox(width: 10.w),
         Text("(${rating.rate.toString()})", style: TextStyle(fontSize: 16)),
         SizedBox(width: 10.w),
-        Text("(${rating.count.toString()})", style: TextStyle(fontSize: 16)),
+        Flexible(
+          child: Text(
+            "(${rating.count.toString()})",
+            style: TextStyle(fontSize: 16),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }
