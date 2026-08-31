@@ -372,7 +372,6 @@ void main() {
         'Line 1\nLine 2\nLine 3',
       );
       await tester.pumpAndSettle();
-
       expect(find.text('Line 1\nLine 2\nLine 3'), findsOneWidget);
     });
   });
