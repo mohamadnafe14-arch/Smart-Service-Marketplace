@@ -11,7 +11,7 @@ import 'package:smart_service_market_place/core/services/google_sign_in_service.
 import 'package:smart_service_market_place/features/auth/model/models/user_model.dart';
 import 'package:smart_service_market_place/features/auth/model/repos/auth_repo.dart';
 
-@lazySingleton
+@LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
   final GoogleSignInService _googleSignInService;
   final DioService _dioService;

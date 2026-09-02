@@ -1,4 +1,4 @@
-import 'package:smart_service_market_place/features/profile/model/user_update.dart';
+import 'package:smart_service_market_place/features/profile/model/models/user_update.dart';
 import 'package:test/test.dart';
 
 void main() {
