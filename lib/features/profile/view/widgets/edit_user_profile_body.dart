@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/functions/show_error_snack_bar.dart';
 import 'package:smart_service_market_place/core/widgets/custom_button.dart';
-import 'package:smart_service_market_place/features/profile/model/models/address.dart';
-import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
-import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
-import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
+import 'package:smart_service_market_place/features/profile/model/models/user_update.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/provider_text_form_field.dart';
-
+import 'package:smart_service_market_place/features/profile/viewmodel/profile_cubit/profile_cubit.dart';
 class EditUserProfileBody extends StatefulWidget {
   const EditUserProfileBody({super.key, required this.token});
   final String token;
@@ -19,21 +19,8 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
   String? name, phone, city, street, addressInDetails;
   @override
   Widget build(BuildContext context) {
-    //TODO: get the user information from the cubit
-    final userInformation = UserInformation(
-      id: 1,
-      name: "name",
-      email: "email",
-      phone: "phone",
-      createdSince: "createdSince",
-      address: Address(
-        city: "city",
-        street: "street",
-        addressInDetails: "addressInDetails",
-      ),
-      statistics: Statistics(totalNumberOfOrders: 0, finishedOrders: 0),
-      rating: Rating(rate: 0, count: 0),
-    );
+    final userInformation =
+        (context.read<ProfileCubit>().state as ProfileSuccess).userInformation;
     return Form(
       key: formKey,
       child: SingleChildScrollView(
@@ -75,7 +62,7 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل رقم الهاتف",
-              initialValue: userInformation.phone ?? "لم يتم اضافة رقم الهاتف",
+              initialValue: userInformation.phone ?? "لم يتم ادخال رقم الهاتف",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "رقم الهاتف مطلوب";
@@ -103,7 +90,7 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
             ProfileTextFormField(
               hintText: "ادخل المدينة",
               initialValue:
-                  userInformation.address.city ?? "لم يتم اضافة المدينة",
+                  userInformation.address.city ?? "لم يتم ادخال المدينة",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "المدينة مطلوبة";
@@ -127,7 +114,7 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
             ProfileTextFormField(
               hintText: "ادخل الشارع",
               initialValue:
-                  userInformation.address.street ?? "لم يتم اضافة الشارع",
+                  userInformation.address.street ?? "لم يتم ادخال الشارع",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الشارع مطلوب";
@@ -152,7 +139,7 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
               hintText: "ادخل العنوان بالتفصيل",
               initialValue:
                   userInformation.address.addressInDetails ??
-                  "لم يتم اضافة العنوان بالتفصيل",
+                  "لم يتم ادخال العنوان بالتفصيل",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "العنوان بالتفصيل مطلوب";
@@ -168,19 +155,42 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
               icon: Icons.home,
             ),
             SizedBox(height: 20.h),
-            //TODO: add a button to save the changes
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        //TODO: update the user information
+                  child: BlocConsumer<ProfileCubit, ProfileState>(
+                    listener: (context, state) {
+                      if (state is ProfileSuccess) {
+                        context.pop();
+                      } else if (state is ProfileError) {
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
-                    text: "حفظ التغييرات",
-                    isLoading: false,
+                    builder: (context, state) {
+                      final isLoading = state is ProfileLoading;
+                      return CustomButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            context.read<ProfileCubit>().updateUserInformation(
+                              token: widget.token,
+                              userUpdate: UserUpdate(
+                                name: name!,
+                                phone: phone!,
+                                city: city!,
+                                street: street!,
+                                addressInDetails: addressInDetails!,
+                              ),
+                            );
+                          }
+                        },
+                        text: "حفظ التغييرات",
+                        isLoading: isLoading,
+                      );
+                    },
                   ),
                 ),
               ],

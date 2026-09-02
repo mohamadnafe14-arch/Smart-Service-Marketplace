@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-class EditUserProfileView extends StatelessWidget {
-  const EditUserProfileView({super.key});
+import 'package:smart_service_market_place/features/profile/view/widgets/edit_user_profile_body.dart';
 
+class EditUserProfileView extends StatelessWidget {
+  const EditUserProfileView({super.key, required this.token});
+  final String token;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("تعديل الملف الشخصي"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+        ),
+        body: EditUserProfileBody(token: token),
+      ),
+    );
   }
 }

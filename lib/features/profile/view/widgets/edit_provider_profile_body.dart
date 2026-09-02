@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/functions/show_error_snack_bar.dart';
 import 'package:smart_service_market_place/core/widgets/custom_button.dart';
-import 'package:smart_service_market_place/features/profile/model/models/address.dart';
-import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
-import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
-import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
+import 'package:smart_service_market_place/features/profile/model/models/user_update.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/provider_text_form_field.dart';
-
+import 'package:smart_service_market_place/features/profile/viewmodel/profile_cubit/profile_cubit.dart';
 class EditProviderProfileBody extends StatefulWidget {
   const EditProviderProfileBody({super.key, required this.token});
   final String token;
@@ -20,22 +20,8 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
   String? name, phone, city, street, addressInDetails, category, experience;
   @override
   Widget build(BuildContext context) {
-    final userInformation = UserInformation(
-      name: "name",
-      id: 1,
-      email: "email",
-      phone: "phone",
-      createdSince: "createdSince",
-      address: Address(
-        city: "city",
-        street: "street",
-        addressInDetails: "addressInDetails",
-      ),
-      statistics: Statistics(totalNumberOfOrders: 0, finishedOrders: 0),
-      rating: Rating(rate: 0, count: 0),
-      category: "category",
-      experience: "experience",
-    );
+    final userInformation =
+        (context.read<ProfileCubit>().state as ProfileSuccess).userInformation;
     return Form(
       key: formKey,
       child: SingleChildScrollView(
@@ -77,7 +63,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل رقم الهاتف",
-              initialValue: userInformation.phone ?? "لم يتم اضافة رقم الهاتف",
+              initialValue: userInformation.phone ?? "لم يتم ادخال رقم الهاتف",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "رقم الهاتف مطلوب";
@@ -105,7 +91,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             ProfileTextFormField(
               hintText: "ادخل المدينة",
               initialValue:
-                  userInformation.address.city ?? "لم يتم اضافة المدينة",
+                  userInformation.address.city ?? "لم يتم ادخال المدينة",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "المدينة مطلوبة";
@@ -129,7 +115,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             ProfileTextFormField(
               hintText: "ادخل الشارع",
               initialValue:
-                  userInformation.address.street ?? "لم يتم اضافة الشارع",
+                  userInformation.address.street ?? "لم يتم ادخال الشارع",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الشارع مطلوب";
@@ -154,7 +140,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
               hintText: "ادخل العنوان بالتفصيل",
               initialValue:
                   userInformation.address.addressInDetails ??
-                  "لم يتم اضافة العنوان بالتفصيل",
+                  "لم يتم ادخال العنوان بالتفصيل",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "العنوان بالتفصيل مطلوب";
@@ -221,7 +207,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الخبرة",
-              initialValue: userInformation.experience ?? "لم يتم اضافة الخبرة",
+              initialValue: userInformation.experience ?? "لم يتم ادخال الخبرة",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الخبرة مطلوبة";
@@ -240,15 +226,45 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             Row(
               children: [
                 Expanded(
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        //TODO: update provider information
+                  child: BlocConsumer<ProfileCubit, ProfileState>(
+                    listenWhen: (previous, current) =>
+                        current is ProfileSuccess || current is ProfileError,
+                    listener: (context, state) {
+                      if (state is ProfileSuccess) {
+                        GoRouter.of(context).pop();
+                      } else if (state is ProfileError) {
+                        showErrorToast(
+                          context: context,
+                          message: state.message,
+                        );
                       }
                     },
-                    text: "حفظ التغييرات",
-                    isLoading: false,
+                    builder: (context, state) {
+                      final isLoading = state is ProfileLoading;
+                      return CustomButton(
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            BlocProvider.of<ProfileCubit>(
+                              context,
+                            ).updateUserInformation(
+                              token: widget.token,
+                              userUpdate: UserUpdate(
+                                name: name,
+                                phone: phone,
+                                city: city,
+                                street: street,
+                                addressInDetails: addressInDetails,
+                                category: category,
+                                experience: experience,
+                              ),
+                            );
+                          }
+                        },
+                        text: "حفظ التغييرات",
+                        isLoading: isLoading,
+                      );
+                    },
                   ),
                 ),
               ],

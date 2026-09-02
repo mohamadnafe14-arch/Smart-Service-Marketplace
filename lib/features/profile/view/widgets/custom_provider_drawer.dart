@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_service_market_place/core/widgets/error_body.dart';
+import 'package:smart_service_market_place/core/widgets/loading_body.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/provider_information_body.dart';
-import 'package:smart_service_market_place/features/profile/model/models/address.dart';
-import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
-import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
-import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
+import 'package:smart_service_market_place/features/profile/viewmodel/profile_cubit/profile_cubit.dart';
 
 class CustomProviderDrawer extends StatefulWidget {
   const CustomProviderDrawer({super.key, required this.token});
   final String token;
+
   @override
   State<CustomProviderDrawer> createState() => _CustomProviderDrawerState();
 }
@@ -15,29 +16,29 @@ class CustomProviderDrawer extends StatefulWidget {
 class _CustomProviderDrawerState extends State<CustomProviderDrawer> {
   @override
   void initState() {
+    BlocProvider.of<ProfileCubit>(
+      context,
+    ).fetchUserInformation(token: widget.token);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ProviderInformationBody(
-        token: widget.token,
-        userInformation: UserInformation(
-          name: "name",
-          id: 1,
-          email: "email",
-          phone: "phone",
-          createdSince: "createdSince",
-          address: Address(
-            city: "city",
-            street: "street",
-            addressInDetails: "addressInDetails",
-            
-          ),
-          statistics: Statistics(totalNumberOfOrders: 0, finishedOrders: 0),
-          rating: Rating(rate: 0, count: 0),
-        ),
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileSuccess) {
+            return ProviderInformationBody(
+              userInformation: state.userInformation,
+              token: widget.token,
+            );
+          } else if (state is ProfileLoading) {
+            return LoadingBody();
+          } else if (state is ProfileError) {
+            return ErrorBody(message: state.message);
+          }
+          return SizedBox();
+        },
       ),
     );
   }
