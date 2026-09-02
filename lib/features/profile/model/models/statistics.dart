@@ -4,7 +4,7 @@ import 'dart:convert';
 class Statistics {
   final int totalNumberOfOrders;
   final int finishedOrders;
-  Statistics({required this.totalNumberOfOrders, required this.finishedOrders});
+  Statistics({required this.totalNumberOfOrders, required this.finishedOrders, });
 
   Statistics copyWith({int? totalNumberOfOrders, int? finishedOrders}) {
     return Statistics(

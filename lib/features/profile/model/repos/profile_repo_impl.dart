@@ -27,8 +27,8 @@ class ProfileRepoImpl implements ProfileRepo {
         },
       );
       if (response.statusCode == 200) {
-        final userInformation = UserInformation.fromJson(
-          response.data['data']["user"],
+        final userInformation = UserInformation.fromMap(
+          response.data['data']["user"] as Map<String, dynamic>,
         );
         return Right(userInformation);
       } else {
@@ -59,8 +59,8 @@ class ProfileRepoImpl implements ProfileRepo {
         body: userUpdate.toMap(),
       );
       if (response.statusCode == 200) {
-        final userInformation = UserInformation.fromJson(
-          response.data['data']["profile"],
+        final userInformation = UserInformation.fromMap(
+          response.data['data']["profile"] as Map<String, dynamic>,
         );
         return Right(userInformation);
       } else {
