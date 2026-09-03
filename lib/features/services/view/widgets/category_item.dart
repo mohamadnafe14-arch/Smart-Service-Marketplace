@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_service_marketplace/features/services/data/models/category_model.dart';
+import 'package:smart_service_market_place/features/services/model/models/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
