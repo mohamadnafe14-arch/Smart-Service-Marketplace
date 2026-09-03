@@ -15,7 +15,7 @@ class DioService {
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
-      return response.data;    
+      return response;    
   }
   dynamic post({
     required String path,
@@ -27,7 +27,7 @@ class DioService {
         options: Options(headers: headers),
         data: body,
       );
-      return response.data;    
+      return response;    
   }
   dynamic put({
     required String path,
@@ -39,7 +39,7 @@ class DioService {
         options: Options(headers: headers),
         data: body,
       );
-      return response.data;    
+      return response;    
   }
   dynamic delete({
     required String path,
@@ -51,6 +51,6 @@ class DioService {
         options: Options(headers: headers),
         data: body,
       );
-      return response.data;    
+      return response;    
   }
 }

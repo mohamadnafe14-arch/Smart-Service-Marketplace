@@ -3,6 +3,7 @@ import 'package:smart_service_market_place/features/profile/model/models/address
 import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
 import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
 import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
+
 void main() {
   final address = Address(
     city: 'Cairo',
@@ -21,7 +22,7 @@ void main() {
     statistics: statistics,
     rating: rating,
     category: 'Plumber',
-    experience: '5 years',
+    experiences: '5 years',
   );
   group('UserInformation', () {
     test('constructor assigns fields correctly', () {
@@ -34,7 +35,7 @@ void main() {
       expect(userInfo.statistics, statistics);
       expect(userInfo.rating, rating);
       expect(userInfo.category, 'Plumber');
-      expect(userInfo.experience, '5 years');
+      expect(userInfo.experiences, '5 years');
     });
     test('constructor allows optional fields to be null', () {
       final user = UserInformation(
@@ -48,7 +49,7 @@ void main() {
       );
       expect(user.phone, isNull);
       expect(user.category, isNull);
-      expect(user.experience, isNull);
+      expect(user.experiences, isNull);
     });
 
     group('copyWith', () {
@@ -67,7 +68,7 @@ void main() {
         expect(updated.statistics, statistics);
         expect(updated.rating, rating);
         expect(updated.category, 'Electrician');
-        expect(updated.experience, '5 years');
+        expect(updated.experiences, '5 years');
       });
       test('returns equal instance when called with no arguments', () {
         final copy = userInfo.copyWith();
@@ -88,7 +89,7 @@ void main() {
           'statistics': statistics.toMap(),
           'rating': rating.toMap(),
           'category': 'Plumber',
-          'experience': '5 years',
+          'experiences': '5 years',
         });
       });
       test('fromMap creates correct instance', () {
@@ -107,13 +108,13 @@ void main() {
           'statistics': statistics.toMap(),
           'rating': rating.toMap(),
           'category': null,
-          'experience': null,
+          'experiences': null,
         };
         final result = UserInformation.fromMap(map);
         expect(result.name, 'Sara');
         expect(result.phone, isNull);
         expect(result.category, isNull);
-        expect(result.experience, isNull);
+        expect(result.experiences, isNull);
       });
       test('round trip toMap -> fromMap preserves equality', () {
         final result = UserInformation.fromMap(userInfo.toMap());
@@ -149,7 +150,7 @@ void main() {
           statistics: statistics,
           rating: rating,
           category: 'Plumber',
-          experience: '5 years',
+          experiences: '5 years',
         );
         expect(userInfo, other);
         expect(userInfo.hashCode, other.hashCode);
@@ -165,7 +166,7 @@ void main() {
           statistics: statistics,
           rating: rating,
           category: 'Engineer',
-          experience: '5 years',
+          experiences: '5 years',
         );
         expect(userInfo == other, isFalse);
       });
@@ -177,7 +178,7 @@ void main() {
       test('returns expected formatted string', () {
         expect(
           userInfo.toString(),
-          'UserInformation(name: Ahmed, id: 101, email: ahmed@example.com, phone: +966500000000, createdSince: 2024-01-01, address: $address, statistics: $statistics, rating: $rating, category: Plumber, experience: 5 years)',
+          'UserInformation(name: Ahmed, id: 101, email: ahmed@example.com, phone: +966500000000, createdSince: 2024-01-01, address: $address, statistics: $statistics, rating: $rating, category: Plumber, experiences: 5 years)',
         );
       });
     });

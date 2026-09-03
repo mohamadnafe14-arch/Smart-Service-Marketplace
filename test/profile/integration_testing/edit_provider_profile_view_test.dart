@@ -42,7 +42,7 @@ void main() {
     statistics: Statistics(totalNumberOfOrders: 10, finishedOrders: 8),
     rating: Rating(rate: 4.8, count: 12),
     category: 'السباكة',
-    experience: '5 years',
+    experiences: '5 years',
   );
 
   setUp(() {

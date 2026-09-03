@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -19,7 +21,7 @@ class ProfileRepoImpl implements ProfileRepo {
   }) async {
     try {
       final response = await _dioService.get(
-        path: 'api/profile',
+        path: 'profile',
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',
@@ -27,6 +29,7 @@ class ProfileRepoImpl implements ProfileRepo {
         },
       );
       if (response.statusCode == 200) {
+        log('Response data: ${response.data}');
         final userInformation = UserInformation.fromMap(
           response.data['data']["user"] as Map<String, dynamic>,
         );
@@ -50,7 +53,7 @@ class ProfileRepoImpl implements ProfileRepo {
   }) async {
     try {
       final response = await _dioService.put(
-        path: 'api/profile',
+        path: 'profile',
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',

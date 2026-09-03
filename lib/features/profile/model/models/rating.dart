@@ -16,7 +16,10 @@ class Rating {
 
   factory Rating.fromMap(Map<String, dynamic> map) {
     if (map.isEmpty) return Rating(rate: 0.0, count: 0);
-    return Rating(rate: map['rate'] ?? 0.0, count: map['count'] ?? 0);
+    return Rating(
+      rate: (map['rate'] as num?)?.toDouble() ?? 0.0,
+      count: map['count'] ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

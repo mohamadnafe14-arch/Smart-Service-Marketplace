@@ -16,6 +16,18 @@ class _ProviderHomeViewState extends State<ProviderHomeView> {
   Widget build(BuildContext context) {
     final token = (context.read<AuthCubit>().state as AuthSuccess).user.token;
     return Scaffold(
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+      ),
       drawer: CustomProviderDrawer(token: token),
       body: IndexedStack(
         index: currentIndex,

@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.example.smart_service_market_place"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

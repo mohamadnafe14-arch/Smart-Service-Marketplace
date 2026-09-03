@@ -7,6 +7,7 @@ import 'package:smart_service_market_place/core/widgets/custom_button.dart';
 import 'package:smart_service_market_place/features/profile/model/models/user_update.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/provider_text_form_field.dart';
 import 'package:smart_service_market_place/features/profile/viewmodel/profile_cubit/profile_cubit.dart';
+
 class EditProviderProfileBody extends StatefulWidget {
   const EditProviderProfileBody({super.key, required this.token});
   final String token;
@@ -40,7 +41,7 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الاسم بالكامل",
-              initialValue: userInformation.name,
+              initialValue: userInformation.name ?? "لم يتم ادخال الاسم",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الاسم بالكامل مطلوب";
@@ -207,7 +208,8 @@ class _EditProviderProfileBodyState extends State<EditProviderProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الخبرة",
-              initialValue: userInformation.experience ?? "لم يتم ادخال الخبرة",
+              initialValue:
+                  userInformation.experiences ?? "لم يتم ادخال الخبرة",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الخبرة مطلوبة";

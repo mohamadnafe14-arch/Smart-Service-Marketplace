@@ -65,7 +65,7 @@ void main() {
       statistics: Statistics(finishedOrders: 1, totalNumberOfOrders: 5),
       rating: Rating(rate: 4.5, count: 10),
       category: 'Plumber',
-      experience: '5 years',
+      experiences: '5 years',
     );
     final userJson = user.toMap();
 

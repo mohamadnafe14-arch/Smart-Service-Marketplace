@@ -28,7 +28,7 @@ class ProviderInformationWidget extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Text(
-          userInformation.name,
+          userInformation.name ?? "لم يتم اضافة الاسم",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           maxLines: isShrinked ? 1 : null,
           overflow: isShrinked ? TextOverflow.ellipsis : null,
@@ -104,7 +104,7 @@ class ProviderInformationWidget extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Text(
-          userInformation.experience ?? "لم يتم اضافة الخبرة",
+          userInformation.experiences ?? "لم يتم اضافة الخبرة",
           style: TextStyle(fontSize: 16),
         ),
       ],

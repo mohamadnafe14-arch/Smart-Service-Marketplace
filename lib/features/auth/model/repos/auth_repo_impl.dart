@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
@@ -27,18 +29,15 @@ class AuthRepoImpl implements AuthRepo {
       final credentials = await _googleSignInService.signIn();
       final role = await _flutterSecureStorageService.readRole();
       final response = await _dioService.post(
-        path: "/api/google",
-        body: {
-          "token": credentials.token,
-          "role": role,
-          "email": credentials.email,
-        },
+        path: "google",
+        body: {"id_token": credentials.id_token, "role": role},
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
       );
       final map = response.data;
+      log("Auth with google response: $map");
       if (response.statusCode == 200) {
         final data = map['data'];
         final user = UserModel.fromJson(
@@ -63,7 +62,7 @@ class AuthRepoImpl implements AuthRepo {
       final token = await _flutterSecureStorageService.readToken();
       if (token != null) {
         final result = await _dioService.get(
-          path: "/api/getUser",
+          path: "getUser",
           headers: {
             "Authorization": "Bearer $token",
             "Accept": "application/json",
@@ -95,7 +94,7 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       final response = await _dioService.post(
-        path: "/api/login",
+        path: "login",
         body: {"email": email, "password": password},
         headers: {
           "Content-Type": "application/json",
@@ -103,6 +102,7 @@ class AuthRepoImpl implements AuthRepo {
         },
       );
       final map = response.data;
+      log("Login response: $map");
       if (response.statusCode == 200) {
         final data = map['data'];
         final user = UserModel.fromJson(
@@ -113,6 +113,7 @@ class AuthRepoImpl implements AuthRepo {
       }
       return Left(Failure(message: map['message'] ?? "حدث خطاء غير متوقع"));
     } on DioException catch (e) {
+      log("DioException: ${e.toString()}");
       return Left(ServerFailuer.fromDioError(dioException: e));
     } catch (e) {
       return Left(Failure(message: e.toString()));
@@ -124,7 +125,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final token = await _flutterSecureStorageService.readToken();
       final response = await _dioService.delete(
-        path: "/api/logout",
+        path: "logout",
         headers: {
           "Authorization": "Bearer $token",
           "Accept": "application/json",
@@ -155,7 +156,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final role = await _flutterSecureStorageService.readRole();
       final response = await _dioService.post(
-        path: "/api/register",
+        path: "register",
         body: {
           "email": email,
           "password": password,
@@ -167,6 +168,7 @@ class AuthRepoImpl implements AuthRepo {
           "Accept": "application/json",
         },
       );
+      log(response);
       final map = response.data;
       if (response.statusCode == 201) {
         final data = map['data'];

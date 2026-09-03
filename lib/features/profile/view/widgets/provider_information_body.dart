@@ -17,54 +17,56 @@ class ProviderInformationBody extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 20.w,
-        right: 20.w,
-        top: 20.h,
-      ),
-      child: Column(
-        children: [
-          ProviderInformationWidget(
-            userInformation: userInformation,
-            isShrinked: true,
-          ),
-          SizedBox(height: 20.h),
-          Card(
-            child: BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state is AuthInitial) {
-                  GoRouter.of(context).go(AppRouter.chooseRoleRoute);
-                }
-              },
-              builder: (context, state) {
-                final isLoading = state is AuthLoading;
-                return ListTile(
-                  title: isLoading
-                      ? CircularProgressIndicator()
-                      : Text("تسجيل خروج"),
-                  trailing: Icon(Icons.logout),
-                  onTap: () {
-                    BlocProvider.of<AuthCubit>(context).logout();
-                  },
-                );
-              },
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 20.w,
+          right: 20.w,
+          top: 20.h,
+        ),
+        child: Column(
+          children: [
+            ProviderInformationWidget(
+              userInformation: userInformation,
+              isShrinked: true,
             ),
-          ),
-          SizedBox(height: 10.h),
-          Card(
-            child: ListTile(
-              title: Text("تعديل الملف الشخصي"),
-              trailing: Icon(Icons.edit),
-              onTap: () {
-                GoRouter.of(
-                  context,
-                ).push(AppRouter.editProviderProfileViewRoute, extra: token);
-              },
+            SizedBox(height: 20.h),
+            Card(
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthInitial) {
+                    GoRouter.of(context).go(AppRouter.chooseRoleRoute);
+                  }
+                },
+                builder: (context, state) {
+                  final isLoading = state is AuthLoading;
+                  return ListTile(
+                    title: isLoading
+                        ? CircularProgressIndicator()
+                        : Text("تسجيل خروج"),
+                    trailing: Icon(Icons.logout),
+                    onTap: () {
+                      BlocProvider.of<AuthCubit>(context).logout();
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 10.h),
+            Card(
+              child: ListTile(
+                title: Text("تعديل الملف الشخصي"),
+                trailing: Icon(Icons.edit),
+                onTap: () {
+                  GoRouter.of(
+                    context,
+                  ).push(AppRouter.editProviderProfileViewRoute, extra: token);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

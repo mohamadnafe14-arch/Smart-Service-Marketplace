@@ -39,7 +39,7 @@ class _EditUserProfileBodyState extends State<EditUserProfileBody> {
             SizedBox(height: 10.h),
             ProfileTextFormField(
               hintText: "ادخل الاسم بالكامل",
-              initialValue: userInformation.name,
+              initialValue:  userInformation.name ?? "لم يتم ادخال الاسم",
               validator: (value) {
                 if (value!.isEmpty) {
                   return "الاسم بالكامل مطلوب";

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/utils/app_router.dart';
 import 'package:smart_service_market_place/features/auth/view/widgets/role_card.dart';
+import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
+
 class ChooseRoleBody extends StatefulWidget {
   const ChooseRoleBody({super.key});
   @override
   State<ChooseRoleBody> createState() => _ChooseRoleBodyState();
 }
+
 class _ChooseRoleBodyState extends State<ChooseRoleBody>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -33,6 +39,7 @@ class _ChooseRoleBodyState extends State<ChooseRoleBody>
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,8 +82,9 @@ class _ChooseRoleBodyState extends State<ChooseRoleBody>
             icon: Icons.person,
             fadeAnimation: fadeAnimation,
             slideAnimation: slideAnimation,
-            onTap: () {
-              //ToDo : add user role to cubit
+            onTap: () async {
+              context.read<AuthCubit>().setRole("user");
+              context.go(AppRouter.authRoute);
             },
           ),
           RoleCard(
@@ -85,8 +93,9 @@ class _ChooseRoleBodyState extends State<ChooseRoleBody>
             icon: Icons.work,
             fadeAnimation: fadeAnimation,
             slideAnimation: slideAnimation,
-            onTap: () {
-              //ToDo : add provider role to cubit
+            onTap: () async {
+              context.read<AuthCubit>().setRole("provider");
+              context.go(AppRouter.authRoute);
             },
           ),
         ],

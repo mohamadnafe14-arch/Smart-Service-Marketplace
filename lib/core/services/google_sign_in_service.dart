@@ -9,14 +9,10 @@ class GoogleSignInService {
   Future<GoogleCredintialsModel> signIn() async {
     await _googleSignIn.initialize(
       clientId: clientId,
-      serverClientId: serverId,
     );
     final googleUser = await _googleSignIn.authenticate();
-    final GoogleSignInClientAuthorization? authorization = await googleUser
-        .authorizationClient
-        .authorizationForScopes(['email', 'profile']);
     return GoogleCredintialsModel(
-      token: authorization!.accessToken,
+      id_token: googleUser.authentication.idToken!,
       email: googleUser.email,
     );
   }

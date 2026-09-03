@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:smart_service_market_place/features/profile/model/models/address.dart';
 import 'package:smart_service_market_place/features/profile/model/models/rating.dart';
 import 'package:smart_service_market_place/features/profile/model/models/statistics.dart';
+
 class UserInformation {
-  final String name;
+  final String? name;
   final int id;
   final String email;
   final String? phone;
@@ -13,7 +14,7 @@ class UserInformation {
   final Statistics statistics;
   final Rating rating;
   final String? category;
-  final String? experience;
+  final String? experiences;
   UserInformation({
     required this.name,
     required this.id,
@@ -24,7 +25,7 @@ class UserInformation {
     required this.statistics,
     required this.rating,
     this.category,
-    this.experience,
+    this.experiences,
   });
   UserInformation copyWith({
     String? name,
@@ -36,7 +37,7 @@ class UserInformation {
     Statistics? statistics,
     Rating? rating,
     String? category,
-    String? experience,
+    String? experiences,
   }) {
     return UserInformation(
       name: name ?? this.name,
@@ -48,9 +49,10 @@ class UserInformation {
       statistics: statistics ?? this.statistics,
       rating: rating ?? this.rating,
       category: category ?? this.category,
-      experience: experience ?? this.experience,
+      experiences: experiences ?? this.experiences,
     );
   }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
@@ -62,55 +64,64 @@ class UserInformation {
       'statistics': statistics.toMap(),
       'rating': rating.toMap(),
       'category': category,
-      'experience': experience,
+      'experiences': experiences,
     };
   }
+
   factory UserInformation.fromMap(Map<String, dynamic> map) {
     return UserInformation(
-      name: map['name'] as String,
+      name: map['name'] as String?,
       id: map['id'] as int,
       email: map['email'] as String,
       phone: map['phone'] != null ? map['phone'] as String : null,
       createdSince: map['createdSince'] as String,
-      address: Address.fromMap(map['address'] as Map<String,dynamic>),
-      statistics: Statistics.fromMap(map['statistics'] as Map<String,dynamic>),
-      rating: Rating.fromMap(map['rating'] as Map<String,dynamic>),
+      address: map['address'] != null
+          ? Address.fromMap(map['address'] as Map<String, dynamic>)
+          : Address(),
+      statistics: map['statistics'] != null
+          ? Statistics.fromMap(map['statistics'] as Map<String, dynamic>)
+          : Statistics(totalNumberOfOrders: 0, finishedOrders: 0),
+      rating: map['rating'] != null ? Rating.fromMap(map['rating'] as Map<String, dynamic>) : Rating(rate: 0.0, count: 0),
       category: map['category'] != null ? map['category'] as String : null,
-      experience: map['experience'] != null ? map['experience'] as String : null,
+      experiences: map['experiences'] != null
+          ? map['experiences'] as String
+          : null,
     );
   }
   String toJson() => json.encode(toMap());
-  factory UserInformation.fromJson(String source) => UserInformation.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserInformation.fromJson(String source) =>
+      UserInformation.fromMap(json.decode(source) as Map<String, dynamic>);
   @override
   String toString() {
-    return 'UserInformation(name: $name, id: $id, email: $email, phone: $phone, createdSince: $createdSince, address: $address, statistics: $statistics, rating: $rating, category: $category, experience: $experience)';
+    return 'UserInformation(name: $name, id: $id, email: $email, phone: $phone, createdSince: $createdSince, address: $address, statistics: $statistics, rating: $rating, category: $category, experiences: $experiences)';
   }
+
   @override
   bool operator ==(covariant UserInformation other) {
     if (identical(this, other)) return true;
-    return 
-      other.name == name &&
-      other.id == id &&
-      other.email == email &&
-      other.phone == phone &&
-      other.createdSince == createdSince &&
-      other.address == address &&
-      other.statistics == statistics &&
-      other.rating == rating &&
-      other.category == category &&
-      other.experience == experience;
+    return other.name == name &&
+        other.id == id &&
+        other.email == email &&
+        other.phone == phone &&
+        other.createdSince == createdSince &&
+        other.address == address &&
+        other.statistics == statistics &&
+        other.rating == rating &&
+        other.category == category &&
+        other.experiences == experiences;
   }
+
   @override
   int get hashCode {
     return name.hashCode ^
-      id.hashCode ^
-      email.hashCode ^
-      phone.hashCode ^
-      createdSince.hashCode ^
-      address.hashCode ^
-      statistics.hashCode ^
-      rating.hashCode ^
-      category.hashCode ^
-      experience.hashCode;
+        id.hashCode ^
+        email.hashCode ^
+        phone.hashCode ^
+        createdSince.hashCode ^
+        address.hashCode ^
+        statistics.hashCode ^
+        rating.hashCode ^
+        category.hashCode ^
+        experiences.hashCode;
   }
 }

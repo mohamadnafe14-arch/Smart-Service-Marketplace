@@ -17,6 +17,19 @@ class _UserHomeViewState extends State<UserHomeView> {
     final token = (context.read<AuthCubit>().state as AuthSuccess).user.token;
     return Scaffold(
       drawer: CustomUserDrawer(token: token),
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        ),
+      
       body: IndexedStack(
         index: currentIndex,
         children: const [

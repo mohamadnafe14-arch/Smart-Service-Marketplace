@@ -27,7 +27,7 @@ class UserInformationWidget extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Text(
-          userInformation.name,
+          userInformation.name ?? "لم يتم اضافة الاسم",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           maxLines: isShrinked ? 1 : null,
           overflow: isShrinked ? TextOverflow.ellipsis : null,
