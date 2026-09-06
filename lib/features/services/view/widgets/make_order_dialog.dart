@@ -9,10 +9,8 @@ class MakeOrderDialog extends StatefulWidget {
   const MakeOrderDialog({
     super.key,
     required this.makeOrderParam,
-    required this.pop,
   });
   final MakeOrderParam makeOrderParam;
-  final VoidCallback pop;
   @override
   State<MakeOrderDialog> createState() => _MakeOrderDialogState();
 }
