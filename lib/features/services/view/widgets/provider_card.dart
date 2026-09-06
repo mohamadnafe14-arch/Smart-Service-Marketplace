@@ -7,6 +7,8 @@ class ProviderCard extends StatelessWidget {
 
   final GetProvider getProvider;
 
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,10 +35,13 @@ class ProviderCard extends StatelessWidget {
                         color: Colors.white,
                       ),
                     )
-                  : Image.asset(
-                      "assets/images/${getProvider.category}.jpg",
+                  : SizedBox(
                       width: 60.w,
                       height: 60.h,
+                      child: Image.asset(
+                        "assets/images/${getProvider.category}.jpg",
+                        fit: BoxFit.cover,
+                      ),
                     ),
               SizedBox(width: 15.w),
               Expanded(
@@ -61,7 +66,7 @@ class ProviderCard extends StatelessWidget {
                         Icon(Icons.star, color: Colors.amber, size: 18),
                         SizedBox(width: 4.w),
                         Text(
-                          getProvider.rating!.toString(),
+                          getProvider.rating?.toString() ?? "0.0",
                           style: TextStyle(fontSize: 14.sp),
                         ),
                       ],

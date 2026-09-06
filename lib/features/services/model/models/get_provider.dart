@@ -7,7 +7,7 @@ class GetProvider {
   final String? role;
   final String? phone;
   final String? category;
-  final int? rating;
+  final double? rating;
   GetProvider({
     this.id,
     this.name,
@@ -23,7 +23,7 @@ class GetProvider {
     String? role,
     String? phone,
     String? category,
-    int? rating,
+    double? rating,
   }) {
     return GetProvider(
       id: id ?? this.id,
@@ -53,7 +53,7 @@ class GetProvider {
       role: map['role'] != null ? map['role'] as String : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
-      rating: map['rating'] != null ? map['rating'] as int : null,
+      rating: map['rating'] != null ? map['rating'] as double : null,
     );
   }
 
