@@ -8,6 +8,7 @@ void main() {
       providerId: 'p1',
       token: 'tok123',
       phone: '01000000000',
+      pop: () {},
     );
 
     test('constructor assigns fields correctly', () {
@@ -116,6 +117,7 @@ void main() {
           providerId: 'p1',
           token: 'tok123',
           phone: '01000000000',
+          pop: () {},
         );
 
         expect(param, other);
