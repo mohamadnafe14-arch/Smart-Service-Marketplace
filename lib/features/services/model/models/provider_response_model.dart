@@ -9,10 +9,7 @@ import 'package:smart_service_market_place/features/services/model/models/get_pr
 class ProviderResponseModel {
   final List<GetProvider> providers;
   final List<PaginationLink> pagination;
-  ProviderResponseModel({
-    required this.providers,
-    required this.pagination,
-  });
+  ProviderResponseModel({required this.providers, required this.pagination});
 
   ProviderResponseModel copyWith({
     List<GetProvider>? providers,
@@ -33,27 +30,35 @@ class ProviderResponseModel {
 
   factory ProviderResponseModel.fromMap(Map<String, dynamic> map) {
     return ProviderResponseModel(
-      providers: List<GetProvider>.from((map['providers'] as List<int>).map<GetProvider>((x) => GetProvider.fromMap(x as Map<String,dynamic>),),),
-      pagination: List<PaginationLink>.from((map['pagination'] as List<int>).map<PaginationLink>((x) => PaginationLink.fromMap(x as Map<String,dynamic>),),),
+      providers: (map['providers'] as List<dynamic>)
+          .map((item) => GetProvider.fromMap(item as Map<String, dynamic>))
+          .toList(),
+      pagination: (map['pagination'] as List<dynamic>)
+          .map((item) => PaginationLink.fromMap(item as Map<String, dynamic>))
+          .toList(),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ProviderResponseModel.fromJson(String source) => ProviderResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProviderResponseModel.fromJson(String source) =>
+      ProviderResponseModel.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
 
   @override
-  String toString() => 'ProviderResponseModel(providers: $providers, pagination: $pagination)';
+  String toString() =>
+      'ProviderResponseModel(providers: $providers, pagination: $pagination)';
 
   @override
   bool operator ==(covariant ProviderResponseModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      listEquals(other.providers, providers) &&
-      listEquals(other.pagination, pagination);
+
+    return listEquals(other.providers, providers) &&
+        listEquals(other.pagination, pagination);
   }
 
   @override
-  int get hashCode => providers.hashCode ^ pagination.hashCode;
+  int get hashCode =>
+      Object.hash(Object.hashAll(providers), Object.hashAll(pagination));
 }
