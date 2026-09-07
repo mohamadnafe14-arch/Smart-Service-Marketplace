@@ -10,9 +10,11 @@ class ProviderList extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
+      key: Key('providerListColumn'),
       children: [
         Expanded(
           child: ListView.builder(
+            key: Key('providerListView'),
             itemBuilder: (context, index) {
               return ProviderCard(
                 getProvider: GetProvider(
@@ -20,7 +22,7 @@ class ProviderList extends StatelessWidget {
                   name: "Provider Name",
                   role: "Provider Role",
                   phone: "Provider Phone",
-                  category: "Provider Category",
+                  category: "لم يتم تحديد الفئة",
                   rating: 4.5,
                 ),
               );
