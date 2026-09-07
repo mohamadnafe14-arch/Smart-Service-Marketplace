@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smart_service_market_place/core/models/pagination_link.dart';
 import 'package:smart_service_market_place/features/services/model/models/get_provider.dart';
-import 'package:smart_service_market_place/features/services/model/models/provider_response_model.dart';
+import 'package:smart_service_market_place/features/services/model/models/providers_response_model.dart';
 
 void main() {
   group('ProviderResponseModel', () {
@@ -18,7 +18,7 @@ void main() {
       label: 'Next',
       active: false,
     );
-    final response = ProviderResponseModel(
+    final response = ProvidersResponseModel(
       providers: [provider],
       pagination: [paginationLink],
     );
@@ -59,11 +59,11 @@ void main() {
       });
 
       test('fromMap reconstructs nested models', () {
-        expect(ProviderResponseModel.fromMap(response.toMap()), response);
+        expect(ProvidersResponseModel.fromMap(response.toMap()), response);
       });
 
       test('toJson and fromJson preserve the response', () {
-        expect(ProviderResponseModel.fromJson(response.toJson()), response);
+        expect(ProvidersResponseModel.fromJson(response.toJson()), response);
       });
     });
 
@@ -77,7 +77,7 @@ void main() {
 
     group('equality and hashCode', () {
       test('equal responses have equal hash codes', () {
-        final other = ProviderResponseModel(
+        final other = ProvidersResponseModel(
           providers: [provider],
           pagination: [paginationLink],
         );

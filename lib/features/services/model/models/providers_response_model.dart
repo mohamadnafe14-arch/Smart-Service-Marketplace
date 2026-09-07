@@ -6,16 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:smart_service_market_place/core/models/pagination_link.dart';
 import 'package:smart_service_market_place/features/services/model/models/get_provider.dart';
 
-class ProviderResponseModel {
+class ProvidersResponseModel {
   final List<GetProvider> providers;
   final List<PaginationLink> pagination;
-  ProviderResponseModel({required this.providers, required this.pagination});
+  ProvidersResponseModel({required this.providers, required this.pagination});
 
-  ProviderResponseModel copyWith({
+  ProvidersResponseModel copyWith({
     List<GetProvider>? providers,
     List<PaginationLink>? pagination,
   }) {
-    return ProviderResponseModel(
+    return ProvidersResponseModel(
       providers: providers ?? this.providers,
       pagination: pagination ?? this.pagination,
     );
@@ -28,8 +28,8 @@ class ProviderResponseModel {
     };
   }
 
-  factory ProviderResponseModel.fromMap(Map<String, dynamic> map) {
-    return ProviderResponseModel(
+  factory ProvidersResponseModel.fromMap(Map<String, dynamic> map) {
+    return ProvidersResponseModel(
       providers: (map['providers'] as List<dynamic>)
           .map((item) => GetProvider.fromMap(item as Map<String, dynamic>))
           .toList(),
@@ -41,8 +41,8 @@ class ProviderResponseModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ProviderResponseModel.fromJson(String source) =>
-      ProviderResponseModel.fromMap(
+  factory ProvidersResponseModel.fromJson(String source) =>
+      ProvidersResponseModel.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
 
@@ -51,7 +51,7 @@ class ProviderResponseModel {
       'ProviderResponseModel(providers: $providers, pagination: $pagination)';
 
   @override
-  bool operator ==(covariant ProviderResponseModel other) {
+  bool operator ==(covariant ProvidersResponseModel other) {
     if (identical(this, other)) return true;
 
     return listEquals(other.providers, providers) &&
