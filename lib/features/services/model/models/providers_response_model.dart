@@ -30,7 +30,7 @@ class ProvidersResponseModel {
 
   factory ProvidersResponseModel.fromMap(Map<String, dynamic> map) {
     return ProvidersResponseModel(
-      providers: (map['providers'] as List<dynamic>)
+      providers: (map['data']['providers'] as List<dynamic>)
           .map((item) => GetProvider.fromMap(item as Map<String, dynamic>))
           .toList(),
       pagination: (map['pagination'] as List<dynamic>)

@@ -29,6 +29,10 @@ import 'package:smart_service_market_place/features/profile/model/repos/profile_
     as _i973;
 import 'package:smart_service_market_place/features/profile/viewmodel/profile_cubit/profile_cubit.dart'
     as _i148;
+import 'package:smart_service_market_place/features/services/model/repos/service_repo.dart'
+    as _i1051;
+import 'package:smart_service_market_place/features/services/model/repos/service_repo_imple.dart'
+    as _i482;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -50,6 +54,9 @@ extension GetItInjectableX on _i174.GetIt {
         dioService: gh<_i693.DioService>(),
         flutterSecureStorageService: gh<_i448.FlutterSecureStorageService>(),
       ),
+    );
+    gh.lazySingleton<_i1051.ServicesRepo>(
+      () => _i482.ServiceRepoImple(dioService: gh<_i693.DioService>()),
     );
     gh.lazySingleton<_i289.ProfileRepo>(
       () => _i973.ProfileRepoImpl(gh<_i693.DioService>()),
