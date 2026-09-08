@@ -76,7 +76,7 @@ class ServiceRepoImple implements ServicesRepo {
   }) async {
     try {
       final response = await _dioService.post(
-        path: 'orders/store/$id',
+        path: 'order/store/$id',
         body: {'description': description, 'phone_user': phone},
         headers: {
           'Authorization': 'Bearer $token',
