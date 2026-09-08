@@ -168,7 +168,6 @@ class AuthRepoImpl implements AuthRepo {
           "Accept": "application/json",
         },
       );
-      log(response);
       final map = response.data;
       if (response.statusCode == 201) {
         final data = map['data'];

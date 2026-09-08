@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smart_service_market_place/core/utils/app_router.dart';
 import 'package:smart_service_market_place/features/services/model/models/get_provider.dart';
 
 class ProviderCard extends StatelessWidget {
@@ -13,7 +15,7 @@ class ProviderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //TODO: navigate to provider details
+        context.push(AppRouter.providerDetailsViewRoute, extra: getProvider.id);
       },
       child: Card(
         elevation: 4,

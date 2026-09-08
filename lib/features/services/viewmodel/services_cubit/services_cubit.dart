@@ -6,12 +6,13 @@ import 'package:smart_service_market_place/features/services/model/models/get_pr
 import 'package:smart_service_market_place/features/services/model/repos/service_repo.dart';
 
 part 'services_state.dart';
+
 @injectable
 class ServicesCubit extends Cubit<ServicesState> {
- final ServicesRepo servicesRepo;
+  final ServicesRepo servicesRepo;
   final String token;
 
-  ServicesCubit(this.token, {required this.servicesRepo})
+  ServicesCubit(@factoryParam this.token, {required this.servicesRepo})
     : super(ServicesInitial());
   String selectedCategory = 'الكل';
   int currentPage = 1;
@@ -29,7 +30,7 @@ class ServicesCubit extends Cubit<ServicesState> {
   Future<void> fetchProviders() async {
     emit(ServicesLoading());
     final result = await servicesRepo.getProvidersByCategory(
-      category: selectedCategory=='الكل'?'':selectedCategory,
+      category: selectedCategory == 'الكل' ? '' : selectedCategory,
       page: currentPage,
       token: token,
     );
@@ -45,4 +46,5 @@ class ServicesCubit extends Cubit<ServicesState> {
         ),
       ),
     );
-  }}
+  }
+}

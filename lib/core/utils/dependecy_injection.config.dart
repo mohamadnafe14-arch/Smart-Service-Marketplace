@@ -62,17 +62,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1051.ServicesRepo>(
       () => _i482.ServiceRepoImple(dioService: gh<_i693.DioService>()),
     );
+    gh.factoryParam<_i355.ServicesCubit, String, dynamic>(
+      (token, _) =>
+          _i355.ServicesCubit(token, servicesRepo: gh<_i1051.ServicesRepo>()),
+    );
     gh.lazySingleton<_i289.ProfileRepo>(
       () => _i973.ProfileRepoImpl(gh<_i693.DioService>()),
     );
     gh.factory<_i148.ProfileCubit>(
       () => _i148.ProfileCubit(gh<_i289.ProfileRepo>()),
-    );
-    gh.factory<_i355.ServicesCubit>(
-      () => _i355.ServicesCubit(
-        gh<String>(),
-        servicesRepo: gh<_i1051.ServicesRepo>(),
-      ),
     );
     gh.factory<_i1040.AuthCubit>(
       () => _i1040.AuthCubit(authRepo: gh<_i1045.AuthRepo>()),

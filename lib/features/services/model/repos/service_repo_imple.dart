@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_service_market_place/core/errors/failure.dart';
@@ -27,10 +29,12 @@ class ServiceRepoImple implements ServicesRepo {
           'Content-Type': 'application/json',
         },
       );
+      final data = response.data as Map<String, dynamic>;
       if (response.statusCode == 200) {
-        return right(ProvidersResponseModel.fromMap(response.data));
+        log(response.data.toString());
+        return right(ProvidersResponseModel.fromMap(data));
       } else {
-        return left(Failure(message: response.data['message']));
+        return left(Failure(message: data['message']));
       }
     } on Exception catch (e) {
       return left(Failure(message: e.toString()));
@@ -73,10 +77,7 @@ class ServiceRepoImple implements ServicesRepo {
     try {
       final response = await _dioService.post(
         path: 'orders/store/$id',
-        body: {
-          'description': description,
-          'phone_user': phone,
-        },
+        body: {'description': description, 'phone_user': phone},
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',

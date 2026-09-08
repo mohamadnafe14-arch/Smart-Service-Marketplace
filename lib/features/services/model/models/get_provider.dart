@@ -53,7 +53,7 @@ class GetProvider {
       role: map['role'] != null ? map['role'] as String : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
-      rating: map['rating'] != null ? map['rating'] as double : null,
+      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null,
     );
   }
 

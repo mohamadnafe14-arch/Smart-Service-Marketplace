@@ -37,7 +37,8 @@ class _UserHomeViewState extends State<UserHomeView> {
         index: currentIndex,
         children: [
           BlocProvider(
-            create: (context) => getIt<ServicesCubit>(),
+            create: (context) =>
+                getIt<ServicesCubit>(param1: token)..fetchProviders(),
             child: ServicesBody(),
           ),
           Center(child: Text("User Home View")),
