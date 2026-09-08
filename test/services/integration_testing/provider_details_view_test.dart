@@ -78,7 +78,7 @@ void main() {
   Widget createWidgetUnderTest() {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (_, __) => BlocProvider<AuthCubit>.value(
+      builder: (_, _) => BlocProvider<AuthCubit>.value(
         value: authCubit,
         child: MaterialApp(home: const ProviderDetailsView(id: 7)),
       ),

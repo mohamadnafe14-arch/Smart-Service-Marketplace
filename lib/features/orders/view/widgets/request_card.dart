@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/functions/get_color_by_status.dart';
 import 'package:smart_service_market_place/core/functions/show_success_snack_bar.dart';
