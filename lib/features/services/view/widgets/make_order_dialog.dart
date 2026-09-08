@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/functions/show_success_snack_bar.dart';
 import 'package:smart_service_market_place/core/widgets/custom_button.dart';
 import 'package:smart_service_market_place/features/services/model/models/make_order_param.dart';
 import 'package:smart_service_market_place/features/services/view/widgets/custom_service_text_form_field.dart';
+import 'package:smart_service_market_place/features/services/viewmodel/get_provider_details_cubit/get_provider_details_cubit.dart';
 
 class MakeOrderDialog extends StatefulWidget {
-  const MakeOrderDialog({
-    super.key,
-    required this.makeOrderParam,
-  });
+  const MakeOrderDialog({super.key, required this.makeOrderParam});
   final MakeOrderParam makeOrderParam;
   @override
   State<MakeOrderDialog> createState() => _MakeOrderDialogState();
@@ -107,18 +106,37 @@ class _MakeOrderDialogState extends State<MakeOrderDialog> {
                   Row(
                     children: [
                       Expanded(
-                        child: CustomButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
-                              //TODO: implement the logic to make the order using the provided parameters
-                              widget.makeOrderParam.pop.call();
-                              showSuccessToast(context, "تم عمل الطلب بنجاح");
-                            }
-                          },
-                          text: " تأكيد الطلب",
-                          isLoading: false,
-                        ),
+                        child:
+                            BlocConsumer<
+                              GetProviderDetailsCubit,
+                              GetProviderDetailsState
+                            >(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return CustomButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      BlocProvider.of<GetProviderDetailsCubit>(
+                                        context,
+                                      ).makeOrder(
+                                        id: widget.makeOrderParam.providerId,
+                                        token: widget.makeOrderParam.token,
+                                        description: description!,
+                                        phone: phone!,
+                                      );
+                                      widget.makeOrderParam.pop.call();
+                                      showSuccessToast(
+                                        context,
+                                        "تم عمل الطلب بنجاح",
+                                      );
+                                    }
+                                  },
+                                  text: " تأكيد الطلب",
+                                  isLoading: false,
+                                );
+                              },
+                            ),
                       ),
                       IconButton(onPressed: () {}, icon: Icon(Icons.chat)),
                     ],

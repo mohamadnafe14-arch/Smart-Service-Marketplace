@@ -33,6 +33,10 @@ import 'package:smart_service_market_place/features/services/model/repos/service
     as _i1051;
 import 'package:smart_service_market_place/features/services/model/repos/service_repo_imple.dart'
     as _i482;
+import 'package:smart_service_market_place/features/services/viewmodel/get_provider_details_cubit/get_provider_details_cubit.dart'
+    as _i726;
+import 'package:smart_service_market_place/features/services/viewmodel/services_cubit/services_cubit.dart'
+    as _i355;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -64,8 +68,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i148.ProfileCubit>(
       () => _i148.ProfileCubit(gh<_i289.ProfileRepo>()),
     );
+    gh.factory<_i355.ServicesCubit>(
+      () => _i355.ServicesCubit(
+        gh<String>(),
+        servicesRepo: gh<_i1051.ServicesRepo>(),
+      ),
+    );
     gh.factory<_i1040.AuthCubit>(
       () => _i1040.AuthCubit(authRepo: gh<_i1045.AuthRepo>()),
+    );
+    gh.factory<_i726.GetProviderDetailsCubit>(
+      () => _i726.GetProviderDetailsCubit(
+        servicesRepo: gh<_i1051.ServicesRepo>(),
+      ),
     );
     return this;
   }

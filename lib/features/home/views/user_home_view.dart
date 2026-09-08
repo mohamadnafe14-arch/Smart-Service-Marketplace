@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_service_market_place/core/utils/dependecy_injection.dart';
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/custom_user_drawer.dart';
+import 'package:smart_service_market_place/features/services/view/widgets/services_body.dart';
+import 'package:smart_service_market_place/features/services/viewmodel/services_cubit/services_cubit.dart';
 
 class UserHomeView extends StatefulWidget {
   const UserHomeView({super.key});
@@ -28,12 +31,15 @@ class _UserHomeViewState extends State<UserHomeView> {
             );
           },
         ),
-        ),
-      
+      ),
+
       body: IndexedStack(
         index: currentIndex,
-        children: const [
-          Center(child: Text("User Home View")),
+        children: [
+          BlocProvider(
+            create: (context) => getIt<ServicesCubit>(),
+            child: ServicesBody(),
+          ),
           Center(child: Text("User Home View")),
           Center(child: Text("User Home View")),
         ],

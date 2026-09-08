@@ -8,6 +8,7 @@ import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cu
 import 'package:smart_service_market_place/features/profile/model/models/user_information.dart';
 import 'package:smart_service_market_place/features/services/model/models/make_order_param.dart';
 import 'package:smart_service_market_place/features/services/view/widgets/make_order_dialog.dart';
+import 'package:smart_service_market_place/features/services/viewmodel/get_provider_details_cubit/get_provider_details_cubit.dart';
 
 class ProviderDetailsBody extends StatelessWidget {
   const ProviderDetailsBody({super.key, required this.providerInformation});
@@ -34,15 +35,22 @@ class ProviderDetailsBody extends StatelessWidget {
                   final user =
                       (BlocProvider.of<AuthCubit>(context).state as AuthSuccess)
                           .user;
-                          //TODO get the provider id from the providerInformation object and pass it to the MakeOrderDialog                  
-                  return MakeOrderDialog(
-                    makeOrderParam: MakeOrderParam(
-                      providerId: "",
-                      token: user.token,
-                      phone: "",
-                      pop: () {
-                        rootContext.pop();
-                      },
+                  final UserInformation userInformation =
+                      (BlocProvider.of<GetProviderDetailsCubit>(context).state
+                              as GetProviderDetailsLoaded)
+                          .userInformation;
+                  return BlocProvider.value(
+                    value: rootContext.read<GetProviderDetailsCubit>(),
+                    child: MakeOrderDialog(
+                      makeOrderParam: MakeOrderParam(
+                        providerId: userInformation.id.toString(),
+                        token: user.token,
+                        phone:
+                            userInformation.phone ?? "لم يتم ادخال رقم الهاتف",
+                        pop: () {
+                          rootContext.pop();
+                        },
+                      ),
                     ),
                   );
                 },
