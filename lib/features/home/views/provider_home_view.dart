@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
+import 'package:smart_service_market_place/features/orders/view/widgets/order_body.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/custom_provider_drawer.dart';
 
 class ProviderHomeView extends StatefulWidget {
@@ -32,7 +33,8 @@ class _ProviderHomeViewState extends State<ProviderHomeView> {
       body: IndexedStack(
         index: currentIndex,
         children: const [
-          Center(child: Text("Provider Home View")),
+          //TODO: Wrap OrderBody with BlocProvider for OrderCubit when it's implemented
+          OrderBody(),
           Center(child: Text("Provider Home View")),
           Center(child: Text("Provider Home View")),
         ],

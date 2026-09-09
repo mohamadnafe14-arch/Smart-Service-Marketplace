@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_service_market_place/core/utils/dependecy_injection.dart';
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
+import 'package:smart_service_market_place/features/orders/view/widgets/order_body.dart';
 import 'package:smart_service_market_place/features/profile/view/widgets/custom_user_drawer.dart';
 import 'package:smart_service_market_place/features/services/view/widgets/services_body.dart';
 import 'package:smart_service_market_place/features/services/viewmodel/services_cubit/services_cubit.dart';
@@ -41,7 +42,8 @@ class _UserHomeViewState extends State<UserHomeView> {
                 getIt<ServicesCubit>(param1: token)..fetchProviders(),
             child: ServicesBody(),
           ),
-          Center(child: Text("User Home View")),
+          //TODO: Wrap OrderBody with BlocProvider for OrderCubit when it's implemented
+          OrderBody(),
           Center(child: Text("User Home View")),
         ],
       ),
