@@ -1,49 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_service_market_place/core/models/pagination_link.dart';
 import 'package:smart_service_market_place/core/widgets/pagination_widget.dart';
-import 'package:smart_service_market_place/features/orders/model/order_model.dart';
+import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart';
+import 'package:smart_service_market_place/features/orders/view/widgets/request_card.dart';
+import 'package:smart_service_market_place/features/orders/view/widgets/request_shimmer_list.dart';
 import 'package:smart_service_market_place/features/orders/view/widgets/user_card.dart';
-
+import 'package:smart_service_market_place/features/orders/viewmodel/order_cubit/order_cubit.dart';
 class OrderList extends StatelessWidget {
   const OrderList({super.key});
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      //ToDo: WRITE  the business logic
-      child: Column(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return UserCard(
-                order: OrderModel(
-                  providerName: 'Ahmed Services',
-                  status: 'active',
-                  description: 'AC repair and maintenance',
-                  updatedAt: '2025-01-01',
-                  id: 1,
-                  userId: 1,
-                  providerId: 1,
-                  phoneUser: '01000000000',
-                  userName: 'John Doe',
-                  rating: 4.5,
+    return BlocBuilder<OrderCubit, OrderState>(
+      builder: (context, state) {
+        if (state is OrderLoading) {
+          return const SliverFillRemaining(
+            child: RequestShimmerList(),
+          );
+        }
+        if (state is OrderError) {
+          return SliverFillRemaining(child: Center(child: Text(state.message)));
+        }
+        if (state is OrderLoaded && state.orders.isNotEmpty) {
+          return SliverToBoxAdapter(
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.orders.length,
+                  itemBuilder: (context, index) {
+                    final String role =
+                        (BlocProvider.of<AuthCubit>(context).state
+                                as AuthSuccess)
+                            .user
+                            .role;
+                    return role == "user"
+                        ? UserCard(order: state.orders[index])
+                        : RequestCard(order: state.orders[index]);
+                  },
                 ),
-              );
-            },
-          ),
-          PaginationWidget(
-            links: [
-              PaginationLink(label: '1', url: null, active: true),
-              PaginationLink(label: '2', url: null, active: false),
-              PaginationLink(label: '3', url: null, active: false),
-            ],
-            onPageSelected: (page) => () {},
-          ),
-        ],
-      ),
+                PaginationWidget(
+                  links: state.pagination,
+                  onPageSelected: (page) =>
+                      context.read<OrderCubit>().changePage(page),
+                ),
+              ],
+            ),
+          );
+        }
+        if (state is OrderLoaded && state.orders.isEmpty) {
+          return const SliverFillRemaining(
+            child: Center(
+              child: Text(
+                "لا يوجد طلبات",
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+        return const SliverToBoxAdapter(child: SizedBox());
+      },
     );
   }
 }

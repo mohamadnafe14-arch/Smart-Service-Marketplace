@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:smart_service_market_place/core/models/pagination_link.dart';
-import 'package:smart_service_market_place/features/orders/model/order_model.dart';
+import 'package:smart_service_market_place/features/orders/model/models/order_model.dart';
 
 class OrderResponseModel {
   final List<OrderModel> orders;
@@ -32,7 +32,7 @@ class OrderResponseModel {
   factory OrderResponseModel.fromMap(Map<String, dynamic> map) {
     return OrderResponseModel(
       orders: (map['data']['orders'] as List)
-          .map((e) => OrderModel.fromJson(e))
+          .map((e) => OrderModel.fromMap(e as Map<String, dynamic>))
           .toList(),
       pagination: (map['pagination'] as List)
           .map((e) => PaginationLink.fromJson(e))

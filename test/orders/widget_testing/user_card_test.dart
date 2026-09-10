@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_service_market_place/features/orders/model/order_model.dart';
+import 'package:smart_service_market_place/features/orders/model/models/order_model.dart';
 import 'package:smart_service_market_place/features/orders/view/widgets/user_card.dart';
 import 'package:smart_service_market_place/features/orders/view/widgets/custom_action_button.dart';
 

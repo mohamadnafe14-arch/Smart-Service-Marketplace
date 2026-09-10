@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/functions/get_color_by_status.dart';
-import 'package:smart_service_market_place/features/orders/model/order_model.dart';
+import 'package:smart_service_market_place/features/orders/model/models/order_model.dart';
 import 'package:smart_service_market_place/features/orders/view/widgets/custom_action_button.dart';
+import 'package:smart_service_market_place/features/orders/viewmodel/order_cubit/order_cubit.dart';
 
 class UserCard extends StatelessWidget {
   final OrderModel order;
@@ -69,7 +71,10 @@ class UserCard extends StatelessWidget {
                         text: "press here if the order is completed",
                         color: Colors.green,
                         onTap: () async {
-                          //TODO: Implement the logic to mark the order as completed
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "completed",
+                            orderId: order.id.toString(),
+                          );
                         },
                       ),
                     ),

@@ -23,6 +23,14 @@ import 'package:smart_service_market_place/features/auth/model/repos/auth_repo_i
     as _i862;
 import 'package:smart_service_market_place/features/auth/viewmodel/cubit/auth_cubit.dart'
     as _i1040;
+import 'package:smart_service_market_place/features/orders/model/models/order_cubit_params.dart'
+    as _i189;
+import 'package:smart_service_market_place/features/orders/model/repos/order_repo.dart'
+    as _i258;
+import 'package:smart_service_market_place/features/orders/model/repos/order_repo_imple.dart'
+    as _i908;
+import 'package:smart_service_market_place/features/orders/viewmodel/order_cubit/order_cubit.dart'
+    as _i345;
 import 'package:smart_service_market_place/features/profile/model/repos/profile_repo.dart'
     as _i289;
 import 'package:smart_service_market_place/features/profile/model/repos/profile_repo_impl.dart'
@@ -59,6 +67,9 @@ extension GetItInjectableX on _i174.GetIt {
         flutterSecureStorageService: gh<_i448.FlutterSecureStorageService>(),
       ),
     );
+    gh.lazySingleton<_i258.OrderRepo>(
+      () => _i908.OrderRepoImple(gh<_i693.DioService>()),
+    );
     gh.lazySingleton<_i1051.ServicesRepo>(
       () => _i482.ServiceRepoImple(dioService: gh<_i693.DioService>()),
     );
@@ -71,6 +82,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i148.ProfileCubit>(
       () => _i148.ProfileCubit(gh<_i289.ProfileRepo>()),
+    );
+    gh.factoryParam<_i345.OrderCubit, _i189.OrderCubitParams, dynamic>(
+      (orderCubitParams, _) => _i345.OrderCubit(
+        orderCubitParams: orderCubitParams,
+        orderRepo: gh<_i258.OrderRepo>(),
+      ),
     );
     gh.factory<_i1040.AuthCubit>(
       () => _i1040.AuthCubit(authRepo: gh<_i1045.AuthRepo>()),

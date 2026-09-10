@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_service_market_place/core/functions/get_color_by_status.dart';
 import 'package:smart_service_market_place/core/functions/show_success_snack_bar.dart';
-import 'package:smart_service_market_place/features/orders/model/order_model.dart';
+import 'package:smart_service_market_place/features/orders/model/models/order_model.dart';
 import 'package:smart_service_market_place/features/orders/view/widgets/custom_action_button.dart';
+import 'package:smart_service_market_place/features/orders/viewmodel/order_cubit/order_cubit.dart';
 
 class RequestCard extends StatelessWidget {
   final OrderModel order;
@@ -72,7 +74,10 @@ class RequestCard extends StatelessWidget {
                         text: "Accept",
                         color: Colors.green,
                         onTap: () async {
-                          //TODO: Implement accept order functionality
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "active",
+                            orderId: order.id.toString(),
+                          );
                           showSuccessToast(
                             context,
                             "Order accepted successfully",
@@ -86,7 +91,10 @@ class RequestCard extends StatelessWidget {
                         text: "Reject",
                         color: Colors.red,
                         onTap: () async {
-                          //TODO: Implement reject order functionality
+                          context.read<OrderCubit>().updateOrderStatus(
+                            status: "cancelled",
+                            orderId: order.id.toString(),
+                          );
                           showSuccessToast(
                             context,
                             "Order rejected successfully",
