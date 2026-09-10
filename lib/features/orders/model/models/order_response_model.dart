@@ -35,7 +35,7 @@ class OrderResponseModel {
           .map((e) => OrderModel.fromMap(e as Map<String, dynamic>))
           .toList(),
       pagination: (map['pagination'] as List)
-          .map((e) => PaginationLink.fromJson(e))
+          .map((e) => PaginationLink.fromMap(e))
           .toList(),
     );
   }

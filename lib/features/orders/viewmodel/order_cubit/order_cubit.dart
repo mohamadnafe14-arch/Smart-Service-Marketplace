@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,7 @@ class OrderCubit extends Cubit<OrderState> {
       cluster: pusherCluster,
       onEvent: (event) => _handleEvent(event),
     );
+    
     await pusher.connect();
     await pusher.subscribe(
       channelName: "${orderCubitParams.role}.${orderCubitParams.id}",
@@ -52,7 +54,7 @@ class OrderCubit extends Cubit<OrderState> {
       if (state is! OrderLoaded) {
         if (event.eventName == "order.created" ||
             event.eventName == ".order.created") {
-          final newOrder = OrderModel.fromJson(data);
+          final newOrder = OrderModel.fromMap(data);
           final exists = _pendingOrders.any((o) => o.id == newOrder.id);
           if (!exists) _pendingOrders.add(newOrder);
         }
@@ -62,7 +64,7 @@ class OrderCubit extends Cubit<OrderState> {
       final currentOrders = List<OrderModel>.from(currentState.orders);
       if (event.eventName == "order.created" ||
           event.eventName == ".order.created") {
-        final newOrder = OrderModel.fromJson(data);
+        final newOrder = OrderModel.fromMap(data);
         if (!currentOrders.any((o) => o.id == newOrder.id)) {
           currentOrders.insert(0, newOrder);
           emit(
@@ -73,7 +75,8 @@ class OrderCubit extends Cubit<OrderState> {
           );
         }
       } else if (event.eventName == "order.updated") {
-        final updatedOrder = OrderModel.fromJson(data);
+        log(data.toString());
+        final updatedOrder = OrderModel.fromMap(data);
         final index = currentOrders.indexWhere((o) => o.id == updatedOrder.id);
         if (index != -1) {
           currentOrders[index] = updatedOrder;

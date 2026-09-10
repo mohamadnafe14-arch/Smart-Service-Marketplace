@@ -36,7 +36,6 @@ class _UserHomeViewState extends State<UserHomeView> {
           },
         ),
       ),
-
       body: IndexedStack(
         index: currentIndex,
         children: [
@@ -52,7 +51,7 @@ class _UserHomeViewState extends State<UserHomeView> {
                 id: user.id.toString(),
                 role: user.role,
               ),
-            )..fetchOrders(),
+            )..init(),
             child: OrderBody(),
           ),
           Center(child: Text("User Home View")),
@@ -64,6 +63,7 @@ class _UserHomeViewState extends State<UserHomeView> {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
+        onTap: (index) => setState(() => currentIndex = index),
       ),
     );
   }

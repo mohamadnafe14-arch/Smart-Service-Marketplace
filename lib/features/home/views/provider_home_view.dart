@@ -44,7 +44,7 @@ class _ProviderHomeViewState extends State<ProviderHomeView> {
                 id: user.id.toString(),
                 role: user.role,
               ),
-            )..fetchOrders(),
+            )..init(),
             child: OrderBody(),
           ),
           Center(child: Text("Provider Home View")),
@@ -57,6 +57,11 @@ class _ProviderHomeViewState extends State<ProviderHomeView> {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
     );
   }
